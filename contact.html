@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Alejandro Arab</title>
+  <style>
+    @import url('https://db.onlinewebfonts.com/c/4571adf8e6d8270ea61a4f43a3ef31d2?family=Departure+Mono');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --font: 'Departure Mono', 'Courier New', monospace; }
+
+    html[data-theme="light"] {
+      --bg:       #e8e6de;
+      --bg-panel: #d4d0c4;
+      --bg-card:  #cbc7b8;
+      --bg-inv:   #1a1a14;
+      --text:     #1a1a14;
+      --text-inv: #e8e6de;
+      --muted:    #706f58;
+      --amber:    #c8820a;
+      --border:   rgba(26,26,20,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: none;
+      cursor: crosshair;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* ── CURSOR ── */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--amber);
+      position: fixed; pointer-events: none;
+      z-index: 9999; transition: transform 0.08s;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 18px 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+    }
+
+    .nav-logo {
+      font-size: 15px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text);
+      transition: color 0.15s;
+    }
+    .nav-logo:hover { color: var(--amber); }
+
+    .nav-back {
+      font-size: 15px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--amber); }
+
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+
+    /* Hamburger — mobile only */
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+    }
+
+    .hamburger span {
+      display: block; width: 18px; height: 1px;
+      background: var(--text); transition: transform 0.2s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { transform: rotate(-45deg); }
+
+    @media (max-width: 1024px) {
+      .hamburger { display: flex; }
+      nav {
+        left: 0;
+        padding: 18px 22px;
+        justify-content: flex-start;
+        gap: 11px;
+      }
+      .nav-back { display: none; }
+    }
+
+    /* ── LAYOUT ── */
+    .contact-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 140px 44px 88px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: start;
+    }
+
+    /* ── LEFT: info ── */
+    .contact-left {}
+
+    .contact-eyebrow {
+      font-size: 15px;
+      color: var(--amber);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .contact-headline {
+      font-size: clamp(59px, 9.3vw, 117px);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      font-weight: normal;
+      color: var(--text);
+      margin-bottom: 44px;
+    }
+
+    .contact-headline .dim { color: var(--muted); }
+
+    .contact-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 400px;
+      margin-bottom: 44px;
+      letter-spacing: 0.03em;
+    }
+
+    .contact-direct {
+      border-top: 1px solid var(--border);
+      padding-top: 33px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-direct-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 19px;
+      color: var(--text);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .contact-direct-link:hover { color: var(--amber); }
+    .contact-direct-link span { font-size: 15px; color: var(--amber); }
+
+    /* ── RIGHT: form ── */
+    .contact-right {}
+
+    .form-label-top {
+      font-size: 13px;
+      color: var(--amber);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      padding-bottom: 11px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-group:last-of-type { border-bottom: none; }
+
+    .form-field-label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 14px 0 8px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font);
+      font-size: 17px;
+      color: var(--text);
+      padding: 0 0 14px;
+      letter-spacing: 0.03em;
+      resize: none;
+      cursor: crosshair;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.5;
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      line-height: 1.7;
+    }
+
+    /* Select styled */
+    .form-select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font);
+      font-size: 17px;
+      color: var(--text);
+      padding: 0 0 14px;
+      letter-spacing: 0.03em;
+      cursor: crosshair;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-select option {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 33px;
+      padding: 18px 0;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      font-family: var(--font);
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .form-submit:hover {
+      background: var(--amber);
+      color: var(--bg);
+    }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 44px 0;
+    }
+
+    .form-success.show { display: block; }
+
+    .form-success-title {
+      font-size: 29px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 11px;
+    }
+
+    .form-success-sub {
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── FOOTER ── */
+    .footer-bar {
+      border-top: 1px solid var(--border);
+      padding: 14px 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy { font-size: 15px; color: var(--muted); }
+
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 15px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--amber); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .contact-wrap { padding: 120px 20px 66px; grid-template-columns: 1fr; gap: 44px; }
+      .footer-bar { padding: 14px 20px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<script src="sidebar.js"></script>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span>
+  </button>
+  <a class="nav-logo" href="index.html">Alejandro Arab</a>
+  <a class="nav-back" href="index.html">← Back</a>
+</nav>
+
+<div class="contact-wrap">
+
+  <!-- LEFT -->
+  <div class="contact-left">
+    <div class="contact-eyebrow">[ 05 / 05 ] — Let's Connect</div>
+    <h1 class="contact-headline">
+      Let's Build<br>
+      Something<br>
+      <span class="dim">Together.</span>
+    </h1>
+    <p class="contact-sub">
+      I'm currently available for new work. Whether it's a full product, a design system, or an early-stage idea — I'd love to hear about it.
+    </p>
+    <div class="contact-direct">
+      <a class="contact-direct-link" href="/cdn-cgi/l/email-protection#6c0d1e0d0e420d0009060d02081e03421a2c0b010d0500420f0301">
+        <span class="__cf_email__" data-cfemail="8decffecefa3ece1e8e7ece3e9ffe2a3fbcdeae0ece4e1a3eee2e0">[email&#160;protected]</span>
+        <span>↗</span>
+      </a>
+      <a class="contact-direct-link" href="https://www.linkedin.com/in/arabalejandro/" target="_blank">
+        linkedin.com/in/arabalejandro
+        <span>↗</span>
+      </a>
+      <a class="contact-direct-link" href="https://www.instagram.com/arabalejandro/" target="_blank">
+        instagram.com/arabalejandro
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div class="contact-right">
+    <div class="form-label-top">// Send a message</div>
+
+    <form id="contactForm">
+      <div class="form-group">
+        <label class="form-field-label">Name</label>
+        <input class="form-input" type="text" name="name" placeholder="Your name" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">Email</label>
+        <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">Project Type</label>
+        <select class="form-select" name="type">
+          <option value="">Select a type...</option>
+          <option value="product-design">Product Design</option>
+          <option value="ui-ux">UI/UX Design</option>
+          <option value="design-system">Design System</option>
+          <option value="framer">Framer Development</option>
+          <option value="web-design">Web Design</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">Budget</label>
+        <select class="form-select" name="budget">
+          <option value="">Select a range...</option>
+          <option value="lt-5k">&lt; $5,000</option>
+          <option value="5-10k">$5,000 – $10,000</option>
+          <option value="10-20k">$10,000 – $20,000</option>
+          <option value="20k+">$20,000+</option>
+          <option value="tbd">To be discussed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-field-label">Message</label>
+        <textarea class="form-textarea" name="message" placeholder="Tell me about your project..." required></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">Send Message →</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-title">Message Sent.</div>
+      <div class="form-success-sub">I'll get back to you within 24–48 hours.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-bar">
+  <span class="footer-copy">© 2026 — Alejandro Arab</span>
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/arabalejandro/" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/arabalejandro/" target="_blank">Instagram</a></li>
+  </ul>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="transition.js"></script>
+<script>
+  // ── CURSOR ──
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = (e.clientX - 4) + 'px';
+    cursor.style.top  = (e.clientY - 4) + 'px';
+  });
+  document.addEventListener('mousedown', () => cursor.style.transform = 'scale(3)');
+  document.addEventListener('mouseup',   () => cursor.style.transform = 'scale(1)');
+
+  // ── FORM ──
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const data = new FormData(form);
+
+    // Send via mailto as fallback (works without a backend)
+    const name    = data.get('name');
+    const email   = data.get('email');
+    const type    = data.get('type');
+    const budget  = data.get('budget');
+    const message = data.get('message');
+
+    const subject = encodeURIComponent(`New project inquiry from ${name}`);
+    const body    = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nType: ${type}\nBudget: ${budget}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mai
