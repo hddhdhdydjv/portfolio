@@ -50,39 +50,6 @@
       -webkit-font-smoothing: none;
       cursor: crosshair;
       overflow-x: hidden;
-      transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
-    }
-
-    /* Explicit transitions — more reliable than * selector */
-    body,
-    nav,
-    .marquee-wrap,
-    .hero-bg-title, .hero-sub, .hero-cta, .hero-bottom-right,
-    .float-blueprint, .float-blueprint-label,
-    .float-status, .float-status-row,
-    .float-note, .float-note-text, .float-note-sig,
-    .section-title, .work-count,
-    .proj-name, .proj-meta, .proj-num, .proj-tag,
-    .project-item, .proj-img-ph, .proj-expand-meta,
-    .about-heading, .about-body, .about-tag,
-    .about-illus-card, .illus-label, .illus-label-dark, .illus-row, .illus-row-dark,
-    .exp-co, .exp-role, .exp-yr, .exp-item,
-    .svc-num, .svc-title, .svc-desc, .svc-item,
-    .contact-headline, .contact-sub, .contact-link,
-    .contact-float-card, .contact-card-row,
-    .social-link, .footer-logotype, .footer-reg,
-    .footer-copy, .footer-links a, .footer-logo-bar, .footer-bar,
-    .view-all, .pem-key, .pem-val, .pmk, .pmv {
-      transition:
-        background-color 1.2s cubic-bezier(0.4,0,0.2,1),
-        color 1.2s cubic-bezier(0.4,0,0.2,1),
-        border-color 1.2s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    /* Fast hover transitions */
-    .hero-cta, .contact-link,
-    .social-link, .view-all, .footer-links a {
-      transition-duration: 0.15s !important;
     }
 
     a { color: inherit; text-decoration: none; }

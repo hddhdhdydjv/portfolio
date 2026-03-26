@@ -214,6 +214,19 @@
       }
     }
 
+    /* ── GLOBAL THEME TRANSITION — all pages, all elements ── */
+    *, *::before, *::after {
+      transition:
+        background-color 1.2s cubic-bezier(0.4,0,0.2,1),
+        color            1.2s cubic-bezier(0.4,0,0.2,1),
+        border-color     1.2s cubic-bezier(0.4,0,0.2,1),
+        fill             1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    /* Keep hover/interactive transitions fast */
+    a, button, .hero-cta, .contact-link, .social-link,
+    .view-all, .footer-links a, .sidebar-link, .nav-lang-opt,
+    .nav-theme-btn, .hamburger { transition-duration: 0.15s !important; }
+
     /* ── GLOBAL THEME VARIABLES (light + dark) — applies to ALL pages ── */
     html[data-theme="light"] {
       --bg:       #e8e6de;
