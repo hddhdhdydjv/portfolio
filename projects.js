@@ -5,6 +5,10 @@
 //  imageAfter: null → no hay imagen después de esa sección
 // ─────────────────────────────────────────────
 
+// Resolve local asset paths regardless of whether we're at root or works/
+const _BASE = window.location.pathname.includes('/works/') ? '../' : '';
+function _asset(path) { return path.startsWith('http') ? path : _BASE + path; }
+
 const PROJECTS = [
   {
     id: 'fan-raise',
@@ -293,12 +297,12 @@ const PROJECTS = [
     status: 'Completed',
     tag: 'Web3',
     tagHighlight: true,
-    cover: 'https://framerusercontent.com/images/IfnuMQ4aKbor18gAq1kvywvz9Hs.png',
+    cover: _asset('assets/covers/brikka.png'),
     sections: [
       {
         label: null,
         text: 'Brikka is a blockchain-based platform that enables tokenization of real estate projects. It connects developers seeking funding with investors who want to participate through digital assets. Users can invest in different components of a construction project represented as tokens, allowing participation with different levels of capital.',
-        imageAfter: 'https://framerusercontent.com/images/IfnuMQ4aKbor18gAq1kvywvz9Hs.png',
+        imageAfter: _asset('assets/covers/brikka.png'),
       },
       {
         label: 'MY APPROACH',
