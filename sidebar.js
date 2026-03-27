@@ -12,6 +12,167 @@
     { name: 'Whasi',         url: 'whasi.html' },
   ];
 
+  // ── TRANSLATIONS ──
+  const T = {
+    en: {
+      'nav.home':    'Home',
+      'nav.work':    'Work',
+      'nav.about':   'About',
+      'nav.services':'Services',
+      'nav.contact': 'Contact',
+      'nav.all':     'All Projects →',
+
+      'hero.sub':         'Product designer collaborating with teams to create digital products that solve real problems. 4 years across fintech, Web3, AI, healthcare, e-commerce.',
+      'hero.cta.work':    '<span class="arr">→</span> View Work',
+      'hero.cta.contact': '<span class="arr">→</span> Get in Touch',
+
+      'work.eyebrow': 'Selected Works',
+      'work.title':   'Projects',
+      'work.count':   '10 Projects',
+      'work.all':     'All Projects (10) →',
+
+      'meta.category': 'Category',
+      'meta.client':   'Client',
+      'meta.type':     'Type',
+      'meta.year':     'Year',
+
+      'about.eyebrow':  'About',
+      'about.heading':  "I'm Alejandro Arab",
+      'about.p1': "I'm a Product Designer with 4 years of experience across healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an uncommon background — gastronomy — which gave me a unique foundation in discipline, process, and working well under pressure.",
+      'about.p2': 'I specialize in research, wireframes, high-fidelity prototypes, animations, and design systems. I enjoy collaborating from client briefs to final delivery, turning ideas into real products.',
+      'about.tag.research':    'Research',
+      'about.tag.wireframes':  'Wireframes',
+      'about.tag.prototyping': 'Prototyping',
+      'about.tag.ds':          'Design Systems',
+      'about.tag.animation':   'Animation',
+      'about.tag.art':         'Art Direction',
+
+      'exp.eyebrow': 'Experience',
+      'exp.title':   'Work History',
+      'exp.lead':      'Design Lead',
+      'exp.freelance': 'Freelance Designer',
+      'exp.product':   'Product Designer',
+      'exp.professor': 'Professor — UX/UI & Prototyping',
+
+      'svc.eyebrow':  'Services',
+      'svc.title':    'What I Do',
+      'svc.1.title':  'Digital Design',
+      'svc.1.desc':   'Crafting visually appealing and user-friendly interfaces that create intuitive and seamless experiences.',
+      'svc.2.title':  'Framer Expert',
+      'svc.2.desc':   'The most efficient platform to implement web solutions and publish websites with one click.',
+      'svc.3.title':  'Product Strategy',
+      'svc.3.desc':   'Defining product vision, strategizing the approach, and setting both short and long-term goals.',
+      'svc.4.title':  'Art Direction',
+      'svc.4.desc':   "Establishing a strong foundation to set the project's tone, providing a clear and organized starting point.",
+      'svc.5.title':  'Web Design & Dev',
+      'svc.5.desc':   'Crafting visually stunning and functionally robust websites with responsive design and custom development.',
+      'svc.6.title':  'UI/UX Design',
+      'svc.6.desc':   'Elevating user experience with interfaces that enhance engagement. Blending creativity with usability.',
+
+      'contact.eyebrow':      'Contact',
+      'contact.headline':     "Let's Build<br>Something<br><span class=\"am\">Together.</span>",
+      'contact.sub':          "I'm currently available for new work. Let me know if you need a digital designer — I'd love to talk about the next big thing.",
+      'contact.card.label':   '// Availability',
+      'contact.status.k':     'Status',
+      'contact.status.v':     'Open to work ●',
+      'contact.response.k':   'Response',
+      'contact.response.v':   '24–48 hrs',
+      'contact.tz.k':         'Timezone',
+      'contact.tz.v':         'GMT+0 London',
+      'contact.pref.k':       'Preferred',
+      'contact.pref.v':       'Email / LinkedIn',
+      'contact.email':        'Send me an email',
+
+      'footer.copy': '© 2026 — Alejandro Arab. All rights reserved.',
+    },
+    es: {
+      'nav.home':    'Inicio',
+      'nav.work':    'Trabajo',
+      'nav.about':   'Sobre mí',
+      'nav.services':'Servicios',
+      'nav.contact': 'Contacto',
+      'nav.all':     'Ver todos →',
+
+      'hero.sub':         'Diseñador de producto colaborando con equipos para crear productos digitales que resuelven problemas reales. 4 años en fintech, Web3, IA, salud y e-commerce.',
+      'hero.cta.work':    '<span class="arr">→</span> Ver trabajo',
+      'hero.cta.contact': '<span class="arr">→</span> Hablemos',
+
+      'work.eyebrow': 'Trabajos seleccionados',
+      'work.title':   'Proyectos',
+      'work.count':   '10 Proyectos',
+      'work.all':     'Todos los proyectos (10) →',
+
+      'meta.category': 'Categoría',
+      'meta.client':   'Cliente',
+      'meta.type':     'Tipo',
+      'meta.year':     'Año',
+
+      'about.eyebrow':  'Sobre mí',
+      'about.heading':  'Soy Alejandro Arab',
+      'about.p1': 'Soy Diseñador de Producto con 4 años de experiencia en salud, e-commerce, viajes, IA, fintech descentralizado y Web3. Vengo de un entorno atípico — la gastronomía — que me dio una base única en disciplina, proceso y trabajo bajo presión.',
+      'about.p2': 'Me especializo en investigación, wireframes, prototipos de alta fidelidad, animaciones y sistemas de diseño. Disfruto colaborar desde el brief del cliente hasta la entrega final, convirtiendo ideas en productos reales.',
+      'about.tag.research':    'Investigación',
+      'about.tag.wireframes':  'Wireframes',
+      'about.tag.prototyping': 'Prototipado',
+      'about.tag.ds':          'Sistemas de diseño',
+      'about.tag.animation':   'Animación',
+      'about.tag.art':         'Dirección de arte',
+
+      'exp.eyebrow': 'Experiencia',
+      'exp.title':   'Historial laboral',
+      'exp.lead':      'Líder de Diseño',
+      'exp.freelance': 'Diseñador Freelance',
+      'exp.product':   'Diseñador de Producto',
+      'exp.professor': 'Profesor — UX/UI y Prototipado',
+
+      'svc.eyebrow':  'Servicios',
+      'svc.title':    'Qué hago',
+      'svc.1.title':  'Diseño Digital',
+      'svc.1.desc':   'Interfaces visualmente atractivas y fáciles de usar que crean experiencias intuitivas y fluidas.',
+      'svc.2.title':  'Experto en Framer',
+      'svc.2.desc':   'La plataforma más eficiente para implementar soluciones web y publicar sitios con un solo clic.',
+      'svc.3.title':  'Estrategia de Producto',
+      'svc.3.desc':   'Definición de la visión del producto, estrategia y objetivos a corto y largo plazo.',
+      'svc.4.title':  'Dirección de Arte',
+      'svc.4.desc':   'Establecimiento de una base sólida para definir el tono del proyecto, con un punto de partida claro y organizado.',
+      'svc.5.title':  'Diseño y Desarrollo Web',
+      'svc.5.desc':   'Sitios web visualmente impactantes y robustos con diseño responsivo y desarrollo personalizado.',
+      'svc.6.title':  'Diseño UI/UX',
+      'svc.6.desc':   'Elevando la experiencia del usuario con interfaces que aumentan el engagement, combinando creatividad y usabilidad.',
+
+      'contact.eyebrow':      'Contacto',
+      'contact.headline':     "Construyamos<br>algo<br><span class=\"am\">juntos.</span>",
+      'contact.sub':          'Estoy disponible para nuevos proyectos. Contáctame si necesitás un diseñador digital — me encantaría hablar sobre lo que viene.',
+      'contact.card.label':   '// Disponibilidad',
+      'contact.status.k':     'Estado',
+      'contact.status.v':     'Disponible ●',
+      'contact.response.k':   'Respuesta',
+      'contact.response.v':   '24–48 hs',
+      'contact.tz.k':         'Zona horaria',
+      'contact.tz.v':         'GMT+0 Londres',
+      'contact.pref.k':       'Preferido',
+      'contact.pref.v':       'Email / LinkedIn',
+      'contact.email':        'Enviarme un email',
+
+      'footer.copy': '© 2026 — Alejandro Arab. Todos los derechos reservados.',
+    }
+  };
+
+  // ── APPLY LANGUAGE ──
+  function applyLang(lang) {
+    const t = T[lang] || T.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.dataset.i18nHtml;
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    // Update <html lang> attribute
+    document.documentElement.lang = lang;
+  }
+
   const path     = window.location.pathname;
   const file     = path.split('/').pop() || 'index.html';
   const inWorks  = path.includes('/works/');
@@ -49,26 +210,24 @@
   </svg>`;
 
   const workActive    = inWorks || isProjects;
-  const contactActive = isContact;
 
   // When already on home, use pure hash links so transition.js skips them (smooth scroll only).
-  // From any other page, use full path so the page transition fires and navigates home.
   const sectionHref = (anchor) => isIndex ? `#${anchor}` : `${prefix}index.html#${anchor}`;
 
   const html = `<aside class="sidebar" id="sidebar">
   <div class="sidebar-cat">${catSVG}</div>
   <nav class="sidebar-nav">
-    <a href="${sectionHref('hero')}" data-s="hero">Home</a>
+    <a href="${sectionHref('hero')}" data-s="hero" data-i18n="nav.home">Home</a>
     <div class="sidebar-work-item">
-      <a href="${sectionHref('work')}" data-s="work"${workActive ? ' class="active"' : ''}>Work</a>
+      <a href="${sectionHref('work')}" data-s="work"${workActive ? ' class="active"' : ''} data-i18n="nav.work">Work</a>
       <div class="sidebar-sub" id="sidebarSub">
         ${subLinks}
-        <a class="sidebar-sub-link sidebar-sub-all" href="${prefix}projects.html">All Projects →</a>
+        <a class="sidebar-sub-link sidebar-sub-all" href="${prefix}projects.html" data-i18n="nav.all">All Projects →</a>
       </div>
     </div>
-    <a href="${sectionHref('about')}" data-s="about">About</a>
-    <a href="${sectionHref('services')}" data-s="services">Services</a>
-    <a href="${sectionHref('contact')}" data-s="contact">Contact</a>
+    <a href="${sectionHref('about')}" data-s="about" data-i18n="nav.about">About</a>
+    <a href="${sectionHref('services')}" data-s="services" data-i18n="nav.services">Services</a>
+    <a href="${sectionHref('contact')}" data-s="contact" data-i18n="nav.contact">Contact</a>
   </nav>
 </aside>`;
 
@@ -176,14 +335,14 @@
       text-transform: uppercase;
     }
 
-    body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
+    body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(#custom-cursor):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
       margin-left: 180px;
     }
 
     /* ── TABLET ── */
     @media (max-width: 1024px) {
       .sidebar { width: 160px; }
-      body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
+      body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(#custom-cursor):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
         margin-left: 160px;
       }
     }
@@ -202,13 +361,13 @@
         transform: translateX(0);
       }
 
-      body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
+      body > *:not(.sidebar):not(#cursor):not(#cursor-label):not(#custom-cursor):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
         margin-left: 0 !important;
         transform: translateX(0);
         transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
       }
 
-      body.sidebar-push > *:not(.sidebar):not(#cursor):not(#cursor-label):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
+      body.sidebar-push > *:not(.sidebar):not(#cursor):not(#cursor-label):not(#custom-cursor):not(.mobile-menu):not(#pt-backdrop):not(#pt-overlay):not(#pt-label) {
         margin-left: 0 !important;
         transform: translateX(260px) !important;
       }
@@ -313,13 +472,11 @@
   // Works / Projects pages: always open sub-menu
   if (inWorks || isProjects) {
     if (sub) sub.classList.add('open');
-    // still need hamburger — fall through to setupHamburger below
   }
 
   // Index: observe #work section
   if (isIndex) {
     window.addEventListener('DOMContentLoaded', () => {
-      // Subrama toggle
       const workSection = document.getElementById('work');
       if (workSection && sub) {
         const workObs = new IntersectionObserver(entries => {
@@ -328,7 +485,6 @@
         workObs.observe(workSection);
       }
 
-      // Sidebar link active state
       const sidebarLinks = document.querySelectorAll('.sidebar-nav a[data-s], .sidebar-work-item a[data-s]');
       const obs = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -340,7 +496,7 @@
     });
   }
 
-  // ── MOBILE HAMBURGER TOGGLE (all pages) ──
+  // ── MOBILE HAMBURGER TOGGLE ──
   function setupHamburger() {
     const hamburger = document.getElementById('hamburger');
     const sidebar = document.getElementById('sidebar');
@@ -351,12 +507,9 @@
       sidebar.classList.toggle('mobile-open');
       document.body.classList.toggle('sidebar-push');
       hamburger.classList.toggle('open');
-
-      // Prevent scroll when open
       document.body.style.overflow = isOpen ? '' : 'hidden';
     });
 
-    // Close sidebar when clicking a link
     sidebar.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         sidebar.classList.remove('mobile-open');
@@ -367,7 +520,7 @@
     });
   }
 
-  // pixel-art sun / moon SVGs (no emoji)
+  // pixel-art sun / moon SVGs
   const SVG_SUN  = `<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;display:block" aria-hidden="true">
     <rect x="6" y="6" width="4" height="4" fill="currentColor"/>
     <rect x="7" y="2" width="2" height="3" fill="currentColor"/>
@@ -386,7 +539,6 @@
     <rect x="2" y="4" width="8" height="8" fill="currentColor"/>
     <rect x="3" y="12" width="7" height="1" fill="currentColor"/>
     <rect x="5" y="13" width="5" height="1" fill="currentColor"/>
-    <rect x="8" y="2" width="4" height="3" fill="currentColor" opacity="0"/>
     <rect x="9" y="3" width="4" height="1" fill="var(--bg)"/>
     <rect x="9" y="4" width="3" height="7" fill="var(--bg)"/>
     <rect x="9" y="11" width="3" height="1" fill="var(--bg)"/>
@@ -398,13 +550,11 @@
     const nav = document.querySelector('#topNav') || document.querySelector('nav:not(.sidebar-nav)');
     if (!nav) return;
 
-    // Remove any existing nav-controls to avoid duplicates
     const existing = nav.querySelector('.nav-controls');
     if (existing) existing.remove();
 
-    // Apply saved theme immediately
-    const saved = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
+    const savedTheme = localStorage.getItem('aa-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
 
     const savedLang = localStorage.getItem('aa-lang') || 'en';
 
@@ -416,9 +566,12 @@
         <span class="nav-lang-sep">/</span>
         <span class="nav-lang-opt${savedLang === 'es' ? ' active' : ''}" data-lang="es">ES</span>
       </div>
-      <button class="nav-theme-btn" id="sidebarThemeBtn" aria-label="Toggle theme">${saved === 'dark' ? SVG_MOON : SVG_SUN}</button>
+      <button class="nav-theme-btn" id="sidebarThemeBtn" aria-label="Toggle theme">${savedTheme === 'dark' ? SVG_MOON : SVG_SUN}</button>
     `;
     nav.appendChild(ctrl);
+
+    // Apply saved language on load
+    applyLang(savedLang);
 
     // Theme toggle
     const btn = ctrl.querySelector('#sidebarThemeBtn');
@@ -427,7 +580,7 @@
       const next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       btn.innerHTML = next === 'dark' ? SVG_MOON : SVG_SUN;
-      localStorage.setItem('theme', next);
+      localStorage.setItem('aa-theme', next);
     });
 
     // Lang toggle
@@ -435,7 +588,9 @@
       opt.addEventListener('click', () => {
         ctrl.querySelectorAll('.nav-lang-opt').forEach(o => o.classList.remove('active'));
         opt.classList.add('active');
-        localStorage.setItem('aa-lang', opt.dataset.lang);
+        const lang = opt.dataset.lang;
+        localStorage.setItem('aa-lang', lang);
+        applyLang(lang);
       });
     });
   }
