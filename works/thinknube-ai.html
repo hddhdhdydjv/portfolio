@@ -471,19 +471,19 @@
         <h1 class="project-title">${project.title}</h1>
         <div class="meta-row">
           <div class="meta-cell">
-            <span class="meta-key">Client</span>
+            <span class="meta-key" data-i18n="meta.client">Client</span>
             <span class="meta-val">${project.client}</span>
           </div>
           <div class="meta-cell">
-            <span class="meta-key">Category</span>
+            <span class="meta-key" data-i18n="meta.category">Category</span>
             <span class="meta-val">${project.category}</span>
           </div>
           <div class="meta-cell">
-            <span class="meta-key">Duration</span>
+            <span class="meta-key" data-i18n="meta.duration">Duration</span>
             <span class="meta-val">${project.duration}</span>
           </div>
           <div class="meta-cell">
-            <span class="meta-key">Role</span>
+            <span class="meta-key" data-i18n="meta.role">Role</span>
             <span class="meta-val">${project.role}</span>
           </div>
         </div>
@@ -497,19 +497,19 @@
 
       <!-- DELIVERABLES -->
       <div class="deliverables">
-        <div class="del-label"><span class="paren">( </span><span class="lbl">Deliverables</span><span class="paren"> )</span></div>
+        <div class="del-label"><span class="paren">( </span><span class="lbl" data-i18n="meta.deliverables">Deliverables</span><span class="paren"> )</span></div>
         <div class="del-list">${delTags}</div>
       </div>
 
       <!-- PREV / NEXT -->
       <div class="proj-nav">
         <a class="proj-nav-item ${!prevP ? 'disabled' : ''}" href="${prevP ? prevP.id + '.html' : '#'}">
-          <span class="proj-nav-label">← Previous</span>
+          <span class="proj-nav-label" data-i18n="nav.prev">← Previous</span>
           <span class="proj-nav-title">${prevP ? prevP.title : '—'}</span>
           <span class="proj-nav-meta">${prevP ? prevP.category : ''}</span>
         </a>
         <a class="proj-nav-item ${!nextP ? 'disabled' : ''}" href="${nextP ? nextP.id + '.html' : '#'}" style="text-align:right">
-          <span class="proj-nav-label">Next →</span>
+          <span class="proj-nav-label" data-i18n="nav.next">Next →</span>
           <span class="proj-nav-title">${nextP ? nextP.title : '—'}</span>
           <span class="proj-nav-meta">${nextP ? nextP.category : ''}</span>
         </a>
@@ -517,7 +517,7 @@
 
       <!-- FOOTER -->
       <div class="page-footer">
-        <span class="footer-copy">© 2026 — Alejandro Arab</span>
+        <span class="footer-copy" data-i18n="footer.copy.short">© 2026 — Alejandro Arab</span>
       </div>
     `;
   }

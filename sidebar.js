@@ -31,10 +31,16 @@
       'work.count':   '10 Projects',
       'work.all':     'All Projects (10) →',
 
-      'meta.category': 'Category',
-      'meta.client':   'Client',
-      'meta.type':     'Type',
-      'meta.year':     'Year',
+      'meta.category':     'Category',
+      'meta.client':       'Client',
+      'meta.type':         'Type',
+      'meta.year':         'Year',
+      'meta.duration':     'Duration',
+      'meta.role':         'Role',
+      'meta.deliverables': 'Deliverables',
+      'nav.prev': '← Previous',
+      'nav.next': 'Next →',
+      'footer.copy.short': '© 2026 — Alejandro Arab',
 
       'about.eyebrow':  'About',
       'about.heading':  "I'm Alejandro Arab",
@@ -102,10 +108,16 @@
       'work.count':   '10 Proyectos',
       'work.all':     'Todos los proyectos (10) →',
 
-      'meta.category': 'Categoría',
-      'meta.client':   'Cliente',
-      'meta.type':     'Tipo',
-      'meta.year':     'Año',
+      'meta.category':     'Categoría',
+      'meta.client':       'Cliente',
+      'meta.type':         'Tipo',
+      'meta.year':         'Año',
+      'meta.duration':     'Duración',
+      'meta.role':         'Rol',
+      'meta.deliverables': 'Entregables',
+      'nav.prev': '← Anterior',
+      'nav.next': 'Siguiente →',
+      'footer.copy.short': '© 2026 — Alejandro Arab',
 
       'about.eyebrow':  'Sobre mí',
       'about.heading':  'Soy Alejandro Arab',
@@ -553,25 +565,29 @@
     const existing = nav.querySelector('.nav-controls');
     if (existing) existing.remove();
 
-    const savedTheme = localStorage.getItem('aa-theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    // Auto-detect system theme on first visit, then respect localStorage
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const activeTheme = localStorage.getItem('aa-theme') || systemTheme;
+    document.documentElement.setAttribute('data-theme', activeTheme);
 
-    const savedLang = localStorage.getItem('aa-lang') || 'en';
+    // Auto-detect language from browser locale on first visit
+    const browserLang = (navigator.language || navigator.languages?.[0] || 'en').toLowerCase();
+    const activeLang = localStorage.getItem('aa-lang') || (browserLang.startsWith('es') ? 'es' : 'en');
 
     const ctrl = document.createElement('div');
     ctrl.className = 'nav-controls';
     ctrl.innerHTML = `
       <div class="nav-lang">
-        <span class="nav-lang-opt${savedLang === 'en' ? ' active' : ''}" data-lang="en">EN</span>
+        <span class="nav-lang-opt${activeLang === 'en' ? ' active' : ''}" data-lang="en">EN</span>
         <span class="nav-lang-sep">/</span>
-        <span class="nav-lang-opt${savedLang === 'es' ? ' active' : ''}" data-lang="es">ES</span>
+        <span class="nav-lang-opt${activeLang === 'es' ? ' active' : ''}" data-lang="es">ES</span>
       </div>
-      <button class="nav-theme-btn" id="sidebarThemeBtn" aria-label="Toggle theme">${savedTheme === 'dark' ? SVG_MOON : SVG_SUN}</button>
+      <button class="nav-theme-btn" id="sidebarThemeBtn" aria-label="Toggle theme">${activeTheme === 'dark' ? SVG_MOON : SVG_SUN}</button>
     `;
     nav.appendChild(ctrl);
 
-    // Apply saved language on load
-    applyLang(savedLang);
+    // Apply detected/saved language on load
+    applyLang(activeLang);
 
     // Theme toggle
     const btn = ctrl.querySelector('#sidebarThemeBtn');
@@ -580,7 +596,7 @@
       const next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       btn.innerHTML = next === 'dark' ? SVG_MOON : SVG_SUN;
-      localStorage.setItem('aa-theme', next);
+      localStorage.setItem('aa-theme', next); // persist so auto-detect only runs once
     });
 
     // Lang toggle
