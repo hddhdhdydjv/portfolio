@@ -607,6 +607,8 @@
         const lang = opt.dataset.lang;
         localStorage.setItem('aa-lang', lang);
         applyLang(lang);
+        // Notify works pages so they can re-render with new language
+        window.dispatchEvent(new CustomEvent('aa:langchange', { detail: { lang } }));
       });
     });
   }
