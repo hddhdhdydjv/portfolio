@@ -390,7 +390,7 @@ const PROJECTS = [
         label: 'CHALLENGE', labelEs: 'DESAFÍO',
         text: 'A major challenge was integrating decentralized wallets and multiple token types into clear investment flows. The system needed to manage multiple token types associated with different parts of each real estate project while supporting investment flows connected to decentralized wallets.',
         textEs: 'Un gran desafío fue integrar billeteras descentralizadas y múltiples tipos de tokens en flujos de inversión claros. El sistema debía gestionar múltiples tipos de tokens asociados a distintas partes de cada proyecto inmobiliario, soportando flujos de inversión conectados a billeteras descentralizadas.',
-        imageAfter: _asset('assets/works/brikka/03.png'),
+        imageAfter: _asset('assets/works/brikka/05.png'),
       },
       {
         label: 'PROBLEM', labelEs: 'PROBLEMA',
@@ -402,7 +402,7 @@ const PROJECTS = [
         label: 'USER-CENTERED DESIGN', labelEs: 'DISEÑO CENTRADO EN EL USUARIO',
         text: 'Users can explore projects, simulate returns, connect their wallet, and invest directly within the platform. An administrative dashboard allows developers to upload projects, configure tokens, and manage investment parameters.',
         textEs: 'Los usuarios pueden explorar proyectos, simular retornos, conectar su billetera e invertir directamente dentro de la plataforma. Un panel administrativo permite a los desarrolladores subir proyectos, configurar tokens y gestionar los parámetros de inversión.',
-        imageAfter: _asset('assets/works/brikka/05.png'),
+        imageAfter: _asset('assets/works/brikka/03.png'),
       },
       {
         label: 'KEY RESULTS', labelEs: 'RESULTADOS CLAVE',
