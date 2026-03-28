@@ -372,7 +372,7 @@ const PROJECTS = [
         label: null, labelEs: null,
         text: 'Brikka is a blockchain-based platform that enables tokenization of real estate projects. It connects developers seeking funding with investors who want to participate through digital assets. Users can invest in different components of a construction project represented as tokens, allowing participation with different levels of capital.',
         textEs: 'Brikka es una plataforma basada en blockchain que permite la tokenización de proyectos inmobiliarios. Conecta desarrolladores que buscan financiamiento con inversores que quieren participar a través de activos digitales. Los usuarios pueden invertir en distintos componentes de un proyecto de construcción representados como tokens, permitiendo la participación con diferentes niveles de capital.',
-        imageAfter: _asset('assets/works/brikka/01.png'),
+        imageAfter: null,
       },
       {
         label: 'MY APPROACH', labelEs: 'MI ENFOQUE',
