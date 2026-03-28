@@ -408,7 +408,7 @@ const PROJECTS = [
         label: 'KEY RESULTS', labelEs: 'RESULTADOS CLAVE',
         text: 'A functional MVP of a real estate tokenization platform was delivered and prepared for validation. Although the client decided to pause the project due to changes in the economic environment, the product remained ready for further validation and potential launch.',
         textEs: 'Se entregó un MVP funcional de una plataforma de tokenización inmobiliaria preparada para validación. Aunque el cliente decidió pausar el proyecto por cambios en el entorno económico, el producto quedó listo para validación adicional y un potencial lanzamiento.',
-        imageAfter: null,
+        imageAfter: _asset('assets/works/brikka/06.png'),
       },
     ],
     role:   'Product Designer',
