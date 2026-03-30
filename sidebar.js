@@ -43,7 +43,7 @@
       'footer.copy.short': '© 2026 — Alejandro Arab',
 
       'about.eyebrow':  'About',
-      'about.heading':  "I'm Alejandro Arab",
+      'about.heading':  'Who I am',
       'about.p1': "I'm a Product Designer with 4 years of experience across healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an uncommon background — gastronomy — which gave me a unique foundation in discipline, process, and working well under pressure.",
       'about.p2': 'I specialize in research, wireframes, high-fidelity prototypes, animations, and design systems. I enjoy collaborating from client briefs to final delivery, turning ideas into real products.',
       'about.tag.research':    'Research',
@@ -120,7 +120,7 @@
       'footer.copy.short': '© 2026 — Alejandro Arab',
 
       'about.eyebrow':  'Sobre mí',
-      'about.heading':  'Soy Alejandro Arab',
+      'about.heading':  'Quién soy',
       'about.p1': 'Soy Diseñador de Producto con 4 años de experiencia en salud, e-commerce, viajes, IA, fintech descentralizado y Web3. Vengo de un entorno atípico — la gastronomía — que me dio una base única en disciplina, proceso y trabajo bajo presión.',
       'about.p2': 'Me especializo en investigación, wireframes, prototipos de alta fidelidad, animaciones y sistemas de diseño. Disfruto colaborar desde el brief del cliente hasta la entrega final, convirtiendo ideas en productos reales.',
       'about.tag.research':    'Investigación',
@@ -314,8 +314,7 @@
       transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.3s, margin-top 0.3s;
       display: flex;
       flex-direction: column;
-      padding-left: 12px;
-      border-left: 1px solid var(--border);
+      padding-left: 0;
       margin-top: 0;
     }
 
@@ -330,18 +329,39 @@
       color: var(--muted);
       letter-spacing: 0.02em;
       display: block;
+      position: relative;
       transition: color 0.15s;
       padding: 4px 0;
       line-height: 1.35;
+    }
+
+    /* ── TREE CONNECTORS ── */
+    /* Each project link gets its own independent curved hook — no shared trunk */
+    .sidebar-sub-link:not(.sidebar-sub-all) {
+      padding-left: 14px;
+    }
+    .sidebar-sub-link:not(.sidebar-sub-all)::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 62%;
+      width: 9px;
+      border-left: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      border-bottom-left-radius: 5px;
+    }
+
+    /* "Ver todos" — no connector but slight indent to show it belongs to the submenu */
+    .sidebar-sub-all {
+      padding-left: 14px;
     }
 
     .sidebar-sub-link:hover,
     .sidebar-sub-link.active { color: var(--amber); }
 
     .sidebar-sub-all {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
+      margin-top: 12px;
       font-size: 11px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -483,7 +503,9 @@
 
   // Works / Projects pages: always open sub-menu
   if (inWorks || isProjects) {
-    if (sub) sub.classList.add('open');
+    if (sub) {
+      sub.classList.add('open');
+    }
   }
 
   // Index: observe #work section
@@ -507,6 +529,7 @@
       document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
     });
   }
+
 
   // ── MOBILE HAMBURGER TOGGLE ──
   function setupHamburger() {
@@ -619,4 +642,10 @@
     setupHamburger();
     setupNavControls();
   }
+
+  // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──
+  // const _prScript = document.createElement('script');
+  // _prScript.src = prefix + 'pixel-reveal.js';
+  // document.head.appendChild(_prScript);
+
 })();

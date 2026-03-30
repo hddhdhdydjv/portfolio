@@ -176,7 +176,7 @@
     }
 
     /* ── COVER IMAGE — full bleed */
-    .cover-img img { width: 100%; display: block; }
+    .cover-img { padding: 8px; } .cover-img img { width: 100%; display: block; border-radius: 4px; }
 
     /* ── EDITORIAL SECTIONS ── */
     .editorial-group {}
@@ -426,8 +426,9 @@
         const sec = group.section;
         editorialHTML += `
           <div class="editorial-group">
-            <div class="editorial-single">
-              <p class="editorial-text-intro">${_t(sec.text, sec.textEs)}</p>
+            <div class="editorial-two-col">
+              <div class="editorial-col editorial-col--empty"></div>
+              <div class="editorial-col"><p class="editorial-text-intro">${_t(sec.text, sec.textEs)}</p></div>
             </div>
           </div>`;
         if (sec.imageAfter) {

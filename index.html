@@ -176,7 +176,7 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     /* ── CUSTOM CURSORS ── */
-    #hero { cursor: none; }
+    .hero-notepad { cursor: none; }
     #custom-cursor {
       position: fixed;
       pointer-events: none;
@@ -226,82 +226,21 @@
     /* Notepad */
     .hero-notepad {
       position: absolute;
-      right: -60px;
-      top: 376px;
-      display: flex;
-      transform: rotate(1.84deg);
-      z-index: 3;
-      transform-origin: top right;
+      left: 560px;
+      right: 22px;
+      top: 450px;
+      bottom: 0;
+      z-index: 1;  /* detrás del título (.hero-title tiene z-index:2) */
     }
 
-    .notepad-holes {
-      width: 66px;
-      background: #f9f7f1;
-      border: 1px solid rgba(22,22,15,0.12);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 22px 0;
-      gap: 55px;
-      flex-shrink: 0;
-    }
-
-    .notepad-hole {
-      width: 18px; height: 18px;
-      background: #2a2a1e;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .notepad-hole.top {
-      width: 22px; height: 11px;
-      border-radius: 50%;
-    }
-
-    .notepad-paper {
-      background: #f9f7f1;
-      border: 1px solid rgba(22,22,15,0.12);
-      border-left: none;
-      padding: 33px;
-      position: relative;
-      width: 606px;
-      min-height: 480px;
-    }
-
-    .notepad-text {
-      font-size: 15px;
-      color: #716f55;
-      line-height: 1.58;
-      letter-spacing: 0.026em;
-      max-width: 265px;
-    }
-
-    /* Corner sticky note with clip */
-    .notepad-corner {
-      position: absolute;
-      top: -7px;
-      left: 362px;
-      width: 248px;
-      background: #ede9df;
-      border: 1px solid rgba(22,22,15,0.1);
-      padding: 33px 22px 22px;
-      transform: rotate(1.39deg) skewX(0.69deg);
-      transform-origin: top left;
-    }
-
-    .notepad-corner p {
-      font-size: 15px;
-      color: #716f55;
-      line-height: 1.58;
-      letter-spacing: 0.026em;
-    }
-
-    .notepad-clip {
-      position: absolute;
-      top: -40px;
-      right: 28px;
-      transform: rotate(-14.78deg) skewX(-4.04deg);
+    .hero-notepad img {
+      width: 100%;
+      display: block;
       transform-origin: bottom center;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .hero-notepad:hover img {
+      transform: rotate(2deg);
     }
 
     /* Responsive */
@@ -373,6 +312,7 @@
 
     .project-item:last-of-type { border-bottom: 1px solid var(--border); }
 
+
     .project-header {
       display: grid;
       grid-template-columns: 44px 1fr auto;
@@ -408,11 +348,9 @@
     /* ── PROJECT EXPAND ── */
     .project-expand {
       overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1);
+      height: 0;
+      transition: height 1.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .project-item.open .project-expand { max-height: 1200px; }
 
     .project-expand-inner {
       display: grid;
@@ -769,34 +707,9 @@
     </div>
   </div>
 
-  <!-- Notepad paper element -->
+  <!-- CV hero image -->
   <div class="hero-notepad">
-    <!-- Binding holes strip -->
-    <div class="notepad-holes">
-      <div class="notepad-hole top"></div>
-      <div class="notepad-hole"></div>
-      <div class="notepad-hole"></div>
-      <div class="notepad-hole"></div>
-      <div class="notepad-hole"></div>
-      <div class="notepad-hole"></div>
-    </div>
-    <!-- Paper content -->
-    <div class="notepad-paper">
-      <p class="notepad-text">Product designer collaborating with teams to create digital products that solve real problems. 4 years across fintech, Web3, AI, healthcare, e-commerce.</p>
-      <!-- Corner sticky note with clip -->
-      <div class="notepad-corner">
-        <!-- Paper clip SVG -->
-        <svg class="notepad-clip" width="20" height="96" viewBox="0 0 20 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Outer loop -->
-          <path d="M10 94 C4 82 3 70 3 58 C3 40 3 18 10 8 C13 3 18 2 18 9 C18 16 18 28 10 34" stroke="#8a7c5a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Inner loop -->
-          <path d="M10 34 C2 40 2 54 10 56 C18 58 19 68 10 70 C4 72 4 82 10 94" stroke="#8a7c5a" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Inner detail -->
-          <path d="M10 8 C7 12 6 22 6 34 C6 44 8 52 10 56" stroke="#8a7c5a" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.45"/>
-        </svg>
-        <p>"Good design is not how it looks — it's how every interaction earns its place."<br><br>— A. Arab, 2026</p>
-      </div>
-    </div>
+    <img src="assets/cv-hero.png" alt="CV" />
   </div>
 
 </section>
@@ -894,7 +807,7 @@
       </div>
       <div class="project-expand"><div class="project-expand-inner">
         <div class="proj-img-ph" onclick="window.navigateTo('works/thinknube-ai.html')" style="cursor:pointer">
-          <img src="https://framerusercontent.com/images/GTlAkYEFQUj3n4lUszhPXFH0yCQ.png" alt="Thinknube.AI" />
+          <img src="assets/works/thinknube/01.png" alt="Thinknube.AI" />
         </div>
         <div class="proj-expand-meta">
           <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">AI Product Design</span></div>
@@ -994,7 +907,7 @@
 
     <!-- LEFT: text -->
     <div class="about-right">
-      <h2 class="about-heading" data-i18n="about.heading">I'm Alejandro Arab</h2>
+      <h2 class="about-heading" data-i18n="about.heading">Who I am</h2>
       <div class="about-body">
         <p data-i18n="about.p1">I'm a Product Designer with 4 years of experience across healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an uncommon background — gastronomy — which gave me a unique foundation in discipline, process, and working well under pressure.</p>
         <p data-i18n="about.p2">I specialize in research, wireframes, high-fidelity prototypes, animations, and design systems. I enjoy collaborating from client briefs to final delivery, turning ideas into real products.</p>
@@ -1178,15 +1091,17 @@
       cursorEl.style.top  = (e.clientY + 11) + 'px';
     }
 
-    // Hero: DOWNLOAD CV
-    const hero = document.getElementById('hero');
-    if (hero) {
-      hero.addEventListener('mouseenter', () => {
+    // CV sheet: DOWNLOAD RESUME / DESCARGAR CURRICULUM
+    const cvSheet = document.querySelector('.hero-notepad');
+    if (cvSheet) {
+      cvSheet.addEventListener('mouseenter', () => {
+        const lang = localStorage.getItem('aa-lang') || 'en';
+        const text = lang === 'es' ? 'DESCARGAR CURRICULUM' : 'DOWNLOAD RESUME';
         cursorEl.style.display = 'block';
-        startTyping('DOWNLOAD CV');
+        startTyping(text);
       });
-      hero.addEventListener('mouseleave', hideCursor);
-      hero.addEventListener('mousemove', moveCursor);
+      cvSheet.addEventListener('mouseleave', hideCursor);
+      cvSheet.addEventListener('mousemove', moveCursor);
     }
 
     // Projects: VIEW PROJECT
@@ -1200,49 +1115,51 @@
     });
   })();
 
-    // ── PROJECT TOGGLE ──
-  // Opens/closes on header click, one at a time
-  function toggleProject(item) {
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.project-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-
-  // ── HOVER TO OPEN ──
-  document.querySelectorAll('.project-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      document.querySelectorAll('.project-item').forEach(i => i.classList.remove('open'));
-      item.classList.add('open');
-    });
-  });
-
-  // ── SCROLL AUTO OPEN — closest project to center opens ──
+  // ── PROJECT EXPAND — JS height animation (pixel-perfect, no peek) ──
   const projectItems = document.querySelectorAll('.project-item');
-  let lastOpen = null;
 
-  function updateOpenProject() {
-    if (projectItems.length === 0) return;
-    const mid = window.innerHeight * 0.45;
-    let closest = null;
-    let closestDist = Infinity;
-    projectItems.forEach(item => {
-      const rect = item.getBoundingClientRect();
-      // Only consider items visible in viewport
-      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const dist = Math.abs(rect.top - mid);
-      if (dist < closestDist) {
-        closestDist = dist;
-        closest = item;
-      }
+  function openItem(item) {
+    // Close all others first
+    projectItems.forEach(i => {
+      if (i !== item) closeItem(i);
     });
-    if (closest && closest !== lastOpen) {
-      projectItems.forEach(i => i.classList.remove('open'));
-      closest.classList.add('open');
-      lastOpen = closest;
-    }
+    const expand = item.querySelector('.project-expand');
+    const inner  = item.querySelector('.project-expand-inner');
+    if (!expand || !inner) return;
+    item.classList.add('open');
+    expand.style.height = inner.scrollHeight + 'px';
   }
 
-  window.addEventListener('scroll', () => requestAnimationFrame(updateOpenProject));
+  function closeItem(item) {
+    const expand = item.querySelector('.project-expand');
+    if (!expand) return;
+    item.classList.remove('open');
+    expand.style.height = '0';
+  }
+
+  const hasHover = window.matchMedia('(hover: hover)').matches;
+
+  if (hasHover) {
+    // Desktop: open on mouseenter, close when mouse leaves the list
+    projectItems.forEach(item => {
+      item.addEventListener('mouseenter', () => openItem(item));
+    });
+    const projectList = document.querySelector('.project-list');
+    if (projectList) {
+      projectList.addEventListener('mouseleave', () => {
+        projectItems.forEach(i => closeItem(i));
+      });
+    }
+  } else {
+    // Mobile: open when 25% of item enters viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) openItem(entry.target);
+        else closeItem(entry.target);
+      });
+    }, { threshold: 0.25 });
+    projectItems.forEach(item => observer.observe(item));
+  }
 
   // ── CURSOR ──
   const cursor = document.getElementById('cursor');
@@ -1317,5 +1234,20 @@
   });
 </script>
 <script src="transition.js"></script>
+<script src="pixel-reveal.js"></script>
+<script>
+  // Apply pixel reveal only to the about photo
+  (function() {
+    function initAboutPhoto() {
+      const wrap = document.querySelector('.about-photo');
+      if (wrap && window.PixelReveal) new window.PixelReveal(wrap);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAboutPhoto);
+    } else {
+      initAboutPhoto();
+    }
+  })();
+</script>
 </body>
 </html>
