@@ -215,10 +215,11 @@ const PROJECTS = [
     deliverables:   ['Product Strategy', 'UX Research', 'Wireframes', 'High-fidelity UI', 'Design System', 'Prototype'],
     deliverablesEs: ['Estrategia de producto', 'Investigación UX', 'Wireframes', 'UI de alta fidelidad', 'Sistema de diseño', 'Prototipo'],
     prev: 'brikka',
-    next: 'rockmap',
+    next: null,
   },
   {
     id: 'rockmap',
+    hidden: true,
     num: '04',
     title: 'RockMap',
     subtitle:   'Mobile App for Discovering Rock Culture Across Europe',
@@ -287,6 +288,7 @@ const PROJECTS = [
   },
   {
     id: 'tickit-clubes',
+    hidden: true,
     num: '05',
     title: 'Tickit Clubes',
     subtitle:   'Digital Membership and Ticketing Platform for Sports Clubs',
@@ -355,6 +357,7 @@ const PROJECTS = [
   },
   {
     id: 'tickit',
+    hidden: true,
     num: '06',
     title: 'Tickit',
     subtitle:   'Event Ticketing Platform for General and Sports Events',
@@ -423,6 +426,7 @@ const PROJECTS = [
   },
   {
     id: 'carla',
+    hidden: true,
     num: '07',
     title: 'Car.la',
     subtitle:   'AI-Powered Assistant for Auto Repair Shops',
@@ -491,6 +495,7 @@ const PROJECTS = [
   },
   {
     id: 'kordiis',
+    hidden: true,
     num: '08',
     title: 'Kordiis',
     subtitle:   'Passive Safety Recording App for Critical Moments',
@@ -559,6 +564,7 @@ const PROJECTS = [
   },
   {
     id: 'off-the-grid',
+    hidden: true,
     num: '09',
     title: 'Off the Grid',
     subtitle:   'Social Travel App for Connecting Travelers Across Routes',
@@ -627,6 +633,7 @@ const PROJECTS = [
   },
   {
     id: 'whasi',
+    hidden: true,
     num: '10',
     title: 'Whasi',
     subtitle:   'AI Business Assistant for Small Businesses via WhatsApp',

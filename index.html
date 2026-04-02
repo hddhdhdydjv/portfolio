@@ -956,7 +956,7 @@
     </div>
 
   </div><!-- end hidden static -->
-  <a class="view-all" href="projects.html" data-i18n="work.all">All Projects (10) →</a>
+  <a class="view-all" href="projects.html" data-i18n="work.all">All Projects (3) →</a>
 </section>
 
 <!-- ABOUT -->
@@ -1191,7 +1191,7 @@
     if (!list || typeof PROJECTS === 'undefined') return;
     const lang = localStorage.getItem('aa-lang') || 'en';
 
-    list.innerHTML = PROJECTS.map(p => {
+    list.innerHTML = PROJECTS.filter(p => !p.hidden).map(p => {
       const desc  = (lang === 'es' && p.sections[0].textEs) ? p.sections[0].textEs : p.sections[0].text;
       const cat   = (lang === 'es' && p.categoryEs) ? p.categoryEs : p.category;
       const dur   = (lang === 'es' && p.durationEs) ? p.durationEs : p.duration;
