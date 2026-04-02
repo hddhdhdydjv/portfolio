@@ -444,12 +444,13 @@
   // ── RENDER PROJECTS ──
   const grid = document.getElementById('projects-grid');
 
-  PROJECTS.forEach(p => {
+  PROJECTS.filter(p => !p.hidden).forEach(p => {
     const statusClass = p.status === 'In Progress' ? 'status-progress' : 'status-completed';
+    const coverSrc = p.thumb || p.cover;
 
-    const coverHTML = p.cover
+    const coverHTML = coverSrc
       ? `<div class="card-cover">
-           <img src="${p.cover}" alt="${p.title}" loading="lazy" />
+           <img src="${coverSrc}" alt="${p.title}" loading="lazy" />
          </div>`
       : `<div class="card-cover-placeholder">
            <span class="card-cover-placeholder-inner">No preview</span>
