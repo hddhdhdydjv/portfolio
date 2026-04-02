@@ -1,16 +1,4 @@
 (function () {
-  const PROJECTS = [
-    { name: 'Fan Raise',     url: 'fan-raise.html' },
-    { name: 'RockMap',       url: 'rockmap.html' },
-    { name: 'Tickit Clubes', url: 'tickit-clubes.html' },
-    { name: 'Tickit',        url: 'tickit.html' },
-    { name: 'Thinknube.AI',  url: 'thinknube-ai.html' },
-    { name: 'Brikka',        url: 'brikka.html' },
-    { name: 'Car.la',        url: 'carla.html' },
-    { name: 'Kordiis',       url: 'kordiis.html' },
-    { name: 'Off the Grid',  url: 'off-the-grid.html' },
-    { name: 'Whasi',         url: 'whasi.html' },
-  ];
 
   // ── TRANSLATIONS ──
   const T = {
@@ -193,11 +181,8 @@
   const isIndex  = file === 'index.html' || file === '' || path === '/';
   const prefix   = inWorks ? '../' : '';
 
-  // ── Sub-links ──
-  const subLinks = PROJECTS.map(p => {
-    const active = file === p.url;
-    return `<a class="sidebar-sub-link${active ? ' active' : ''}" href="${prefix}works/${p.url}">${p.name}</a>`;
-  }).join('');
+  // ── Sub-links — filled after projects.js loads ──
+  const subLinks = '';
 
   const catSVG = `<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;width:64px;height:64px;">
     <rect x="2" y="1" width="2" height="2" class="cat-body"/>
@@ -244,6 +229,21 @@
 </aside>`;
 
   document.body.insertAdjacentHTML('afterbegin', html);
+
+  // ── Fill project sub-links from projects.js (loaded after sidebar.js) ──
+  window.addEventListener('DOMContentLoaded', function () {
+    const sub = document.getElementById('sidebarSub');
+    if (!sub || typeof PROJECTS === 'undefined') return;
+    const allLink = sub.querySelector('.sidebar-sub-all');
+    PROJECTS.filter(p => !p.hidden).forEach(p => {
+      const active = file === p.id + '.html';
+      const a = document.createElement('a');
+      a.className = 'sidebar-sub-link' + (active ? ' active' : '');
+      a.href = prefix + 'works/' + p.id + '.html';
+      a.textContent = p.title;
+      sub.insertBefore(a, allLink);
+    });
+  });
 
   // ── CSS ──
   const style = document.createElement('style');
