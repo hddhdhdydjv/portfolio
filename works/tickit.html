@@ -153,9 +153,7 @@
 
     /* ── IMAGE FRAME (cover + imageAfter) ── */
     .img-frame {
-      padding: 11px;
-      border-radius: 4px;
-      background: var(--bg);
+      background: #f0ede4;
       position: relative;
     }
 
@@ -163,16 +161,6 @@
       width: 100%;
       display: block;
       border-radius: 2px;
-    }
-
-    .img-frame::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,0,0,0.012) 3px, rgba(0,0,0,0.012) 4px
-      );
-      pointer-events: none;
     }
 
     /* ── COVER IMAGE — full bleed */
@@ -312,6 +300,81 @@
     }
 
     .footer-back:hover { color: var(--amber); }
+
+    /* ── NOTEBOOK PAPER — always light, regardless of theme ── */
+    .notebook-paper {
+      position: relative;
+      background: #f0ede4;
+      margin: 99px 22px 66px 22px;
+      color: #1c1c14;
+      overflow: visible;
+    }
+
+    .notebook-paper .project-title,
+    .notebook-paper .meta-val,
+    .notebook-paper .editorial-text-intro,
+    .notebook-paper .editorial-text,
+    .notebook-paper .del-tag {
+      color: #525234;
+    }
+
+    .notebook-paper .project-eyebrow,
+    .notebook-paper .meta-key,
+    .notebook-paper .editorial-label .paren,
+    .notebook-paper .del-label .paren {
+      color: var(--amber);
+    }
+
+    .notebook-paper .editorial-label .lbl,
+    .notebook-paper .del-label .lbl,
+    .notebook-paper .project-subtitle {
+      color: var(--amber);
+    }
+
+    .notebook-paper .meta-row {
+      border-color: rgba(28,28,20,0.1);
+    }
+
+    .notebook-paper .del-tag {
+      border-color: rgba(28,28,20,0.15);
+    }
+
+    .notebook-inner {
+      padding-left: 66px;
+      padding-right: 66px;
+    }
+
+    .notebook-inner .project-hero     { padding-left: 44px; padding-right: 44px; padding-top: 208px; position: relative; }
+    .notebook-inner .editorial-single { padding-left: 44px; padding-right: 44px; }
+    .notebook-inner .editorial-col    { padding-left: 44px; padding-right: 44px; }
+    .notebook-inner .deliverables     { padding-left: 44px; padding-right: 44px; }
+
+    .notebook-col {
+      position: absolute;
+      top: 0;
+      width: 66px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      transition: none !important;
+      background-image: radial-gradient(circle 11px at 33px 55px, #16160f 11px, transparent 11.5px);
+      background-size: 66px 110px;
+      background-repeat: repeat-y;
+    }
+
+    html[data-theme="light"] .notebook-col {
+      background-image: radial-gradient(circle 11px at 33px 55px, #e8e6de 11px, transparent 11.5px);
+    }
+
+    .notebook-col--left  { left: 0; border-right: 1px solid rgba(28,28,20,0.05); }
+    .notebook-col--right { right: 0; border-left: 1px solid rgba(28,28,20,0.05); }
+
+    @media (max-width: 1024px) {
+      .notebook-paper { margin: 0; }
+      .notebook-inner { padding-left: 0; padding-right: 0; }
+      .notebook-inner .project-hero { padding-top: 120px; }
+      .notebook-col { display: none; }
+    }
 
     /* ── NOT FOUND ── */
     .not-found {
@@ -474,42 +537,48 @@
 
     content.innerHTML = `
 
-      <!-- HERO -->
-      <div class="project-hero">
-        <div class="project-eyebrow">[ ${project.num} / ${String(PROJECTS.length).padStart(2, '0')} ]</div>
-        <h1 class="project-title">${project.title}</h1>
-        <p class="project-subtitle">${_t(project.subtitle, project.subtitleEs)}</p>
-        <div class="meta-row">
-          <div class="meta-cell">
-            <span class="meta-key" data-i18n="meta.client">Client</span>
-            <span class="meta-val">${project.client}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-key" data-i18n="meta.category">Category</span>
-            <span class="meta-val">${_t(project.category, project.categoryEs)}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-key" data-i18n="meta.duration">Duration</span>
-            <span class="meta-val">${_t(project.duration, project.durationEs)}</span>
-          </div>
-          <div class="meta-cell">
-            <span class="meta-key" data-i18n="meta.role">Role</span>
-            <span class="meta-val">${_t(project.role, project.roleEs)}</span>
-          </div>
-        </div>
-      </div>
+      <!-- NOTEBOOK PAPER — wraps project content only -->
+      <div class="notebook-paper">
+        <div class="notebook-col notebook-col--left"></div>
+        <div class="notebook-inner">
 
-      <!-- COVER IMAGE — full bleed -->
-      ${coverHTML}
+          <!-- HERO -->
+          <div class="project-hero">
+            <div class="project-eyebrow">[ ${project.num} / ${String(PROJECTS.length).padStart(2, '0')} ]</div>
+            <h1 class="project-title">${project.title}</h1>
+            <p class="project-subtitle">${_t(project.subtitle, project.subtitleEs)}</p>
+            <div class="meta-row">
+              <div class="meta-cell">
+                <span class="meta-key" data-i18n="meta.client">Client</span>
+                <span class="meta-val">${project.client}</span>
+              </div>
+              <div class="meta-cell">
+                <span class="meta-key" data-i18n="meta.category">Category</span>
+                <span class="meta-val">${_t(project.category, project.categoryEs)}</span>
+              </div>
+              <div class="meta-cell">
+                <span class="meta-key" data-i18n="meta.duration">Duration</span>
+                <span class="meta-val">${_t(project.duration, project.durationEs)}</span>
+              </div>
+              <div class="meta-cell">
+                <span class="meta-key" data-i18n="meta.role">Role</span>
+                <span class="meta-val">${_t(project.role, project.roleEs)}</span>
+              </div>
+            </div>
+          </div>
 
-      <!-- EDITORIAL SECTIONS -->
-      ${editorialHTML}
+          <!-- COVER IMAGE — full bleed -->
+          ${coverHTML}
 
-      <!-- DELIVERABLES -->
-      <div class="deliverables">
-        <div class="del-label"><span class="paren">( </span><span class="lbl" data-i18n="meta.deliverables">Deliverables</span><span class="paren"> )</span></div>
-        <div class="del-list">${delTags}</div>
-      </div>
+          <!-- EDITORIAL SECTIONS -->
+          ${editorialHTML}
+
+          <!-- bottom margin -->
+          <div style="height: 66px;"></div>
+
+        </div><!-- /notebook-inner -->
+        <div class="notebook-col notebook-col--right"></div>
+      </div><!-- /notebook-paper -->
 
       <!-- PREV / NEXT -->
       <div class="proj-nav">

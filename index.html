@@ -387,21 +387,76 @@
       position: relative; z-index: 1;
     }
 
-    .proj-expand-meta {
+    /* ── PROJECT EXPAND SIDE ── */
+    .proj-expand-side {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      padding: 22px 0;
-      justify-content: flex-start;
-      align-items: flex-start;
+      gap: 22px;
+      padding: 16px 0 44px;
     }
 
-    .proj-expand-meta-item {
+    .proj-deliv-note {
+      border: 1px solid var(--border);
+      padding: 16px 18px;
+    }
+
+    .pdn-label {
+      display: block;
+      font-size: 11px;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .pdn-list {
+      list-style: none;
+      padding: 0; margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      padding: 8px 0;
+      gap: 5px;
     }
+
+    .pdn-list li {
+      font-size: 13px;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .pdn-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+    }
+
+    .proj-desc-preview {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      letter-spacing: 0.02em;
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .proj-see-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--mono);
+      cursor: pointer;
+      align-self: flex-start;
+    }
+
+    .proj-see-more:hover { color: var(--amber); }
 
     .pem-key { font-size: 13px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
     .pem-val { font-size: 15px; color: var(--text); letter-spacing: 0.04em; }
@@ -637,7 +692,7 @@
       .proj-name { font-size: clamp(22px, 7vw, 32px); }
 
       .project-expand-inner { grid-template-columns: 1fr; }
-      .proj-expand-meta { padding: 16px 0; }
+      .proj-expand-side { padding: 0 0 33px; }
 
       .about-layout { flex-direction: column; }
       .about-left { width: 100%; }
@@ -674,6 +729,7 @@
 </head>
 <body>
 <script src="sidebar.js"></script>
+<script src="projects.js"></script>
 
 <div class="cursor" id="cursor"></div>
 
@@ -732,7 +788,10 @@
     <span class="work-count" data-i18n="work.count">10 Projects</span>
   </div>
 
-  <div class="project-list">
+  <div class="project-list" id="project-list">
+    <!-- rendered by JS from projects.js -->
+  </div>
+  <div class="project-list" style="display:none">
 
     <div class="project-item" data-project="Fan Raise">
       <div class="project-header" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
@@ -741,7 +800,7 @@
       </div>
       <div class="project-expand"><div class="project-expand-inner">
         <div class="proj-img-ph" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
-          <img src="https://framerusercontent.com/images/a76GME8gBeF4fUWSagVlJtWQE4.png" alt="Fan Raise" />
+          <img src="assets/covers/fanraise.png" alt="Fan Raise" />
         </div>
         <div class="proj-expand-meta">
           <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Product Design · Fundraising</span></div>
@@ -896,7 +955,7 @@
       </div></div>
     </div>
 
-  </div>
+  </div><!-- end hidden static -->
   <a class="view-all" href="projects.html" data-i18n="work.all">All Projects (10) →</a>
 </section>
 
@@ -1104,23 +1163,69 @@
       cvSheet.addEventListener('mousemove', moveCursor);
     }
 
-    // Projects: VIEW PROJECT
-    document.querySelectorAll('.project-item').forEach(item => {
-      item.addEventListener('mouseenter', () => {
+    // Projects: VIEW PROJECT (delegated — cards rendered dynamically)
+    const projListEl = document.getElementById('project-list');
+    if (projListEl) {
+      projListEl.addEventListener('mouseenter', e => {
+        const item = e.target.closest('.project-item');
+        if (!item) return;
         cursorEl.style.display = 'block';
         startTyping('VIEW PROJECT');
-      });
-      item.addEventListener('mouseleave', hideCursor);
-      item.addEventListener('mousemove', moveCursor);
-    });
+      }, true);
+      projListEl.addEventListener('mouseleave', e => {
+        const item = e.target.closest('.project-item');
+        if (!item) return;
+        hideCursor();
+      }, true);
+      projListEl.addEventListener('mousemove', e => {
+        const item = e.target.closest('.project-item');
+        if (!item) return;
+        moveCursor(e);
+      }, true);
+    }
   })();
 
-  // ── PROJECT EXPAND — JS height animation (pixel-perfect, no peek) ──
-  const projectItems = document.querySelectorAll('.project-item');
+  // ── PROJECT LIST — render from projects.js ──
+  function renderProjectList() {
+    const list = document.getElementById('project-list');
+    if (!list || typeof PROJECTS === 'undefined') return;
+    const lang = localStorage.getItem('aa-lang') || 'en';
+
+    list.innerHTML = PROJECTS.map(p => {
+      const desc  = (lang === 'es' && p.sections[0].textEs) ? p.sections[0].textEs : p.sections[0].text;
+      const cat   = (lang === 'es' && p.categoryEs) ? p.categoryEs : p.category;
+      const dur   = (lang === 'es' && p.durationEs) ? p.durationEs : p.duration;
+      const thumbSrc = p.thumb || p.cover;
+      const imgHtml = thumbSrc
+        ? `<img src="${thumbSrc}" alt="${p.title}" />`
+        : `<span style="font-size:13px;color:var(--muted);letter-spacing:0.08em">[ PROJECT IMAGE — Coming Soon ]</span>`;
+
+      return `
+      <div class="project-item" data-project="${p.title}">
+        <div class="project-header" onclick="window.navigateTo('works/${p.id}.html')" style="cursor:pointer">
+          <span class="proj-num">${p.num}.</span>
+          <div class="proj-info">
+            <span class="proj-name">${p.title}</span>
+            <span class="proj-meta">${p.client} · ${cat} · ${dur}</span>
+          </div>
+        </div>
+        <div class="project-expand"><div class="project-expand-inner">
+          <div class="proj-img-ph" onclick="window.navigateTo('works/${p.id}.html')" style="cursor:pointer">
+            ${imgHtml}
+          </div>
+          <div class="proj-expand-side">
+            <p class="proj-desc-preview">${desc}</p>
+            <a class="proj-see-more" href="works/${p.id}.html" onclick="event.preventDefault(); window.navigateTo('works/${p.id}.html')"><span class="arr">→</span> ${lang === 'es' ? 'VER MÁS' : 'SEE MORE'}</a>
+          </div>
+        </div></div>
+      </div>`;
+    }).join('');
+
+    initProjectExpand();
+  }
 
   function openItem(item) {
-    // Close all others first
-    projectItems.forEach(i => {
+    document.querySelectorAll('#project-list .project-item').forEach(i => {
       if (i !== item) closeItem(i);
     });
     const expand = item.querySelector('.project-expand');
@@ -1137,29 +1242,32 @@
     expand.style.height = '0';
   }
 
-  const hasHover = window.matchMedia('(hover: hover)').matches;
-
-  if (hasHover) {
-    // Desktop: open on mouseenter, close when mouse leaves the list
-    projectItems.forEach(item => {
-      item.addEventListener('mouseenter', () => openItem(item));
-    });
-    const projectList = document.querySelector('.project-list');
-    if (projectList) {
-      projectList.addEventListener('mouseleave', () => {
-        projectItems.forEach(i => closeItem(i));
+  function initProjectExpand() {
+    const items = document.querySelectorAll('#project-list .project-item');
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    if (hasHover) {
+      items.forEach(item => {
+        item.addEventListener('mouseenter', () => openItem(item));
       });
+      const projectList = document.getElementById('project-list');
+      if (projectList) {
+        projectList.addEventListener('mouseleave', () => {
+          items.forEach(i => closeItem(i));
+        });
+      }
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) openItem(entry.target);
+          else closeItem(entry.target);
+        });
+      }, { threshold: 0.25 });
+      items.forEach(item => observer.observe(item));
     }
-  } else {
-    // Mobile: open when 25% of item enters viewport
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) openItem(entry.target);
-        else closeItem(entry.target);
-      });
-    }, { threshold: 0.25 });
-    projectItems.forEach(item => observer.observe(item));
   }
+
+  renderProjectList();
+  window.addEventListener('aa:langchange', renderProjectList);
 
   // ── CURSOR ──
   const cursor = document.getElementById('cursor');
