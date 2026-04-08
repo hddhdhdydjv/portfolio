@@ -246,40 +246,78 @@
       transform: rotate(2deg);
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      /* Notepad: absolute, right edge bleeds off screen, bottom touches marquee */
+    /* ── RESPONSIVE HERO ── */
+
+    /* Tablet (sidebar visible, 769–1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero-title-word { font-size: clamp(55px, 9vw, 100px); }
+      .hero-title-line2 { font-size: clamp(55px, 9vw, 100px); }
+
+      /* Info aligns with title left edge (no desktop indent) */
+      .hero-info {
+        margin-top: 44px;
+        padding-left: 0;
+        max-width: 50%;
+        gap: 18px;
+      }
+
+      /* Notepad: col 4–10 of 10-col grid, bleeds 20px right, fills 46% of hero height */
       .hero-notepad {
         position: absolute;
-        left: auto;
-        right: -44px;
-        top: 42%;
+        left: 38%;
+        right: -20px;
+        top: auto;
         bottom: 0;
-        width: 62%;
+        width: auto;
+        height: 46%;
         max-width: none;
         margin: 0;
         z-index: 1;
+        overflow: hidden;
       }
       .hero-notepad img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: left top;
+        transform-origin: bottom left;
       }
-      /* Info block aligns with title (remove desktop indent) */
-      .hero-info { margin-top: 44px; padding-left: 0; max-width: 52%; }
-      .hero-title-word { font-size: clamp(55px, 10vw, 100px); }
-      .hero-title-line2 { font-size: clamp(55px, 10vw, 100px); }
     }
 
+    /* Mobile (≤768px) */
     @media (max-width: 768px) {
-      #hero { padding: 100px 22px 44px; }
-      .hero-info { margin-top: 33px; max-width: 100%; padding-left: 0; }
-      /* Mobile notepad: narrower, starts lower */
+      #hero { padding: 100px 22px 0; }
+      .hero-title-word { font-size: clamp(44px, 12vw, 72px); }
+      .hero-title-line2 { font-size: clamp(44px, 12vw, 72px); }
+      .hero-info {
+        margin-top: 33px;
+        padding-left: 0;
+        max-width: 100%;
+        gap: 16px;
+      }
+
+      /* Notepad: in-flow after CTAs, 28px de gap, sangra por la derecha, toca el marquee */
       .hero-notepad {
-        right: -22px;
-        top: 52%;
-        width: 80%;
+        position: relative;
+        left: auto; right: auto; top: auto; bottom: auto;
+        margin-top: 28px;
+        margin-left: 12%;
+        margin-right: -22px;
+        width: auto;
+        flex: 1;
+        min-height: 0;
+        max-width: none;
+        overflow: hidden;
+        display: flex;
+        z-index: 1;
+      }
+      .hero-notepad img {
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        object-fit: cover;
+        object-position: left top;
+        transform-origin: bottom left;
       }
     }
 
@@ -640,7 +678,7 @@
 
     /* ── MOBILE (max 768px) ── */
     @media (max-width: 768px) {
-      #hero { padding: 88px 22px 44px; }
+      #hero { padding: 88px 22px 0; }
       .hero-bg-title { font-size: clamp(60px, 16vw, 120px); left: 22px; right: 22px; }
       .float-blueprint, .float-status, .float-note { display: none; }
       .hero-bottom { padding-top: 60px; flex-direction: column; gap: 22px; }
