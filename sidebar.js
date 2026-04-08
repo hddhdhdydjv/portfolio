@@ -456,6 +456,17 @@
         gap: 14px !important;
         background: var(--bg) !important;
       }
+      nav .nav-logo,
+      #topNav .nav-logo,
+      .nav-logo {
+        min-width: unset !important;
+        font-size: 13px !important;
+        letter-spacing: 0.08em !important;
+      }
+    }
+
+    /* Hamburger only on mobile (sidebar is hidden) */
+    @media (max-width: 768px) {
       nav .hamburger,
       #topNav .hamburger,
       .hamburger {
@@ -463,12 +474,13 @@
         margin-right: 0 !important;
         order: -1 !important;
       }
-      nav .nav-logo,
-      #topNav .nav-logo,
-      .nav-logo {
-        min-width: unset !important;
-        font-size: 13px !important;
-        letter-spacing: 0.08em !important;
+    }
+
+    @media (min-width: 769px) {
+      nav .hamburger,
+      #topNav .hamburger,
+      .hamburger {
+        display: none !important;
       }
     }
 

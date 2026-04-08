@@ -248,7 +248,12 @@
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .hero-notepad { display: none; }
+      .hero-notepad {
+        position: relative;
+        left: auto; right: auto; top: auto; bottom: auto;
+        margin-top: 33px;
+        max-width: 420px;
+      }
       .hero-info { margin-top: 66px; }
       .hero-title-word { font-size: clamp(55px, 10vw, 100px); }
       .hero-title-line2 { font-size: clamp(55px, 10vw, 100px); }
@@ -257,6 +262,7 @@
     @media (max-width: 768px) {
       #hero { padding: 100px 22px 44px; }
       .hero-info { margin-top: 33px; max-width: 100%; padding-left: 0; }
+      .hero-notepad { max-width: 100%; }
     }
 
     /* ── MARQUEE ── */
