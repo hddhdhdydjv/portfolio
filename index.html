@@ -625,12 +625,29 @@
 
       .work-header { flex-direction: column; gap: 8px; margin-bottom: 22px; }
 
-      .project-header { grid-template-columns: 32px 1fr; gap: 14px; }
-      .proj-tag { display: none; }
-      .proj-name { font-size: clamp(22px, 7vw, 32px); }
+      /* Project list: remove negative margins, stack vertically */
+      .project-list { margin: 0 -22px; }
 
-      .project-expand-inner { grid-template-columns: 1fr; }
-      .proj-expand-side { padding: 0 0 33px; }
+      .project-item {
+        grid-template-columns: 1fr;
+      }
+
+      .proj-img-col {
+        padding: 22px 22px 0 22px;
+      }
+
+      .proj-text-col {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 22px 22px 28px 22px;
+        gap: 12px;
+      }
+
+      .proj-name { font-size: clamp(26px, 8vw, 38px); }
+
+      .proj-desc-preview { -webkit-line-clamp: 4; }
+
+      .view-all { margin: 0 -22px; padding-right: 22px; }
 
       .about-layout { flex-direction: column; }
       .about-left { width: 100%; }
