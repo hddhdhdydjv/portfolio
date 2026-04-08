@@ -116,7 +116,6 @@
     /* Mobile menu removed — using sidebar push instead */
 
     @media (max-width: 1024px) {
-      .hamburger { display: flex; }
       #topNav {
         left: 0;
         padding: 18px 22px;
@@ -124,6 +123,10 @@
         gap: 11px;
       }
       .nav-logo { min-width: unset; }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
     }
 
     /* ── HERO ── */
@@ -638,8 +641,8 @@
 
       .proj-text-col {
         border-left: none;
-        border-top: 1px solid var(--border);
-        padding: 22px 22px 28px 22px;
+        border-top: none;
+        padding: 20px 22px 32px 22px;
         gap: 12px;
       }
 
