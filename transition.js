@@ -340,9 +340,7 @@
 
   /* ── Navigate ── */
   window.navigateTo = function (url) {
-    if (isAnimating) return;
-    isAnimating = true;
-    runOut(url);
+    window.location.href = url;
   };
 
   /* ── Intercept links ── */
