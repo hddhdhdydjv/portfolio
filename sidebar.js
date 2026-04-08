@@ -465,8 +465,8 @@
       }
     }
 
-    /* Hamburger only on mobile (sidebar is hidden) */
-    @media (max-width: 768px) {
+    /* Hamburger: mobile + tablet portrait (sidebar hidden) */
+    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
       nav .hamburger,
       #topNav .hamburger,
       .hamburger {
@@ -476,10 +476,18 @@
       }
     }
 
-    @media (min-width: 769px) {
+    /* No hamburger on tablet landscape or desktop */
+    @media (min-width: 769px) and (orientation: landscape) {
       nav .hamburger,
       #topNav .hamburger,
       .hamburger {
+        display: none !important;
+      }
+    }
+
+    /* Hide sidebar on tablet portrait */
+    @media (max-width: 1024px) and (orientation: portrait) {
+      .sidebar {
         display: none !important;
       }
     }
