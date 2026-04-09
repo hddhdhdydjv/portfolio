@@ -1187,6 +1187,9 @@
     }
   })();
 
+  // ── NAVIGATION ──
+  window.navigateTo = function(url) { window.location.href = url; };
+
   // ── PROJECT LIST — render from projects.js ──
   function renderProjectList() {
     const list = document.getElementById('project-list');
