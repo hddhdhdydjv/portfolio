@@ -125,7 +125,7 @@
       .nav-logo { min-width: unset; }
     }
 
-    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
+    @media (max-width: 1024px) {
       .hamburger { display: flex; }
     }
 
@@ -230,9 +230,9 @@
     .hero-notepad {
       position: absolute;
       left: 560px;
-      right: 22px;
+      right: -44px;
       top: 450px;
-      bottom: 0;
+      bottom: -66px;
       z-index: 1;  /* detrás del título (.hero-title tiene z-index:2) */
     }
 
@@ -248,46 +248,11 @@
 
     /* ── RESPONSIVE HERO ── */
 
-    /* Tablet landscape (sidebar visible) — bigger notepad */
-    @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+    /* Tablet (769–1024px) — no sidebar, hamburger, in-flow notepad */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      #hero { padding: 100px 44px 0; }
       .hero-title-word { font-size: clamp(55px, 9vw, 100px); }
       .hero-title-line2 { font-size: clamp(55px, 9vw, 100px); }
-
-      .hero-info {
-        margin-top: 44px;
-        padding-left: 0;
-        max-width: 50%;
-        gap: 18px;
-      }
-
-      /* Notepad: starts at 38%, 68% height, bleeds right */
-      .hero-notepad {
-        position: absolute;
-        left: 38%;
-        right: -20px;
-        top: auto;
-        bottom: 0;
-        width: auto;
-        height: 68%;
-        max-width: none;
-        margin: 0;
-        z-index: 1;
-        overflow: hidden;
-      }
-      .hero-notepad img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: left top;
-        transform-origin: bottom left;
-      }
-    }
-
-    /* Tablet portrait (no sidebar, hamburger like mobile) */
-    @media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
-      #hero { padding: 100px 44px 0; }
-      .hero-title-word { font-size: clamp(60px, 10vw, 100px); }
-      .hero-title-line2 { font-size: clamp(60px, 10vw, 100px); }
 
       .hero-info {
         margin-top: 44px;
@@ -296,7 +261,7 @@
         gap: 18px;
       }
 
-      /* Notepad: in-flow, toca el marquee, sangra por la derecha */
+      /* Notepad: in-flow, toca el divider, sangra por la derecha */
       .hero-notepad {
         position: relative;
         left: auto; right: auto; top: auto; bottom: auto;
