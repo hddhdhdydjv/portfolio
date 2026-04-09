@@ -22,7 +22,7 @@
       --bg-inv:   #1a1a14;
       --text:     #1a1a14;
       --text-inv: #e8e6de;
-      --muted:    #716f55;
+      --muted:    #5c5a40;
       --amber:    #d4900e;
       --border:   rgba(65,64,50,0.137);
     }
@@ -34,7 +34,7 @@
       --bg-inv:   #e8e6de;
       --text:     #c8c49a;
       --text-inv: #16160f;
-      --muted:    #716f55;
+      --muted:    #8c8a6a;
       --amber:    #d4900e;
       --border:   rgba(200,196,154,0.13);
     }
@@ -530,7 +530,7 @@
     .illus-row {
       display:flex; justify-content:space-between; font-size:13px;
       padding:4px 0; border-bottom:1px solid rgba(128,128,100,0.1);
-      color: #16160f;
+      color: var(--text-inv);
     }
     .illus-row:last-child { border-bottom:none; }
 
@@ -564,7 +564,7 @@
     }
 
     .exp-item:last-child { border-bottom:1px solid var(--border); }
-    .exp-item:hover { background:rgba(128,128,100,0.06); padding:22px 12px; margin:0 -12px; }
+    .exp-item:hover { background:rgba(128,128,100,0.06); }
 
     .exp-co { font-size:29px; letter-spacing:-0.01em; font-weight:normal; text-transform:uppercase; color:var(--text); }
     .exp-role { font-size:16px; color:var(--muted); letter-spacing:0.06em; text-transform:uppercase; }
@@ -577,7 +577,7 @@
     }
 
     .svc-item:last-child { border-bottom:1px solid var(--border); }
-    .svc-item:hover { background:rgba(128,128,100,0.06); padding:33px 12px; margin:0 -12px; }
+    .svc-item:hover { background:rgba(128,128,100,0.06); }
 
     .svc-num { font-size:59px; color:var(--border); line-height:1; font-weight:normal; }
     .svc-title { font-size:29px; letter-spacing:-0.01em; font-weight:normal; text-transform:uppercase; padding-top:6px; color:var(--text); }
