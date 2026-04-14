@@ -8,7 +8,15 @@
     @import url('https://db.onlinewebfonts.com/c/4571adf8e6d8270ea61a4f43a3ef31d2?family=Departure+Mono');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --font: 'Departure Mono', 'Courier New', monospace; }
+    :root {
+      --font: 'Departure Mono', 'Courier New', monospace;
+      --paper:               #f0ede4;
+      --paper-text:          #1a1a14;
+      --paper-muted:         #5c5a40;
+      --paper-border:        #dbd8cf;
+      --paper-border-strong: #d0cec5;
+      --paper-rule:          #e5e3da;
+    }
 
     html[data-theme="dark"] {
       --bg:       #16160f;
@@ -17,9 +25,12 @@
       --bg-inv:   #e8e6de;
       --text:     #c8c49a;
       --text-inv: #16160f;
-      --muted:    #716f55;
-      --amber:    #d4900e;
-      --border:   rgba(200,196,154,0.13);
+      --muted:            #8c8a6a;
+      --amber:            #d4900e;
+      --border:           #2d2d21;
+      --border-strong:    #2b2b20;
+      --border-subtle:    #212118;
+      --hover-bg:         #1c1c14;
     }
 
     html { scroll-behavior: smooth; }
@@ -153,7 +164,7 @@
 
     /* ── IMAGE FRAME (cover + imageAfter) ── */
     .img-frame {
-      background: #f0ede4;
+      background: var(--paper);
       position: relative;
     }
 
@@ -349,7 +360,7 @@
     cursor.style.left = (e.clientX - 4) + 'px';
     cursor.style.top  = (e.clientY - 4) + 'px';
   });
-  document.addEventListener('mousedown', () => cursor.style.transform = 'scale(3)');
+  document.addEventListener('mousedown', () => cursor.style.transform = 'scale(2.5)');
   document.addEventListener('mouseup',   () => cursor.style.transform = 'scale(1)');
 
   // ── HELPERS ──

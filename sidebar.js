@@ -397,47 +397,137 @@
       }
     }
 
+    /* ── EASING TOKENS ── */
+    :root {
+      --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
     /* ── GLOBAL THEME TRANSITION — all pages, all elements ── */
     *, *::before, *::after {
       transition:
-        background-color 1.2s cubic-bezier(0.4,0,0.2,1),
-        color            1.2s cubic-bezier(0.4,0,0.2,1),
-        border-color     1.2s cubic-bezier(0.4,0,0.2,1),
-        fill             1.2s cubic-bezier(0.4,0,0.2,1);
+        background-color 300ms ease-out,
+        color            300ms ease-out,
+        border-color     300ms ease-out,
+        fill             300ms ease-out;
     }
     /* Keep hover/interactive transitions fast */
     a, button, .hero-cta, .contact-link, .social-link,
     .view-all, .footer-links a, .sidebar-link, .nav-lang-opt,
-    .nav-theme-btn, .hamburger { transition-duration: 0.15s !important; }
+    .nav-theme-btn, .hamburger { transition-duration: 150ms !important; }
+
+    /* ── PRESS FEEDBACK — all clickable elements ── */
+    a, button {
+      transition: transform 100ms ease-out, color 150ms ease-out,
+                  background-color 150ms ease-out, opacity 150ms ease-out;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      a:active, button:active { transform: scale(0.97); }
+    }
+
+    /* ── SIDEBAR HOVER — only on real pointers ── */
+    @media (hover: hover) and (pointer: fine) {
+      .sidebar-nav > a:hover,
+      .sidebar-nav > a.active,
+      .sidebar-work-item > a:hover,
+      .sidebar-work-item > a.active { color: var(--text); }
+      .sidebar-sub-link:hover,
+      .sidebar-sub-link.active { color: var(--amber); }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+      ::view-transition-new(root), ::view-transition-old(root) { animation: none !important; }
+    }
+
+    /* ── PAPER VARIABLES — fixed, same in both themes ── */
+    :root {
+      --paper:               #f0ede4;
+      --paper-text:          #1a1a14;
+      --paper-muted:         #5c5a40;
+      --paper-border:        #dbd8cf;
+      --paper-border-strong: #d0cec5;
+      --paper-rule:          #e5e3da;
+    }
 
     /* ── GLOBAL THEME VARIABLES (light + dark) — applies to ALL pages ── */
     html[data-theme="light"] {
-      --bg:       #e8e6de;
-      --bg-panel: #d8d6cd;
-      --bg-card:  #c8c49a;
-      --bg-inv:   #1a1a14;
-      --text:     #1a1a14;
-      --text-inv: #e8e6de;
-      --muted:    #716f55;
-      --amber:    #d4900e;
-      --border:   rgba(65,64,50,0.137);
+      --bg:               #e8e6de;
+      --bg-panel:         #d8d6cd;
+      --bg-card:          #c8c49a;
+      --bg-inv:           #1a1a14;
+      --text:             #1a1a14;
+      --text-inv:         #e8e6de;
+      --muted:            #5c5a40;
+      --amber:            #d4900e;
+      --amber-border:     #e0c48b;
+      --border:           #d1cfc6;
+      --border-strong:    #d3d2c6;
+      --border-subtle:    #dedcd2;
+      --hover-bg:         #e2e0d7;
+      --border-inv:       #2d2d21;
+      --border-inv-strong:#2b2b20;
+      --border-inv-subtle:#212118;
     }
     html[data-theme="dark"] {
-      --bg:       #16160f;
-      --bg-panel: #1a1a14;
-      --bg-card:  #3d3c2f;
-      --bg-inv:   #e8e6de;
-      --text:     #c8c49a;
-      --text-inv: #16160f;
-      --muted:    #716f55;
-      --amber:    #d4900e;
-      --border:   rgba(200,196,154,0.13);
+      --bg:               #16160f;
+      --bg-panel:         #1a1a14;
+      --bg-card:          #3d3c2f;
+      --bg-inv:           #e8e6de;
+      --text:             #c8c49a;
+      --text-inv:         #16160f;
+      --muted:            #8c8a6a;
+      --amber:            #d4900e;
+      --amber-border:     #62470f;
+      --border:           #2d2d21;
+      --border-strong:    #2b2b20;
+      --border-subtle:    #212118;
+      --hover-bg:         #1c1c14;
+      --border-inv:       #d1cfc6;
+      --border-inv-strong:#d3d2c6;
+      --border-inv-subtle:#dedcd2;
     }
 
     /* light mode: hero highlight uses mid-tone bg-card so word stays readable */
     html[data-theme="light"] .hero-title-line1 { background: var(--bg-card); }
     html[data-theme="light"] .hero-title-word  { color: var(--text); }
     html[data-theme="light"] .tw-cursor        { color: var(--text); }
+
+    /* ── VIEW TRANSITIONS ── */
+    @view-transition { navigation: auto; }
+
+    @keyframes vt-enter {
+      from { transform: translate(88px, 28px); opacity: 0; }
+      to   { transform: translate(0, 0); opacity: 1; }
+    }
+    @keyframes vt-exit-project {
+      from { transform: translate(0, 0); opacity: 1; }
+      to   { transform: translate(88px, 28px); opacity: 0; }
+    }
+    @keyframes vt-reveal-back {
+      from { opacity: 0.85; }
+      to   { opacity: 1; }
+    }
+
+    /* Forward: entering a project page */
+    html:not([data-nav-dir="back"]) ::view-transition-new(root) {
+      animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both vt-enter;
+      z-index: 2;
+    }
+    html:not([data-nav-dir="back"]) ::view-transition-old(root) {
+      animation: none; z-index: 1;
+    }
+
+    /* Back: exiting a project page */
+    html[data-nav-dir="back"] ::view-transition-old(root) {
+      animation: 380ms cubic-bezier(0.4, 0, 1, 1) both vt-exit-project;
+      z-index: 2;
+    }
+    html[data-nav-dir="back"] ::view-transition-new(root) {
+      animation: 380ms cubic-bezier(0.22, 1, 0.36, 1) both vt-reveal-back;
+      z-index: 1;
+    }
 
     /* ── UNIVERSAL NAV — tablet & mobile ── */
     @media (max-width: 1024px) {
@@ -501,6 +591,7 @@
       transition: color 0.15s;
     }
     .nav-theme-btn:hover { color: var(--text); }
+
   `;
   document.head.appendChild(style);
 
@@ -652,5 +743,42 @@
   // const _prScript = document.createElement('script');
   // _prScript.src = prefix + 'pixel-reveal.js';
   // document.head.appendChild(_prScript);
+
+  // ── PAGE TRANSITIONS ──
+  // Set direction in sessionStorage before navigating
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('a[href]');
+    if (!link || link.target === '_blank') return;
+    const href = link.getAttribute('href') || '';
+    if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+    const isOnProject = window.location.pathname.includes('/works/');
+    const goingToProject = href.includes('works/');
+    if (isOnProject && !goingToProject) {
+      sessionStorage.setItem('aa-nav-dir', 'back');
+    } else {
+      sessionStorage.setItem('aa-nav-dir', 'forward');
+    }
+  });
+
+  // Apply direction on new page load (before first paint)
+  window.addEventListener('pagereveal', function() {
+    const dir = sessionStorage.getItem('aa-nav-dir') || 'forward';
+    sessionStorage.removeItem('aa-nav-dir');
+    document.documentElement.setAttribute('data-nav-dir', dir);
+  });
+
+  // Intercept programmatic navigateTo (prev/next in project pages)
+  const _origNavigate = window.navigateTo;
+  window.navigateTo = function(url) {
+    const isOnProject = window.location.pathname.includes('/works/');
+    const goingToProject = (url || '').includes('works/');
+    if (isOnProject && !goingToProject) {
+      sessionStorage.setItem('aa-nav-dir', 'back');
+    } else {
+      sessionStorage.setItem('aa-nav-dir', 'forward');
+    }
+    if (_origNavigate) _origNavigate(url);
+    else window.location.href = url;
+  };
 
 })();
