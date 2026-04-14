@@ -27,7 +27,7 @@ const PROJECTS = [
     tag: 'Sports Tech',
     tagHighlight: true,
     cover: _asset('assets/works/fanraise/01.png'),
-    thumb: _asset('assets/covers/fanraise.png'),
+    thumb: _asset('assets/covers/Portada - FanRaise.png'),
     sections: [
       {
         label: null, labelEs: null,
@@ -165,7 +165,7 @@ const PROJECTS = [
     tag: 'AI',
     tagHighlight: true,
     cover: _asset('assets/works/thinknube/01.png'),
-    thumb: _asset('assets/covers/thinknube.png'),
+    thumb: null,
     sections: [
       {
         label: null, labelEs: null,
