@@ -341,17 +341,9 @@
       pointer-events: none;
       z-index: 5;
       transition: none !important;
+      background-image: radial-gradient(circle 11px at 33px 55px, var(--bg) 11px, transparent 11.5px);
       background-size: 66px 110px;
       background-repeat: repeat-y;
-    }
-
-    html[data-theme="light"] .notebook-col {
-      background-color: var(--paper);
-      background-image: radial-gradient(circle at 33px 55px, var(--bg) 10.5px, var(--border) 10.5px, var(--border) 11.5px, transparent 11.5px);
-    }
-
-    html[data-theme="dark"] .notebook-col {
-      background-image: radial-gradient(circle 11px at 33px 55px, var(--bg) 11px, transparent 11.5px);
     }
 
     .notebook-col--left  { left: 0; border-right: 1px solid var(--border); }
