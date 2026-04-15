@@ -4,55 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alejandro Arab — Product Designer</title>
+    <link rel="stylesheet" href="tokens.css">
   <style>
-    @import url('https://db.onlinewebfonts.com/c/4571adf8e6d8270ea61a4f43a3ef31d2?family=Departure+Mono');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --dur: 1.4s;
-      --ease: cubic-bezier(0.4, 0, 0.2, 1);
-      --font: 'Departure Mono', 'Courier New', monospace;
-    }
-
-    html[data-theme="light"] {
-      --bg:               #e8e6de;
-      --bg-panel:         #d8d6cd;
-      --bg-card:          #c8c49a;
-      --bg-inv:           #1a1a14;
-      --text:             #1a1a14;
-      --text-inv:         #e8e6de;
-      --muted:            #5c5a40;
-      --amber:            #d4900e;
-      --amber-border:     #e0c48b;
-      --border:           #d1cfc6;
-      --border-strong:    #d3d2c6;
-      --border-subtle:    #dedcd2;
-      --hover-bg:         #e2e0d7;
-      --border-inv:       #2d2d21;
-      --border-inv-strong:#2b2b20;
-      --border-inv-subtle:#212118;
-    }
-
-    html[data-theme="dark"] {
-      --bg:               #16160f;
-      --bg-panel:         #1a1a14;
-      --bg-card:          #3d3c2f;
-      --bg-inv:           #e8e6de;
-      --text:             #c8c49a;
-      --text-inv:         #16160f;
-      --muted:            #8c8a6a;
-      --amber:            #d4900e;
-      --amber-border:     #62470f;
-      --border:           #2d2d21;
-      --border-strong:    #2b2b20;
-      --border-subtle:    #212118;
-      --hover-bg:         #1c1c14;
-      --border-inv:       #d1cfc6;
-      --border-inv-strong:#d3d2c6;
-      --border-inv-subtle:#dedcd2;
-    }
-
     html { scroll-behavior: smooth; scroll-padding-top: 60px; }
 
     body {
@@ -83,7 +37,6 @@
       transition: transform 60ms ease-out !important;
     }
 
-
     /* Pixel cat — theme aware */
     .cat-body       { fill: var(--text); }
     .cat-ear-inner  { fill: var(--bg); }
@@ -91,7 +44,6 @@
     .cat-nose       { fill: var(--amber); }
     .cat-collar     { fill: var(--amber); opacity: 0.7; }
     .cat-collar-dot { fill: var(--bg); }
-
 
     /* Top nav sits right of sidebar */
     #topNav {

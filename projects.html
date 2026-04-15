@@ -4,28 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>All Projects — Alejandro Arab</title>
+    <link rel="stylesheet" href="tokens.css">
   <style>
-    @import url('https://db.onlinewebfonts.com/c/4571adf8e6d8270ea61a4f43a3ef31d2?family=Departure+Mono');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --font: 'Departure Mono', 'Courier New', monospace; }
-
-    html[data-theme="dark"] {
-      --bg:               #16160f;
-      --bg-panel:         #1e1e14;
-      --bg-card:          #252518;
-      --bg-inv:           #e8e6de;
-      --text:             #c8c49a;
-      --text-inv:         #16160f;
-      --muted:            #8c8a6a;
-      --amber:            #d4900e;
-      --amber-border:     #62470f;
-      --border:           #2d2d21;
-      --border-strong:    #2b2b20;
-      --border-subtle:    #212118;
-      --hover-bg:         #1c1c14;
-    }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -443,7 +424,6 @@
   });
   document.addEventListener('mousedown', () => cursor.style.transform = 'scale(2.5)');
   document.addEventListener('mouseup',   () => cursor.style.transform = 'scale(1)');
-
 
   // ── RENDER PROJECTS ──
   const grid = document.getElementById('projects-grid');

@@ -441,54 +441,6 @@
       ::view-transition-new(root), ::view-transition-old(root) { animation: none !important; }
     }
 
-    /* ── PAPER VARIABLES — fixed, same in both themes ── */
-    :root {
-      --paper:               #f0ede4;
-      --paper-text:          #1a1a14;
-      --paper-muted:         #5c5a40;
-      --paper-border:        #dbd8cf;
-      --paper-border-strong: #d0cec5;
-      --paper-rule:          #e5e3da;
-    }
-
-    /* ── GLOBAL THEME VARIABLES (light + dark) — applies to ALL pages ── */
-    html[data-theme="light"] {
-      --bg:               #e8e6de;
-      --bg-panel:         #d8d6cd;
-      --bg-card:          #c8c49a;
-      --bg-inv:           #1a1a14;
-      --text:             #1a1a14;
-      --text-inv:         #e8e6de;
-      --muted:            #5c5a40;
-      --amber:            #d4900e;
-      --amber-border:     #e0c48b;
-      --border:           #d1cfc6;
-      --border-strong:    #d3d2c6;
-      --border-subtle:    #dedcd2;
-      --hover-bg:         #e2e0d7;
-      --border-inv:       #2d2d21;
-      --border-inv-strong:#2b2b20;
-      --border-inv-subtle:#212118;
-    }
-    html[data-theme="dark"] {
-      --bg:               #16160f;
-      --bg-panel:         #1a1a14;
-      --bg-card:          #3d3c2f;
-      --bg-inv:           #e8e6de;
-      --text:             #c8c49a;
-      --text-inv:         #16160f;
-      --muted:            #8c8a6a;
-      --amber:            #d4900e;
-      --amber-border:     #62470f;
-      --border:           #2d2d21;
-      --border-strong:    #2b2b20;
-      --border-subtle:    #212118;
-      --hover-bg:         #1c1c14;
-      --border-inv:       #d1cfc6;
-      --border-inv-strong:#d3d2c6;
-      --border-inv-subtle:#dedcd2;
-    }
-
     /* light mode: hero highlight uses mid-tone bg-card so word stays readable */
     html[data-theme="light"] .hero-title-line1 { background: var(--bg-card); }
     html[data-theme="light"] .hero-title-word  { color: var(--text); }

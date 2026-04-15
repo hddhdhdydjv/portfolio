@@ -1,0 +1,85 @@
+/* ================================================================
+   DESIGN TOKENS — Alejandro Arab Portfolio
+   Source of truth: Figma file Z7NPMYSLT4oPu1usXYGCBv
+   To update: ask Claude to read Figma variables and patch this file.
+   ================================================================ */
+
+@import url('https://db.onlinewebfonts.com/c/4571adf8e6d8270ea61a4f43a3ef31d2?family=Departure+Mono');
+
+/* ── BASE ─────────────────────────────────────────────────────── */
+:root {
+  --font:  'Departure Mono', 'Courier New', monospace;
+  --dur:   1.4s;
+  --ease:  cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Spacing tokens — 8pt grid */
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-5:  40px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-10: 80px;
+  --space-11: 88px;
+  --space-12: 96px;
+  --space-16: 128px;
+  --space-21: 168px;
+  --space-24: 192px;
+}
+
+/* ── LIGHT MODE ───────────────────────────────────────────────── */
+html[data-theme="light"] {
+  /* Core */
+  --bg:                  #fafafa;
+  --bg-panel:            #e8e6de;
+  --bg-card:             #c8c49a;
+  --bg-inv:              #1a1a14;
+  --text:                #1a1a14;
+  --text-inv:            #fafafa;
+  --text-secondary:      #706c38;
+  --muted:               #5c5a40;
+
+  /* Accent */
+  --amber:               #d4900e;
+  --amber-mid:           #c17f24;
+  --amber-dark:          #b67d00;
+
+  /* Borders */
+  --border:              #d1cfc6;
+
+  /* Surfaces */
+  --paper:               #ffffff;
+  --note:                #8fbcd4;
+  --card-yellow:         #f5ead4;
+  --card-peach:          #ffe4d8;
+  --bezel:               #eeeeee;
+}
+
+/* ── DARK MODE ────────────────────────────────────────────────── */
+html[data-theme="dark"] {
+  /* Core */
+  --bg:                  #16160f;
+  --bg-panel:            #1a1a14;
+  --bg-card:             #3d3c2f;
+  --bg-inv:              #fafafa;
+  --text:                #c8c49a;
+  --text-inv:            #16160f;
+  --text-secondary:      #716f55;
+  --muted:               #8c8a6a;
+
+  /* Accent */
+  --amber:               #d4900e;
+  --amber-mid:           #c17f24;
+  --amber-dark:          #b67d00;
+
+  /* Borders */
+  --border:              #2d2d21;
+
+  /* Surfaces */
+  --paper:               #f0ede4;
+  --note:                #8fbcd4;
+  --card-yellow:         #f5ead4;
+  --card-peach:          #ffe4d8;
+  --bezel:               #eeeeee;
+}
