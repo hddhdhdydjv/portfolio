@@ -805,10 +805,10 @@
 <section class="section" id="work" data-theme="dark">
   <div class="work-header">
     <div>
-      <div class="section-eyebrow" data-num="01 —" data-i18n="work.eyebrow">Selected Works</div>
+      <div class="section-eyebrow" data-i18n="work.eyebrow">Selected Works</div>
       <h2 class="section-title" data-i18n="work.title">Projects</h2>
     </div>
-    <span class="work-count" data-i18n="work.count">10 Projects</span>
+    <span class="work-count"></span>
   </div>
 
   <div class="project-list" id="project-list">
@@ -979,12 +979,12 @@
     </div>
 
   </div><!-- end hidden static -->
-  <a class="view-all" href="projects.html" data-i18n="work.all">All Projects (3) →</a>
+  <a class="view-all" href="projects.html" id="view-all-link">All Projects →</a>
 </section>
 
 <!-- ABOUT -->
 <section class="section" id="about" data-theme="dark">
-  <div class="section-eyebrow" data-num="02 —" data-i18n="about.eyebrow">About</div>
+  <div class="section-eyebrow" data-i18n="about.eyebrow">About</div>
   <div class="about-layout">
 
     <!-- LEFT: text -->
@@ -1216,6 +1216,16 @@
     const list = document.getElementById('project-list');
     if (!list || typeof PROJECTS === 'undefined') return;
     const lang = localStorage.getItem('aa-lang') || 'en';
+
+    // Update project count dynamically
+    const count = PROJECTS.filter(p => !p.hidden).length;
+    document.querySelectorAll('.work-count').forEach(el => {
+      el.textContent = lang === 'es' ? `${count} Proyectos` : `${count} Projects`;
+    });
+    const viewAll = document.getElementById('view-all-link');
+    if (viewAll) {
+      viewAll.textContent = lang === 'es' ? `Todos los Proyectos (${count}) →` : `All Projects (${count}) →`;
+    }
 
     list.innerHTML = PROJECTS.filter(p => !p.hidden).map(p => {
       const desc     = (lang === 'es' && p.sections[0].textEs) ? p.sections[0].textEs : p.sections[0].text;
