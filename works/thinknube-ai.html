@@ -294,12 +294,16 @@
       overflow: visible;
     }
 
+    html[data-theme="light"] .notebook-paper {
+      border: 1px solid var(--border);
+    }
+
     .notebook-paper .project-title,
     .notebook-paper .meta-val,
     .notebook-paper .editorial-text-intro,
     .notebook-paper .editorial-text,
     .notebook-paper .del-tag {
-      color: var(--paper-muted);
+      color: var(--muted);
     }
 
     .notebook-paper .project-eyebrow,
@@ -320,7 +324,7 @@
     }
 
     .notebook-paper .del-tag {
-      border-color: var(--border-strong);
+      border-color: var(--border);
     }
 
     .notebook-inner {
