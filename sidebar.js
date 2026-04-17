@@ -10,7 +10,7 @@
       'nav.contact': 'Contact',
       'nav.all':     'All Projects →',
 
-      'hero.sub':         'Product designer collaborating with teams to create digital products that solve real problems. 4 years across fintech, Web3, AI, healthcare, e-commerce.',
+      'hero.sub':         'Creative product designer (and occasional developer) collaborating with teams to build digital products that solve real problems.',
       'hero.cta.work':    '<span class="arr">→</span> View Work',
       'hero.cta.contact': '<span class="arr">→</span> Get in Touch',
 
@@ -32,14 +32,11 @@
 
       'about.eyebrow':  'About',
       'about.heading':  'Who I am',
-      'about.p1': "I'm a Product Designer with 4 years of experience across healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an uncommon background — gastronomy — which gave me a unique foundation in discipline, process, and working well under pressure.",
-      'about.p2': 'I specialize in research, wireframes, high-fidelity prototypes, animations, and design systems. I enjoy collaborating from client briefs to final delivery, turning ideas into real products.',
-      'about.tag.research':    'Research',
-      'about.tag.wireframes':  'Wireframes',
-      'about.tag.prototyping': 'Prototyping',
-      'about.tag.ds':          'Design Systems',
-      'about.tag.animation':   'Animation',
-      'about.tag.art':         'Art Direction',
+      'about.p1': "I'm a Product Designer with 6 years of experience in healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an unusual background—gastronomy—which gave me a unique foundation in discipline, process, and performing well under pressure.",
+      'about.p2': 'I also have experience as a UX/UI design and prototyping instructor, which helped me develop teaching skills and teamwork abilities.',
+      'about.heading2':   'beyond the professional...',
+      'about.beyond.p1': "I'm a proud cat dad to Roma and Venus. I live with my girlfriend Pia, who is also a designer, and we love traveling while working.",
+      'about.beyond.p2': 'Besides designing and cooking, I also play bass and synthesizer, love music and going to concerts, and enjoy playing video games.',
 
       'exp.eyebrow': 'Experience',
       'exp.title':   'Work History',
@@ -75,7 +72,7 @@
       'contact.tz.v':         'GMT+0 London',
       'contact.pref.k':       'Preferred',
       'contact.pref.v':       'Email / LinkedIn',
-      'contact.email':        'Send me an email',
+      'contact.email':        'Email me',
 
       'footer.copy': '© 2026 — Alejandro Arab. All rights reserved.',
     },
@@ -87,7 +84,7 @@
       'nav.contact': 'Contacto',
       'nav.all':     'Ver todos →',
 
-      'hero.sub':         'Diseñador de producto colaborando con equipos para crear productos digitales que resuelven problemas reales. 4 años en fintech, Web3, IA, salud y e-commerce.',
+      'hero.sub':         'Diseñador de productos creativo (y a veces desarrollador) que colabora con equipos para crear productos digitales que resuelven problemas reales.',
       'hero.cta.work':    '<span class="arr">→</span> Ver trabajo',
       'hero.cta.contact': '<span class="arr">→</span> Hablemos',
 
@@ -109,14 +106,11 @@
 
       'about.eyebrow':  'Sobre mí',
       'about.heading':  'Quién soy',
-      'about.p1': 'Soy Diseñador de Producto con 4 años de experiencia en salud, e-commerce, viajes, IA, fintech descentralizado y Web3. Vengo de un entorno atípico — la gastronomía — que me dio una base única en disciplina, proceso y trabajo bajo presión.',
-      'about.p2': 'Me especializo en investigación, wireframes, prototipos de alta fidelidad, animaciones y sistemas de diseño. Disfruto colaborar desde el brief del cliente hasta la entrega final, convirtiendo ideas en productos reales.',
-      'about.tag.research':    'Investigación',
-      'about.tag.wireframes':  'Wireframes',
-      'about.tag.prototyping': 'Prototipado',
-      'about.tag.ds':          'Sistemas de diseño',
-      'about.tag.animation':   'Animación',
-      'about.tag.art':         'Dirección de arte',
+      'about.p1': 'Soy Diseñador de Producto con 6 años de experiencia en salud, e-commerce, viajes, IA, fintech descentralizado y Web3. Vengo de un entorno atípico — la gastronomía — que me dio una base única en disciplina, proceso y trabajo bajo presión.',
+      'about.p2': 'También tengo experiencia como instructor de diseño UX/UI y prototipado, lo que me ayudó a desarrollar habilidades de enseñanza y trabajo en equipo.',
+      'about.heading2':   'más allá de lo profesional...',
+      'about.beyond.p1': 'Soy papá de dos gatos, Roma y Venus. Vivo con mi novia Pia, que también es diseñadora, y nos encanta viajar mientras trabajamos.',
+      'about.beyond.p2': 'Además de diseñar y cocinar, toco el bajo y el sintetizador, me encanta la música e ir a recitales, y disfruto jugar videojuegos.',
 
       'exp.eyebrow': 'Experiencia',
       'exp.title':   'Historial laboral',
@@ -152,7 +146,7 @@
       'contact.tz.v':         'GMT+0 Londres',
       'contact.pref.k':       'Preferido',
       'contact.pref.v':       'Email / LinkedIn',
-      'contact.email':        'Enviarme un email',
+      'contact.email':        'Email',
 
       'footer.copy': '© 2026 — Alejandro Arab. Todos los derechos reservados.',
     }
@@ -184,27 +178,8 @@
   // ── Sub-links — filled after projects.js loads ──
   const subLinks = '';
 
-  const catSVG = `<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;width:64px;height:64px;">
-    <rect x="2" y="1" width="2" height="2" class="cat-body"/>
-    <rect x="12" y="1" width="2" height="2" class="cat-body"/>
-    <rect x="3" y="2" width="1" height="1" class="cat-ear-inner"/>
-    <rect x="12" y="2" width="1" height="1" class="cat-ear-inner"/>
-    <rect x="2" y="3" width="12" height="7" class="cat-body"/>
-    <rect x="4" y="5" width="2" height="2" class="cat-eye"/>
-    <rect x="10" y="5" width="2" height="2" class="cat-eye"/>
-    <rect x="7" y="7" width="2" height="1" class="cat-nose"/>
-    <rect x="6" y="8" width="1" height="1" class="cat-body"/>
-    <rect x="9" y="8" width="1" height="1" class="cat-body"/>
-    <rect x="3" y="10" width="10" height="5" class="cat-body"/>
-    <rect x="3" y="14" width="2" height="2" class="cat-body"/>
-    <rect x="7" y="14" width="2" height="2" class="cat-body"/>
-    <rect x="11" y="14" width="2" height="2" class="cat-body"/>
-    <rect x="13" y="10" width="2" height="1" class="cat-body"/>
-    <rect x="14" y="11" width="2" height="2" class="cat-body"/>
-    <rect x="13" y="13" width="2" height="1" class="cat-body"/>
-    <rect x="4" y="10" width="8" height="1" class="cat-collar"/>
-    <rect x="7" y="11" width="2" height="1" class="cat-collar"/>
-  </svg>`;
+  const logoLight = `<img class="sidebar-logo sidebar-logo-light" src="${prefix}assets/logos/light.png" alt="Logo">`;
+  const logoDark = `<img class="sidebar-logo sidebar-logo-dark" src="${prefix}assets/logos/dark.png" alt="Logo">`;
 
   const workActive    = inWorks || isProjects;
 
@@ -212,7 +187,7 @@
   const sectionHref = (anchor) => isIndex ? `#${anchor}` : `${prefix}index.html#${anchor}`;
 
   const html = `<aside class="sidebar" id="sidebar">
-  <div class="sidebar-cat">${catSVG}</div>
+  <div class="sidebar-logo-container">${logoLight}${logoDark}</div>
   <nav class="sidebar-nav">
     <a href="${sectionHref('hero')}" data-s="hero" data-i18n="nav.home">Home</a>
     <div class="sidebar-work-item">
@@ -250,12 +225,6 @@
   style.textContent = `
     html, body { overflow-x: hidden; }
 
-    .cat-body       { fill: var(--text); }
-    .cat-ear-inner  { fill: var(--bg); }
-    .cat-eye        { fill: var(--bg); }
-    .cat-nose       { fill: var(--amber); }
-    .cat-collar     { fill: var(--amber); opacity: 0.7; }
-
     .sidebar {
       position: fixed;
       top: 0; left: 0;
@@ -266,15 +235,33 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 28px 22px 44px;
+      padding: 0;
       overflow-y: auto;
     }
 
-    .sidebar-cat svg { transition: opacity 0.3s; }
-    .sidebar-cat svg:hover { opacity: 0.75; }
+    .sidebar-logo-container {
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .sidebar-logo {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.3s;
+    }
+
+    .sidebar-logo:hover { opacity: 0.75; }
+
+    /* Show/hide based on theme */
+    [data-theme="light"] .sidebar-logo-dark { display: none; }
+    [data-theme="light"] .sidebar-logo-light { display: block; }
+
+    [data-theme="dark"] .sidebar-logo-light { display: none; }
+    [data-theme="dark"] .sidebar-logo-dark { display: block; }
 
     .sidebar-nav {
-      margin-top: 66px;
+      margin-top: 44px;
       position: static !important;
       inset: auto !important;
       width: auto !important;
@@ -283,7 +270,7 @@
       align-items: flex-start !important;
       justify-content: flex-start !important;
       gap: 14px;
-      padding: 0 !important;
+      padding: 0 22px 44px 22px !important;
       background: transparent !important;
       z-index: auto !important;
     }

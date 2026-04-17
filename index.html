@@ -448,101 +448,196 @@
     }
 
     /* ── ABOUT ── */
-    .about-layout {
-      display: flex; gap: 44px; align-items: flex-start;
+    .about-row {
+      display: flex; gap: 40px; align-items: flex-start; width: 100%;
+    }
+    .about-row-2 { padding-top: 88px; }
+
+    /* Row containers — manage text and visual together */
+    .about-row-1-container,
+    .about-row-2-container {
+      display: flex; gap: 40px; width: 100%;
     }
 
-    .about-left  { flex: 1 0 0; min-width: 0; }
-    .about-right { flex: 0 0 65%; min-width: 0; display: flex; flex-direction: column; gap: 21px; }
+    .about-row-1-container {
+      align-items: stretch;
+    }
 
-    /* Stacked illustration area */
-    .about-illustration {
+    .about-row-2-container {
+      align-items: stretch;
+      padding-top: 88px;
+    }
+
+    /* Row 1 text: full width of parent, left-aligned */
+    .about-row-1-container .about-col-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .about-row-2-container .about-col-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .about-col-text {
+      flex: 1 0 0; min-width: 0;
+      display: flex; flex-direction: column; gap: 24px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Visual column — row 1: composited image | row 2: absolute-positioned polaroids */
+    .about-col-visual {
+      flex: 1 0 0; min-width: 0;
       position: relative;
-      height: 540px;
-      padding-top: 33px;
     }
 
-    /* Photo polaroid — BACK layer */
-    .about-photo {
-      position: absolute; top: 26px; left: 60px;
-      width: 240px;
-      transform: rotate(3.63deg);
-      background: #ffffff;
-      padding: 11px;
-      box-shadow: none;
-      z-index: 1;
-    }
-    .about-photo img { display: block; width: 100%; height: auto; }
-
-    /* Card base */
-    .about-illus-card { position: absolute; padding: 16px; }
-
-    /* Design Stack — MIDDLE layer */
-    .about-illus-main {
-      top: 255px; left: 14px; width: 240px;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      transform: rotate(-4.87deg);
-      z-index: 2;
+    /* Row 1 & 2: same aspect-ratio 176×246 (50% of original, no quality loss) */
+    .about-col-visual-row1,
+    .about-col-visual-row2 {
+      aspect-ratio: 176 / 246;
+      height: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: transparent;
     }
 
-    /* Sectors — FRONT layer */
-    .about-illus-secondary {
-      top: 325px; left: 180px; width: 200px;
-      background: var(--bg-inv);
-      border: 1px solid var(--border-inv-strong);
-      transform: rotate(-2.37deg);
-      z-index: 3;
+    /* Rows 1 & 2: scale to 440px min, 560px max (maintains proportion) */
+    .about-col-visual-row1,
+    .about-col-visual-row2 {
+      width: 100%;
+      max-width: 560px;
+      min-width: 440px;
     }
 
-    /* Sectors card: white in light mode */
-    html[data-theme="light"] .about-illus-secondary {
-      background: #ffffff;
-      border-color: #e6e6e6;
+    /* ── TABLET (769–1024px): tighter constraints ── */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .about-row-1-container,
+      .about-row-2-container {
+        gap: 32px;
+      }
+
+      .about-col-visual-row1,
+      .about-col-visual-row2 {
+        max-width: 480px;
+        min-width: 380px;
+      }
+
+      .about-col-text {
+        max-width: 550px;
+      }
+
+      .about-row-2-container .about-col-text {
+        max-width: 550px;
+      }
+
+      .about-heading {
+        font-size: clamp(38px, 5vw, 55px);
+      }
     }
 
-    .illus-label {
-      font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
-      color: var(--amber); margin-bottom:10px; padding-bottom:6px;
-      border-bottom:1px solid var(--border-inv-strong);
+    .about-col-visual-row1 img,
+    .about-col-visual-row2 img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
-    .illus-label-dark {
-      font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
-      color: var(--muted); margin-bottom:10px; padding-bottom:6px;
-      border-bottom:1px solid var(--border);
+    /* Row 2 visual: center vertically with text */
+    .about-row-2 .about-col-visual-row2 {
+      align-items: center;
     }
-
-    /* Sectors rows: always dark text on cream bg */
-    .illus-row {
-      display:flex; justify-content:space-between; font-size:13px;
-      padding:4px 0; border-bottom:1px solid var(--border-inv-subtle);
-      color: var(--text-inv);
-    }
-    .illus-row:last-child { border-bottom:none; }
-
-    /* Design Stack rows: muted on dark bg */
-    .illus-row-dark {
-      display:flex; justify-content:space-between; font-size:13px;
-      padding:4px 0; border-bottom:1px solid var(--border); color:var(--muted);
-    }
-    .illus-row-dark:last-child { border-bottom:none; }
-    .illus-val { color:var(--amber); }
 
     .about-heading {
       font-size: clamp(44px,4.7vw,59px); letter-spacing:-0.02em; line-height:0.95;
       font-weight:normal; text-transform:uppercase; color:var(--text);
-      padding-bottom: 44px;
+      padding-bottom: 40px;
     }
 
     .about-body { font-size:17px; color:var(--muted); line-height:1.85; letter-spacing:0.03em; display:flex; flex-direction:column; gap:16px; }
 
-    .about-tags { display:flex; flex-wrap:wrap; gap:8px; }
-
-    .about-tag {
-      font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
-      color:var(--muted); border:1px solid var(--border); padding:4px 10px;
+    /* ── POLAROID (row 1 main) ── */
+    .about-polaroid {
+      position: absolute;
+      left: 50%; top: -26px;             /* Figma: top -25.97px */
+      transform: translateX(-50%) rotate(2.92deg);
+      width: 44%;                        /* 290px / 660px ref col */
+      background: #fff;
+      padding: 8px 8px 64px 8px;        /* Figma fixed px values */
+      box-shadow: -12px 12px 14px rgba(232,230,222,0.05);
+      z-index: 1;
     }
+    .about-polaroid img {
+      display:block; width:100%;
+      aspect-ratio: 274 / 334;           /* 274 inner / 334 inner-height */
+      object-fit: cover; object-position: top center;
+    }
+
+    /* ── STICKY NOTES: inline SVG wrappers (pixel-perfect from Figma) ── */
+    .about-sticky {
+      position: absolute;
+    }
+    .about-sticky img { display:block; width:100%; height:auto; }
+
+    /* Blue sticky M — left of center, pinned to bottom */
+    .about-sticky-blue {
+      left: 4%;
+      top: auto;
+      bottom: 71px;
+      width: 36%;
+      z-index: 2;
+    }
+
+    /* Peach sticky S — right of center, pinned to bottom */
+    .about-sticky-peach {
+      left: 46%;
+      top: auto;
+      bottom: 32px;
+      width: 31%;
+      z-index: 3;
+    }
+
+    /* ── ROW 2: 3 stacked polaroids — Figma: 227×317px each ── */
+    .about-pol {
+      position: absolute;
+      background: #fff;
+      padding: 7px 7px 55px 7px;        /* Figma: pt 6.843 / pb 54.743 */
+      box-shadow: -10px 10px 12px rgba(232,230,222,0.05);
+    }
+    .about-pol img {
+      display: block; width: 100%;
+      aspect-ratio: 213 / 255;          /* inner dims from Figma */
+      object-fit: cover;
+    }
+    /* left/top = top-left corner derived from Figma center coords at ~660px ref col */
+    .about-pol-1 {
+      width: 34%; left: 30%; top: -27px;
+      transform: rotate(2.92deg); z-index: 1;
+    }
+    .about-pol-1 img { object-position: 55% 5%; }
+
+    .about-pol-2 {
+      width: 34%; left: 43%; top: 87px;
+      transform: rotate(5.46deg); z-index: 2;
+    }
+    .about-pol-2 img { object-position: 45% 18%; }
+
+    .about-pol-3 {
+      width: 34%; left: 24%; top: 212px;
+      transform: rotate(-15.45deg); z-index: 3;
+    }
+    .about-pol-3 img { object-position: 50% 30%; }
 
     /* ── EXPERIENCE ── */
     .exp-item {
@@ -575,47 +670,28 @@
     .svc-desc { font-size:17px; color:var(--muted); line-height:1.75; letter-spacing:0.03em; padding-top:6px; }
 
     /* ── CONTACT ── */
-    .contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:88px; align-items:start; }
+    .contact-layout { display:flex; gap:88px; align-items:flex-start; }
 
     .contact-headline {
       font-size:clamp(59px,8vw,117px); line-height:0.9; letter-spacing:-0.03em;
-      text-transform:uppercase; font-weight:normal; color:var(--text); margin-bottom:28px;
+      text-transform:uppercase; font-weight:normal; color:var(--text);
     }
 
     .contact-headline .am { color:var(--amber); }
 
-    .contact-sub { font-size:17px; color:var(--muted); line-height:1.82; max-width:420px; margin-bottom:33px; letter-spacing:0.03em; }
-
-    .contact-link {
-      display:flex; align-items:center; gap:8px; font-size:21px; color:var(--text);
-      padding:12px 0; border-bottom:1px solid var(--border); letter-spacing:-0.01em;
+    .contact-right {
+      display:flex; flex-direction:column; gap:40px;
+      align-items:flex-start; width:455px; flex-shrink:0;
     }
 
-    @media (hover: hover) and (pointer: fine) {
-      .contact-link:hover { color:var(--amber); }
+    /* ── STICKY NOTE XL ── */
+    .contact-sticky-img {
+      display:block; width:100%; height:auto;
     }
 
-    .contact-right { padding-top:110px; }
+    .contact-left { flex:1; min-width:0; }
 
-    .contact-float-card {
-      background: var(--bg-inv); color: var(--text-inv);
-      padding:20px; transform:rotate(1deg); margin-bottom:22px;
-    }
-
-    .contact-card-label {
-      font-size:12px; color:var(--amber); letter-spacing:0.12em; text-transform:uppercase;
-      margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid var(--border-inv-strong);
-    }
-
-    .contact-card-row {
-      display:flex; justify-content:space-between; font-size:15px;
-      padding:5px 0; border-bottom:1px solid var(--border-inv-subtle);
-      color: var(--text-inv);
-    }
-
-    .contact-card-row:last-child { border-bottom:none; }
-    .ccv { opacity:0.5; }
-    .cca { color:var(--amber); }
+    .contact-links { width:100%; }
 
     .social-link {
       display:flex; justify-content:space-between; align-items:center;
@@ -698,14 +774,43 @@
 
       .view-all { margin: 0 -22px; padding-right: 22px; }
 
-      .about-layout { flex-direction: column; }
-      .about-left { width: 100%; }
-      .about-right { flex: none; width: 100%; max-width: none; }
-      .about-illustration { height: 400px; padding-top: 22px; }
-      .about-photo { width: 170px; left: 50px; top: 16px; }
-      .about-illus-main  { top: 200px; left: 20px; }
-      .about-illus-secondary { top: 258px; left: 130px; }
+      .about-row { flex-direction: column; }
+      .about-row-1-container { flex-direction: column; align-items: center; gap: 28px; }
+      .about-row-2-container { flex-direction: column-reverse; align-items: center; gap: 28px; padding-top: 44px; }
+
+      /* Mobile text sizing */
+      .about-col-text {
+        max-width: 100%;
+        width: 100%;
+      }
+
       .about-heading { font-size: clamp(36px, 10vw, 55px); }
+
+      /* aspect-ratio collapses to 0 when all children are position:absolute.
+         Use explicit height (380px for 280-320px wide mobile at 176:246 ratio)
+         + overflow:hidden so stickies never bleed into content below */
+      .about-col-visual {
+        flex: none;
+        aspect-ratio: unset;
+        height: 380px;
+        width: 100%;
+        max-width: 320px;
+        overflow: visible;
+      }
+      /* Row 1 & 2: maintain responsive sizing on mobile */
+      .about-col-visual-row1,
+      .about-col-visual-row2 {
+        max-width: 100%;
+        min-width: unset;
+        width: 100%;
+        max-width: 320px;
+        height: 380px;
+      }
+      /* Stickies slightly smaller than desktop but readable — fit within 380px */
+      .about-sticky-blue  { width: 50%; }
+      .about-sticky-peach { width: 42%; }
+      /* Row 2 polaroids scaled down so they don't overflow the container */
+      .about-pol-1, .about-pol-2, .about-pol-3 { width: 46%; }
 
       .exp-item { grid-template-columns: 1fr 1fr; }
       .exp-yr { text-align: left; }
@@ -716,8 +821,8 @@
       .svc-num { font-size: 40px; }
       .svc-title { font-size: 22px; }
 
-      .contact-layout { grid-template-columns: 1fr; gap: 44px; }
-      .contact-right { padding-top: 0; }
+      .contact-layout { flex-direction: column; gap: 44px; }
+      .contact-right { width: 100%; }
       .contact-headline { font-size: clamp(44px, 12vw, 80px); }
 
       .footer-logo-bar { padding: 22px; }
@@ -784,7 +889,7 @@
 
   <!-- Info: sub + CTAs -->
   <div class="hero-info">
-    <p class="hero-sub" data-i18n="hero.sub">Product designer collaborating with teams to create digital products that solve real problems. 4 years across fintech, Web3, AI, healthcare, e-commerce.</p>
+    <p class="hero-sub" data-i18n="hero.sub">Creative product designer (and occasional developer) collaborating with teams to build digital products that solve real problems.</p>
     <div class="hero-ctas">
       <a class="hero-cta" href="#work" data-i18n-html="hero.cta.work"><span class="arr">→</span> View Work</a>
       <a class="hero-cta" href="#contact" data-i18n-html="hero.cta.contact"><span class="arr">→</span> Get in Touch</a>
@@ -985,54 +1090,39 @@
 <!-- ABOUT -->
 <section class="section" id="about" data-theme="dark">
   <div class="section-eyebrow" data-i18n="about.eyebrow">About</div>
-  <div class="about-layout">
 
-    <!-- LEFT: text -->
-    <div class="about-right">
+  <!-- ROW 1: text left / visual right -->
+  <div class="about-row-1-container">
+
+    <!-- Text -->
+    <div class="about-col-text">
       <h2 class="about-heading" data-i18n="about.heading">Who I am</h2>
       <div class="about-body">
-        <p data-i18n="about.p1">I'm a Product Designer with 4 years of experience across healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an uncommon background — gastronomy — which gave me a unique foundation in discipline, process, and working well under pressure.</p>
-        <p data-i18n="about.p2">I specialize in research, wireframes, high-fidelity prototypes, animations, and design systems. I enjoy collaborating from client briefs to final delivery, turning ideas into real products.</p>
-      </div>
-      <div class="about-tags">
-        <span class="about-tag" data-i18n="about.tag.research">Research</span>
-        <span class="about-tag" data-i18n="about.tag.wireframes">Wireframes</span>
-        <span class="about-tag" data-i18n="about.tag.prototyping">Prototyping</span>
-        <span class="about-tag" data-i18n="about.tag.ds">Design Systems</span>
-        <span class="about-tag" data-i18n="about.tag.animation">Animation</span>
-        <span class="about-tag" data-i18n="about.tag.art">Art Direction</span>
+        <p data-i18n="about.p1">I'm a Product Designer with 6 years of experience in healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an unusual background—gastronomy—which gave me a unique foundation in discipline, process, and performing well under pressure.</p>
+        <p data-i18n="about.p2">I also have experience as a UX/UI design and prototyping instructor, which helped me develop teaching skills and teamwork abilities.</p>
       </div>
     </div>
 
-    <!-- RIGHT: stacked photo + data cards -->
-    <div class="about-left">
-      <div class="about-illustration">
+    <!-- Visual: composited image with photo + stickies (en/es switchable) -->
+    <div class="about-col-visual about-col-visual-row1">
+      <img src="assets/about-visuals/en/visual.png" alt="About - Who I Am" />
+    </div>
+  </div>
 
-        <!-- Polaroid photo — back layer -->
-        <div class="about-photo">
-          <img src="assets/alejandro.png" alt="Alejandro Arab" />
-        </div>
+  <!-- ROW 2: visual left / text right -->
+  <div class="about-row-2-container">
 
-        <!-- Design Stack — middle layer -->
-        <div class="about-illus-card about-illus-main">
-          <div class="illus-label-dark">// Design Stack</div>
-          <div class="illus-row-dark"><span>Figma</span><span class="illus-val">Expert</span></div>
-          <div class="illus-row-dark"><span>Framer</span><span class="illus-val">Expert</span></div>
-          <div class="illus-row-dark"><span>Prototyping</span><span class="illus-val">Advanced</span></div>
-          <div class="illus-row-dark"><span>Design Systems</span><span class="illus-val">Advanced</span></div>
-          <div class="illus-row-dark"><span>User Research</span><span class="illus-val">Inter.</span></div>
-        </div>
+    <!-- Visual: composited 3 polaroids (en/es switchable) -->
+    <div class="about-col-visual about-col-visual-row2">
+      <img src="assets/about-visuals/en/row2.png" alt="Beyond the Professional" />
+    </div>
 
-        <!-- Sectors — front layer -->
-        <div class="about-illus-card about-illus-secondary">
-          <div class="illus-label">// Sectors</div>
-          <div class="illus-row"><span>Fintech</span><span>✓</span></div>
-          <div class="illus-row"><span>Web3</span><span>✓</span></div>
-          <div class="illus-row"><span>AI Products</span><span>✓</span></div>
-          <div class="illus-row"><span>Healthcare</span><span>✓</span></div>
-          <div class="illus-row"><span>E-Commerce</span><span>✓</span></div>
-        </div>
-
+    <!-- Text: beyond professional -->
+    <div class="about-col-text">
+      <h2 class="about-heading" data-i18n="about.heading2">beyond the professional...</h2>
+      <div class="about-body">
+        <p data-i18n="about.beyond.p1">I'm a proud cat dad to Roma and Venus. I live with my girlfriend Pia, who is also a designer, and we love traveling while working.</p>
+        <p data-i18n="about.beyond.p2">Besides designing and cooking, I also play bass and synthesizer, love music and going to concerts, and enjoy playing video games.</p>
       </div>
     </div>
 
@@ -1066,20 +1156,15 @@
   <div class="section-eyebrow" data-i18n="contact.eyebrow">Contact</div>
   <div class="contact-layout">
     <div class="contact-left">
-      <h2 class="contact-headline" data-i18n-html="contact.headline">Let's Build<br>Something<br><span class="am">Together.</span></h2>
-      <p class="contact-sub" data-i18n="contact.sub">I'm currently available for new work. Let me know if you need a digital designer — I'd love to talk about the next big thing.</p>
+      <h2 class="contact-headline" data-i18n-html="contact.headline">Let's<br>Build<br>Something<br><span class="am">Together.</span></h2>
     </div>
     <div class="contact-right">
-      <div class="contact-float-card">
-        <div class="contact-card-label" data-i18n="contact.card.label">// Availability</div>
-        <div class="contact-card-row"><span class="ccv" data-i18n="contact.status.k">Status</span><span class="cca" data-i18n="contact.status.v">Open to work ●</span></div>
-        <div class="contact-card-row"><span class="ccv" data-i18n="contact.response.k">Response</span><span data-i18n="contact.response.v">24–48 hrs</span></div>
-        <div class="contact-card-row"><span class="ccv" data-i18n="contact.tz.k">Timezone</span><span data-i18n="contact.tz.v">GMT+0 London</span></div>
-        <div class="contact-card-row"><span class="ccv" data-i18n="contact.pref.k">Preferred</span><span data-i18n="contact.pref.v">Email / LinkedIn</span></div>
+      <img src="assets/sticky-assets/sticky-note-xl.svg" alt="Availability" class="contact-sticky-img" />
+      <div class="contact-links">
+        <a class="social-link" href="https://www.linkedin.com/in/arabalejandro/" target="_blank">LinkedIn <span class="social-ext">↗</span></a>
+        <a class="social-link" href="https://www.instagram.com/arabalejandro/" target="_blank">Instagram <span class="social-ext">↗</span></a>
+        <a class="social-link" href="mailto:alejandro@arab.design"><span data-i18n="contact.email">Email me</span> <span class="social-ext">↗</span></a>
       </div>
-      <a class="social-link" href="mailto:alejandro@arab.design"><span data-i18n="contact.email">Send me an email</span> <span class="social-ext">↗</span></a>
-      <a class="social-link" href="https://www.linkedin.com/in/arabalejandro/" target="_blank">LinkedIn <span class="social-ext">↗</span></a>
-      <a class="social-link" href="https://www.instagram.com/arabalejandro/" target="_blank">Instagram <span class="social-ext">↗</span></a>
     </div>
   </div>
 </section>
