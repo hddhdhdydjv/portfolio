@@ -468,6 +468,13 @@
       z-index: 1;
     }
 
+    /* ── TOP NAV — all screens ── */
+    #topNav {
+      background: transparent;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
     /* ── UNIVERSAL NAV — tablet & mobile ── */
     @media (max-width: 1024px) {
       nav, #topNav {
@@ -475,7 +482,6 @@
         padding: 18px 22px !important;
         justify-content: flex-start !important;
         gap: 14px !important;
-        background: var(--bg) !important;
       }
       nav .nav-logo,
       #topNav .nav-logo,
@@ -530,6 +536,27 @@
       transition: color 0.15s;
     }
     .nav-theme-btn:hover { color: var(--text); }
+
+    /* ── NAV ADAPTIVE CONTRAST ── */
+    #topNav .nav-logo,
+    #topNav .nav-lang-opt,
+    #topNav .nav-lang-sep,
+    #topNav .nav-theme-btn,
+    nav:not(.sidebar-nav) .nav-logo,
+    nav:not(.sidebar-nav) .nav-lang-opt,
+    nav:not(.sidebar-nav) .nav-lang-sep,
+    nav:not(.sidebar-nav) .nav-theme-btn {
+      transition: color 700ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    /* Over light bg: force dark text regardless of theme */
+    .nav-on-light .nav-logo,
+    .nav-on-light .nav-lang-opt,
+    .nav-on-light .nav-lang-sep,
+    .nav-on-light .nav-theme-btn {
+      color: #1a1a14 !important;
+    }
+    /* Keep amber active state readable on both surfaces */
+    .nav-on-light .nav-lang-opt.active { color: var(--amber) !important; }
 
   `;
   document.head.appendChild(style);
@@ -671,11 +698,67 @@
     });
   }
 
+  // ── NAV ADAPTIVE CONTRAST ──
+  function setupNavContrast() {
+    const nav = document.getElementById('topNav') || document.querySelector('nav:not(.sidebar-nav)');
+    if (!nav) return;
+
+    function getEffectiveLum(startEl) {
+      let el = startEl;
+      while (el && el !== document.documentElement) {
+        const nt = el.dataset && el.dataset.navTheme;
+        if (nt === 'light') return 1;
+        if (nt === 'dark') return 0;
+        const bg = window.getComputedStyle(el).backgroundColor;
+        const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*([\d.]*)\)/);
+        if (m) {
+          const alpha = m[4] !== undefined && m[4] !== '' ? +m[4] : 1;
+          if (alpha > 0.05) {
+            return (0.299 * +m[1] + 0.587 * +m[2] + 0.114 * +m[3]) / 255;
+          }
+        }
+        el = el.parentElement;
+      }
+      return 0; // default: assume dark
+    }
+
+    let ticking = false;
+    function update() {
+      const y = nav.offsetHeight + 4;
+      const xs = [0.25, 0.5, 0.75].map(r => window.innerWidth * r);
+      const lums = xs.map(x => {
+        const els = document.elementsFromPoint(x, y);
+        const el = els.find(e => e && !nav.contains(e) && e !== nav && e !== document.body && e !== document.documentElement);
+        return el ? getEffectiveLum(el) : 0;
+      });
+      const avg = lums.reduce((a, b) => a + b, 0) / lums.length;
+      nav.classList.toggle('nav-on-light', avg > 0.4);
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+
+    // Re-run when theme switches (watches data-theme attribute)
+    new MutationObserver(() => setTimeout(update, 50)).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ['data-theme'] }
+    );
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(update, 50));
+    } else {
+      setTimeout(update, 50);
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { setupHamburger(); setupNavControls(); });
+    document.addEventListener('DOMContentLoaded', () => { setupHamburger(); setupNavControls(); setupNavContrast(); });
   } else {
     setupHamburger();
     setupNavControls();
+    setupNavContrast();
   }
 
   // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──
