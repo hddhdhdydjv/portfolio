@@ -50,7 +50,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 200;
-      padding: 18px 44px;
+      padding: 18px 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -99,7 +99,7 @@
     #hero {
       min-height: 100vh;
       position: relative;
-      padding: 120px 44px 66px 44px;
+      padding: 120px 48px 66px 48px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -198,7 +198,7 @@
     .hero-notepad {
       position: absolute;
       left: 560px;
-      right: -44px;
+      right: -48px;
       top: 450px;
       bottom: -66px;
       z-index: 1;  /* detrás del título (.hero-title tiene z-index:2) */
@@ -218,12 +218,12 @@
 
     /* Tablet (769–1024px) — no sidebar, hamburger, in-flow notepad */
     @media (min-width: 769px) and (max-width: 1024px) {
-      #hero { padding: 100px 44px 0; }
+      #hero { padding: 100px 48px 0; }
       .hero-title-word { font-size: clamp(55px, 9vw, 100px); }
       .hero-title-line2 { font-size: clamp(55px, 9vw, 100px); }
 
       .hero-info {
-        margin-top: 44px;
+        margin-top: 48px;
         padding-left: 0;
         max-width: 65%;
         gap: 18px;
@@ -235,7 +235,7 @@
         left: auto; right: auto; top: auto; bottom: auto;
         margin-top: 28px;
         margin-left: 18%;
-        margin-right: -44px;
+        margin-right: -48px;
         width: auto;
         flex: 1;
         min-height: 0;
@@ -257,8 +257,8 @@
     /* Mobile (≤768px) */
     @media (max-width: 768px) {
       #hero { padding: 100px 22px 0; }
-      .hero-title-word { font-size: clamp(44px, 12vw, 72px); }
-      .hero-title-line2 { font-size: clamp(44px, 12vw, 72px); }
+      .hero-title-word { font-size: clamp(48px, 12vw, 72px); }
+      .hero-title-line2 { font-size: clamp(48px, 12vw, 72px); }
       .hero-info {
         margin-top: 33px;
         padding-left: 0;
@@ -295,11 +295,11 @@
     .hero-divider { border-top: 1px solid var(--border); }
 
     /* ── SECTIONS ── */
-    .section { padding: 88px 44px; }
+    .section { padding: 88px 48px; }
     .section-inner { max-width: 1200px; }
 
     /* Work section */
-    #work { padding: 88px 44px; }
+    #work { padding: 88px 48px; }
 
     .section-eyebrow {
       font-size: 15px; color: var(--amber);
@@ -311,7 +311,7 @@
     .section-eyebrow::before { content: attr(data-num); color: var(--muted); }
 
     .section-title {
-      font-size: clamp(44px, 5.3vw, 73px);
+      font-size: clamp(48px, 5.3vw, 73px);
       letter-spacing: -0.02em; line-height: 0.95;
       font-weight: normal; text-transform: uppercase;
       color: var(--text); margin-bottom: 55px;
@@ -320,14 +320,14 @@
     /* ── WORK ── */
     .work-header {
       display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 44px;
+      margin-bottom: 48px;
     }
 
     .work-count { font-size: 15px; color: var(--muted); letter-spacing: 0.08em; }
 
     /* ── PROJECT LIST — full bleed ── */
     .project-list {
-      margin: 0 -44px;
+      margin: 0 -48px;
     }
 
     /* ── PROJECT ROWS ── */
@@ -344,7 +344,7 @@
     /* Left: image column */
     .proj-img-col {
       min-width: 0;
-      padding: 28px 28px 28px 44px;
+      padding: 28px 28px 28px 48px;
       display: flex; align-items: center;
     }
 
@@ -360,7 +360,7 @@
     .proj-img-col::after {
       content: '';
       position: absolute;
-      inset: 28px 28px 28px 44px;
+      inset: 28px 28px 28px 48px;
       border-radius: 2px;
       background: var(--bg);
       opacity: 0.07;
@@ -382,7 +382,7 @@
     /* Right: text column */
     .proj-text-col {
       min-width: 0;
-      padding: 36px 44px 36px 36px;
+      padding: 36px 48px 36px 36px;
       border-left: 1px solid var(--border);
       display: flex; flex-direction: column; gap: 14px;
       justify-content: center;
@@ -440,7 +440,7 @@
       display: flex; justify-content: flex-end; padding-top: 22px;
       font-size: 15px; color: var(--muted); letter-spacing: 0.1em;
       text-transform: uppercase; cursor: pointer;
-      margin: 0 -44px; padding-right: 44px;
+      margin: 0 -48px; padding-right: 48px;
     }
 
     @media (hover: hover) and (pointer: fine) {
@@ -560,7 +560,7 @@
     }
 
     .about-heading {
-      font-size: clamp(44px,4.7vw,59px); letter-spacing:-0.02em; line-height:0.95;
+      font-size: clamp(48px,4.7vw,59px); letter-spacing:-0.02em; line-height:0.95;
       font-weight:normal; text-transform:uppercase; color:var(--text);
       padding-bottom: 40px;
     }
@@ -706,7 +706,7 @@
 
     /* ── FOOTER ── */
     .footer-logo-bar {
-      border-top:1px solid var(--border); padding:33px 44px;
+      border-top:1px solid var(--border); padding:33px 48px;
       display:flex; align-items:baseline; gap:11px;
     }
 
@@ -718,7 +718,7 @@
     .footer-reg { font-size:29px; color:var(--muted); }
 
     .footer-bar {
-      border-top:1px solid var(--border); padding:14px 44px;
+      border-top:1px solid var(--border); padding:14px 48px;
       display:flex; justify-content:space-between; align-items:center;
     }
 
@@ -776,7 +776,7 @@
 
       .about-row { flex-direction: column; }
       .about-row-1-container { flex-direction: column; align-items: center; gap: 28px; }
-      .about-row-2-container { flex-direction: column-reverse; align-items: center; gap: 28px; padding-top: 44px; }
+      .about-row-2-container { flex-direction: column-reverse; align-items: center; gap: 28px; padding-top: 48px; }
 
       /* Mobile text sizing */
       .about-col-text {
@@ -816,17 +816,17 @@
       .exp-yr { text-align: left; }
       .exp-co { font-size: 22px; }
 
-      .svc-item { grid-template-columns: 44px 1fr; }
+      .svc-item { grid-template-columns: 48px 1fr; }
       .svc-desc { display: none; }
       .svc-num { font-size: 40px; }
       .svc-title { font-size: 22px; }
 
-      .contact-layout { flex-direction: column; gap: 44px; }
+      .contact-layout { flex-direction: column; gap: 48px; }
       .contact-right { width: 100%; }
-      .contact-headline { font-size: clamp(44px, 12vw, 80px); }
+      .contact-headline { font-size: clamp(48px, 12vw, 80px); }
 
       .footer-logo-bar { padding: 22px; }
-      .footer-logotype { font-size: clamp(44px, 12vw, 80px); }
+      .footer-logotype { font-size: clamp(48px, 12vw, 80px); }
       .footer-bar { padding: 14px 22px; flex-direction: column; gap: 8px; text-align: center; }
       .footer-links { justify-content: center; }
 

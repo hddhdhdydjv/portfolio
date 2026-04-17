@@ -85,3 +85,29 @@ Las claves de traducción están en `translate.js`. Atributos: `data-i18n="key"`
 - No re-leer archivos que ya están en contexto
 - Verificar con una sola ronda de JS measurements, no múltiples screenshots
 - Servidor ya corriendo → no reiniciar a menos que sea necesario
+
+## Sistema de espaciado
+- **Todos los espaciados son múltiplos de 8px** (8, 16, 24, 32, 48, 56, 64, 88, 184, 208, etc.)
+- Base unit desktop para padding seccional: **48px** (antes era 44, migrado)
+- Mobile padding seccional: **16px** (texto e imágenes)
+- Gap estándar sidebar↔hoja al abrir: **24px**
+
+## Breakpoints responsive
+| Breakpoint | Rango | Comportamiento |
+|---|---|---|
+| Desktop | >1024px | Layout completo con ambas columnas perforadas |
+| Tablet | 769–1024px | `.notebook-paper { margin: 24px 24px 0 24px }` — ambas columnas visibles |
+| Mobile | ≤768px | `.notebook-paper { margin: 24px 0 0 0 }` — col izq pegada al borde, col der oculta |
+
+## Layout mobile del notebook (works/*.html)
+- `.notebook-paper` mobile: `margin: 24px 0 0 0` — pegada al borde izq, hoja sobresale por la derecha (overflow hidden)
+- `.notebook-col--right { display: none }` en mobile — solo la col izq con agujeros visible
+- Al abrir sidebar (`body.sidebar-push`): `.notebook-paper { margin-left: 24px }` + el `translateX(260px)` del body → hoja queda a 24px del borde derecho del sidebar
+- Transition: `margin-left 0.35s cubic-bezier(0.16,1,0.3,1)` coincide con el del sidebar
+- `.notebook-inner .project-hero { padding-top: 184px }` en ≤1024px (espacio entre nav y [num/total])
+- `.notebook-inner { padding-left: 66px }` — conserva espacio para la columna perforada izq
+
+## Archivos /works/ HTML
+- 10 proyectos reales: brikka, carla, fan-raise, kordiis, off-the-grid, rockmap, thinknube-ai, tickit, tickit-clubes, whasi
+- `project.html` es plantilla genérica (sin notebook)
+- `hasi.html` está vacío (0 bytes)
