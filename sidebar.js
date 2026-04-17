@@ -470,9 +470,7 @@
 
     /* ── TOP NAV — all screens ── */
     #topNav {
-      background: transparent;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: var(--bg);
     }
 
     /* ── UNIVERSAL NAV — tablet & mobile ── */
