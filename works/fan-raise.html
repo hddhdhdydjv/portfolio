@@ -183,9 +183,9 @@
     .editorial-label .lbl  { color: var(--amber); }
 
     .editorial-text-intro {
-      font-size: 21px;
-      color: var(--text);
-      line-height: 1.7;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.9;
       letter-spacing: 0.02em;
     }
 
@@ -396,12 +396,18 @@
       }
       body.sidebar-push .notebook-paper { margin-left: 24px; }
       .notebook-inner { padding-left: 66px; padding-right: 0; }
-      .notebook-inner .project-hero { padding-top: 184px; }
+      .notebook-inner .project-hero { padding-top: 184px; padding-left: 16px; padding-right: 16px; }
+      .notebook-inner .editorial-single { padding-left: 16px; padding-right: 16px; }
+      .notebook-inner .editorial-col { padding-left: 16px; padding-right: 16px; }
+      .notebook-inner .deliverables { padding-left: 16px; padding-right: 16px; }
+      .editorial-two-col { grid-template-columns: 1fr; }
+      .editorial-col--empty { display: none; }
     }
 
-    /* ── TABLET: hoja completa con 24px margen ambos lados ── */
+    /* ── TABLET: hoja pegada al borde der, col izq visible, col der oculta ── */
     @media (min-width: 769px) and (max-width: 1024px) {
-      .notebook-paper { margin: 24px 24px 0 24px; }
+      .notebook-paper { margin: 88px 0 0 24px; }
+      .notebook-col--right { display: none; }
     }
 
     /* ── NOT FOUND ── */
@@ -414,16 +420,10 @@
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
-      .notebook-paper { margin: 24px 0 0 0; }
+      .notebook-paper { margin: 88px 0 0 -33px; }
       .notebook-col--right { display: none; }
-      .project-hero { padding: 184px 16px 48px; }
       .meta-row { flex-wrap: wrap; }
       .meta-cell { flex: 1 1 45%; }
-      .editorial-single { padding: 48px 16px; }
-      .editorial-two-col { grid-template-columns: 1fr; }
-      .editorial-col--empty { display: none; }
-      .editorial-col { padding: 48px 16px; }
-      .deliverables { padding: 33px 16px; }
       .proj-nav { grid-template-columns: 1fr; }
       .proj-nav-item { padding: 28px 16px; }
       .proj-nav-item:first-child { border-right: none; border-bottom: 1px solid var(--border); }
