@@ -845,17 +845,6 @@
       .section-title { font-size: clamp(28px, 8vw, 40px); }
     }
 
-    /* ── STAGGER — project items animate in on scroll ── */
-    .project-item {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 350ms ease-out, transform 350ms var(--ease-out, cubic-bezier(0.23,1,0.32,1));
-    }
-    .project-item.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* ── PRESS FEEDBACK — project rows ── */
     @media (hover: hover) and (pointer: fine) {
       .project-item:active { transform: scale(0.99) translateY(0); }
@@ -864,7 +853,6 @@
 
     /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
-      .project-item { opacity: 1; transform: none; transition: none; }
       .hero-notepad img { transition: none; }
     }
   </style>
@@ -932,7 +920,7 @@
   </div>
   <div class="project-list" style="display:none">
 
-    <div class="project-item" data-project="Fan Raise">
+    <div class="project-item reveal" data-project="Fan Raise">
       <div class="project-header" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
         <span class="proj-num">01.</span>
         <div class="proj-info"><span class="proj-name">Fan Raise</span><span class="proj-meta">FanRaise · Sports Tech · Fundraising · ~4 months</span></div>
@@ -949,7 +937,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="RockMap">
+    <div class="project-item reveal" data-project="RockMap">
       <div class="project-header" onclick="window.navigateTo('works/rockmap.html')" style="cursor:pointer">
         <span class="proj-num">02.</span>
         <div class="proj-info"><span class="proj-name">RockMap</span><span class="proj-meta">Concept · Mobile Product Design · Music Discovery · 2024</span></div>
@@ -966,7 +954,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Tickit Clubes">
+    <div class="project-item reveal" data-project="Tickit Clubes">
       <div class="project-header" onclick="window.navigateTo('works/tickit-clubes.html')" style="cursor:pointer">
         <span class="proj-num">03.</span>
         <div class="proj-info"><span class="proj-name">Tickit Clubes</span><span class="proj-meta">Tickit · Sports Tech · Digital Membership Platform · 2024–2025</span></div>
@@ -982,7 +970,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Tickit">
+    <div class="project-item reveal" data-project="Tickit">
       <div class="project-header" onclick="window.navigateTo('works/tickit.html')" style="cursor:pointer">
         <span class="proj-num">04.</span>
         <div class="proj-info"><span class="proj-name">Tickit</span><span class="proj-meta">Tickit · Event Ticketing · Fan Engagement · 2024–2025</span></div>
@@ -998,7 +986,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Thinknube.AI">
+    <div class="project-item reveal" data-project="Thinknube.AI">
       <div class="project-header" onclick="window.navigateTo('works/thinknube-ai.html')" style="cursor:pointer">
         <span class="proj-num">05.</span>
         <div class="proj-info"><span class="proj-name">Thinknube.AI</span><span class="proj-meta">Nube Research · AI Product Design · SaaS · ~4 months</span></div>
@@ -1014,7 +1002,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Brikka">
+    <div class="project-item reveal" data-project="Brikka">
       <div class="project-header" onclick="window.navigateTo('works/brikka.html')" style="cursor:pointer">
         <span class="proj-num">06.</span>
         <div class="proj-info"><span class="proj-name">Brikka</span><span class="proj-meta">Real Estate Co. · Web3 · Tokenization · ~3 months</span></div>
@@ -1030,7 +1018,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Car.la">
+    <div class="project-item reveal" data-project="Car.la">
       <div class="project-header" onclick="window.navigateTo('works/carla.html')" style="cursor:pointer">
         <span class="proj-num">07.</span>
         <div class="proj-info"><span class="proj-name">Car.la</span><span class="proj-meta">Car.la · AI Automotive SaaS · Conversational UI · ~3 months</span></div>
@@ -1046,7 +1034,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Kordiis">
+    <div class="project-item reveal" data-project="Kordiis">
       <div class="project-header" onclick="window.navigateTo('works/kordiis.html')" style="cursor:pointer">
         <span class="proj-num">08.</span>
         <div class="proj-info"><span class="proj-name">Kordiis</span><span class="proj-meta">Kordiis · Safety Tech · Mobile App · ~4 months</span></div>
@@ -1062,7 +1050,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Off the Grid">
+    <div class="project-item reveal" data-project="Off the Grid">
       <div class="project-header" onclick="window.navigateTo('works/off-the-grid.html')" style="cursor:pointer">
         <span class="proj-num">09.</span>
         <div class="proj-info"><span class="proj-name">Off the Grid</span><span class="proj-meta">Off the Grid · Travel Tech · Social Network · ~3 months</span></div>
@@ -1078,7 +1066,7 @@
       </div></div>
     </div>
 
-    <div class="project-item" data-project="Whasi">
+    <div class="project-item reveal" data-project="Whasi">
       <div class="project-header" onclick="window.navigateTo('works/whasi.html')" style="cursor:pointer">
         <span class="proj-num">10.</span>
         <div class="proj-info"><span class="proj-name">Whasi</span><span class="proj-meta">Whasi · AI SMB SaaS · Conversational UI · ~4 months</span></div>
@@ -1344,7 +1332,7 @@
       const seeMore  = lang === 'es' ? 'VER MÁS' : 'SEE MORE';
 
       return `
-      <div class="project-item" data-project="${p.title}" onclick="window.navigateTo('works/${p.id}.html')">
+      <div class="project-item reveal" data-project="${p.title}" onclick="window.navigateTo('works/${p.id}.html')">
         <div class="proj-img-col">${imgHtml}</div>
         <div class="proj-text-col">
           <span class="proj-num">${p.num}</span>
@@ -1432,29 +1420,6 @@
     }, { threshold: 0.3 }).observe(sec);
   });
 
-  // ── STAGGER — project items ──
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const projectItems = document.querySelectorAll('.project-item');
-    const staggerObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const items = entry.target.parentElement.querySelectorAll('.project-item:not(.is-visible)');
-          let delay = 0;
-          items.forEach(item => {
-            setTimeout(() => item.classList.add('is-visible'), delay);
-            delay += 55;
-          });
-          staggerObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.05, rootMargin: '-40px' });
-
-    // Observe only the first item to trigger stagger on the whole list
-    if (projectItems.length) staggerObserver.observe(projectItems[0]);
-
-  } else {
-    document.querySelectorAll('.project-item').forEach(el => el.classList.add('is-visible'));
-  }
 </script>
 <script src="transition.js"></script>
 <script src="pixel-reveal.js"></script>
