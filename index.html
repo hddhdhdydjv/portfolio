@@ -654,19 +654,26 @@
     .exp-yr { font-size:15px; color:var(--muted); text-align:right; }
 
     /* ── SERVICES ── */
-    .svc-item {
-      display:grid; grid-template-columns:66px 1fr 1fr;
-      gap:33px; padding:33px 0; border-top:1px solid var(--border); align-items:start;
+    .svc-list {
+      display:grid; grid-template-columns:1fr 1fr;
+      column-gap:40px; row-gap:0;
     }
 
-    .svc-item:last-child { border-bottom:1px solid var(--border); }
+    .svc-item {
+      display:grid; grid-template-columns:74px 1fr;
+      gap:24px; padding:24px 0; border-top:1px solid var(--border); align-items:start;
+    }
+    .svc-item:nth-child(odd)  { grid-column:1; }
+    .svc-item:nth-child(even) { grid-column:2; margin-top:80px; margin-right:-48px; padding-right:48px; }
+
     @media (hover: hover) and (pointer: fine) {
       .svc-item:hover { background: var(--hover-bg); }
     }
 
+    .svc-text { display:flex; flex-direction:column; gap:16px; padding-top:6px; max-width:440px; }
     .svc-num { font-size:59px; color:var(--border); line-height:1; font-weight:normal; }
-    .svc-title { font-size:29px; letter-spacing:-0.01em; font-weight:normal; text-transform:uppercase; padding-top:6px; color:var(--text); }
-    .svc-desc { font-size:17px; color:var(--muted); line-height:1.75; letter-spacing:0.03em; padding-top:6px; }
+    .svc-title { font-size:29px; letter-spacing:-0.01em; font-weight:normal; text-transform:uppercase; color:var(--text); }
+    .svc-desc { font-size:17px; color:var(--muted); line-height:1.85; letter-spacing:0.03em; }
 
     /* ── CONTACT ── */
     .contact-layout { display:flex; gap:88px; align-items:flex-start; }
@@ -783,7 +790,8 @@
         width: 100%;
       }
 
-      .about-heading { font-size: clamp(36px, 10vw, 55px); }
+      .about-heading { font-size: clamp(28px, 8vw, 40px); }
+      .about-body { font-size: 15px; line-height: 1.75; }
 
       /* aspect-ratio collapses to 0 when all children are position:absolute.
          Use explicit height (380px for 280-320px wide mobile at 176:246 ratio)
@@ -811,14 +819,19 @@
       /* Row 2 polaroids scaled down so they don't overflow the container */
       .about-pol-1, .about-pol-2, .about-pol-3 { width: 46%; }
 
-      .exp-item { grid-template-columns: 1fr 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 6px; padding: 16px 0; }
       .exp-yr { text-align: left; }
       .exp-co { font-size: 22px; }
 
+      .svc-list { grid-template-columns: 1fr; column-gap: 0; }
       .svc-item { grid-template-columns: 48px 1fr; }
-      .svc-desc { display: none; }
+      .svc-item:nth-child(odd),
+      .svc-item:nth-child(even) { grid-column: 1; margin-top: 0; margin-right: 0; padding-right: 0; }
+      .svc-item:last-child { border-bottom: 1px solid var(--border); }
+      .svc-text { gap: 12px; }
       .svc-num { font-size: 40px; }
       .svc-title { font-size: 22px; }
+      .svc-desc { font-size: 15px; line-height: 1.7; }
 
       .contact-layout { flex-direction: column; gap: 48px; }
       .contact-right { width: 100%; }
@@ -829,7 +842,7 @@
       .footer-bar { padding: 14px 22px; flex-direction: column; gap: 8px; text-align: center; }
       .footer-links { justify-content: center; }
 
-      .section-title { font-size: clamp(36px, 9vw, 55px); }
+      .section-title { font-size: clamp(28px, 8vw, 40px); }
     }
 
     /* ── STAGGER — project items animate in on scroll ── */
@@ -1132,22 +1145,24 @@
 <section class="section" id="experience" data-theme="dark">
   <div class="section-eyebrow" data-i18n="exp.eyebrow">Experience</div>
   <h2 class="section-title" data-i18n="exp.title">Work History</h2>
-  <div class="exp-item"><span class="exp-co">InfinixSoft</span><span class="exp-role" data-i18n="exp.lead">Design Lead</span><span class="exp-yr">2023 – Now</span></div>
-  <div class="exp-item"><span class="exp-co">Alejandro Arab</span><span class="exp-role" data-i18n="exp.freelance">Freelance Designer</span><span class="exp-yr">2022 – Now</span></div>
-  <div class="exp-item"><span class="exp-co">Traditum</span><span class="exp-role" data-i18n="exp.product">Product Designer</span><span class="exp-yr">2022 – 2023</span></div>
-  <div class="exp-item"><span class="exp-co">Coderhouse</span><span class="exp-role" data-i18n="exp.professor">Professor — UX/UI &amp; Prototyping</span><span class="exp-yr">2021 – 2022</span></div>
+  <div class="exp-item"><span class="exp-co">InfinixSoft</span><span class="exp-role" data-i18n="exp.lead">Design Lead</span><span class="exp-yr" data-i18n="exp.yr1">2023 – Now</span></div>
+  <div class="exp-item"><span class="exp-co">Alejandro Arab</span><span class="exp-role" data-i18n="exp.freelance">Freelance Designer</span><span class="exp-yr" data-i18n="exp.yr2">2022 – Now</span></div>
+  <div class="exp-item"><span class="exp-co">Traditum</span><span class="exp-role" data-i18n="exp.product">Product Designer</span><span class="exp-yr" data-i18n="exp.yr3">2022 – 2023</span></div>
+  <div class="exp-item"><span class="exp-co">Coderhouse</span><span class="exp-role" data-i18n="exp.professor">Professor — UX/UI &amp; Prototyping</span><span class="exp-yr" data-i18n="exp.yr4">2021 – 2022</span></div>
 </section>
 
 <!-- SERVICES -->
 <section class="section" id="services" data-theme="dark">
   <div class="section-eyebrow" data-i18n="svc.eyebrow">Services</div>
   <h2 class="section-title" data-i18n="svc.title">What I Do</h2>
-  <div class="svc-item"><span class="svc-num">01</span><span class="svc-title" data-i18n="svc.1.title">Digital Design</span><p class="svc-desc" data-i18n="svc.1.desc">Crafting visually appealing and user-friendly interfaces that create intuitive and seamless experiences.</p></div>
-  <div class="svc-item"><span class="svc-num">02</span><span class="svc-title" data-i18n="svc.2.title">Framer Expert</span><p class="svc-desc" data-i18n="svc.2.desc">The most efficient platform to implement web solutions and publish websites with one click.</p></div>
-  <div class="svc-item"><span class="svc-num">03</span><span class="svc-title" data-i18n="svc.3.title">Product Strategy</span><p class="svc-desc" data-i18n="svc.3.desc">Defining product vision, strategizing the approach, and setting both short and long-term goals.</p></div>
-  <div class="svc-item"><span class="svc-num">04</span><span class="svc-title" data-i18n="svc.4.title">Art Direction</span><p class="svc-desc" data-i18n="svc.4.desc">Establishing a strong foundation to set the project's tone, providing a clear and organized starting point.</p></div>
-  <div class="svc-item"><span class="svc-num">05</span><span class="svc-title" data-i18n="svc.5.title">Web Design &amp; Dev</span><p class="svc-desc" data-i18n="svc.5.desc">Crafting visually stunning and functionally robust websites with responsive design and custom development.</p></div>
-  <div class="svc-item"><span class="svc-num">06</span><span class="svc-title" data-i18n="svc.6.title">UI/UX Design</span><p class="svc-desc" data-i18n="svc.6.desc">Elevating user experience with interfaces that enhance engagement. Blending creativity with usability.</p></div>
+  <div class="svc-list">
+    <div class="svc-item"><span class="svc-num">01</span><div class="svc-text"><span class="svc-title" data-i18n="svc.1.title">Digital Design</span><p class="svc-desc" data-i18n="svc.1.desc">Crafting visually appealing and user-friendly assets that create intuitive and seamless experiences.</p></div></div>
+    <div class="svc-item"><span class="svc-num">02</span><div class="svc-text"><span class="svc-title" data-i18n="svc.2.title">AI Vibe Design</span><p class="svc-desc" data-i18n="svc.2.desc">I create workflows using AI tools and agents to design, prototype, and develop digital products.</p></div></div>
+    <div class="svc-item"><span class="svc-num">03</span><div class="svc-text"><span class="svc-title" data-i18n="svc.3.title">Product Strategy</span><p class="svc-desc" data-i18n="svc.3.desc">Defining product vision, strategizing the approach, and setting both short and long-term goals.</p></div></div>
+    <div class="svc-item"><span class="svc-num">04</span><div class="svc-text"><span class="svc-title" data-i18n="svc.4.title">UI/UX Design</span><p class="svc-desc" data-i18n="svc.4.desc">Elevating user experience with interfaces that enhance engagement. Blending creativity with usability.</p></div></div>
+    <div class="svc-item"><span class="svc-num">05</span><div class="svc-text"><span class="svc-title" data-i18n="svc.5.title">Web Design &amp; Dev</span><p class="svc-desc" data-i18n="svc.5.desc">Crafting visually stunning and functionally robust websites with responsive design and custom development.</p></div></div>
+    <div class="svc-item"><span class="svc-num">06</span><div class="svc-text"><span class="svc-title" data-i18n="svc.6.title">Art Direction</span><p class="svc-desc" data-i18n="svc.6.desc">Establishing a strong foundation to set the project's tone, providing a clear and organized starting point.</p></div></div>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -1268,6 +1283,10 @@
       });
       cvSheet.addEventListener('mouseleave', hideCursor);
       cvSheet.addEventListener('mousemove', moveCursor);
+      cvSheet.style.cursor = 'pointer';
+      cvSheet.addEventListener('click', () => {
+        window.open('https://drive.google.com/drive/folders/1blY0rOa1xrZxx0CLlY5aw3JAx_gqAHE8?usp=sharing', '_blank', 'noopener');
+      });
     }
 
     // Projects: VIEW PROJECT (delegated — cards rendered dynamically)
