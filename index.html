@@ -1430,6 +1430,31 @@
     }, { threshold: 0.3 }).observe(sec);
   });
 
+  // ── NOTEPAD PARALLAX — desktop only, GPU only ──
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const notepad = document.querySelector('.hero-notepad');
+    if (!notepad) return;
+
+    let rafId = null;
+
+    function onScroll() {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        if (window.innerWidth > 1024) {
+          const p = Math.min(window.scrollY / 320, 1);
+          notepad.style.transform = `translate(${p * 48}px, ${p * 72}px) rotate(${p * 5}deg)`;
+        } else {
+          notepad.style.transform = '';
+        }
+        rafId = null;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  })();
+
 </script>
 <script src="transition.js"></script>
 <script src="pixel-reveal.js"></script>
