@@ -78,7 +78,7 @@
       'contact.pref.v':       'Email / LinkedIn',
       'contact.email':        'Email me',
 
-      'footer.copy': '© 2026 — Alejandro Arab. All rights reserved.',
+      'footer.copy': '© 2026 — Alejandro Arab.',
     },
     es: {
       'nav.home':    'Inicio',
@@ -156,7 +156,7 @@
       'contact.pref.v':       'Email / LinkedIn',
       'contact.email':        'Email',
 
-      'footer.copy': '© 2026 — Alejandro Arab. Todos los derechos reservados.',
+      'footer.copy': '© 2026 — Alejandro Arab.',
     }
   };
 
