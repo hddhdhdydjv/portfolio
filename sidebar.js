@@ -435,6 +435,15 @@
       .sidebar-sub-link.active { color: var(--amber); }
     }
 
+    /* ── NOTEBOOK ENTRANCE — works pages ── */
+    @keyframes notebookIn {
+      from { opacity: 0; transform: translateX(56px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .notebook-paper {
+      animation: notebookIn 600ms cubic-bezier(0.4,0,0.2,1) 80ms both;
+    }
+
     /* ── SCROLL REVEAL — global ── */
     .reveal {
       opacity: 0;
