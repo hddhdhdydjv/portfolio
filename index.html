@@ -99,7 +99,7 @@
       min-height: 100vh;
       position: relative;
       padding: 120px 48px 66px 48px;
-      overflow: hidden;
+      overflow: visible;
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -199,7 +199,8 @@
       color: var(--text); display: flex; align-items: center; gap: 6px;
     }
     @media (hover: hover) and (pointer: fine) {
-      .hero-cta:hover { color: var(--amber); }
+      .hero-cta { transition: color 150ms ease, transform 200ms cubic-bezier(0.4,0,0.2,1); }
+      .hero-cta:hover { color: var(--amber); transform: translateX(4px); }
     }
     .arr { color: var(--amber); }
 
@@ -717,6 +718,8 @@
 
     @media (hover: hover) and (pointer: fine) {
       .social-link:hover { color:var(--amber); }
+      .social-link { transition: color 150ms ease, transform 200ms cubic-bezier(0.4,0,0.2,1); }
+      .social-link:hover { transform: translateX(4px); }
     }
     .social-ext { font-size:13px; color:var(--amber); }
 
