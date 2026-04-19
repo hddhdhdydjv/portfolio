@@ -340,115 +340,80 @@
     .work-count { font-size: 15px; color: var(--muted); letter-spacing: 0.08em; }
 
     /* ── PROJECT LIST — full bleed ── */
+    /* ── PROJECT GRID ── */
     .project-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
       margin: 0 -48px;
     }
 
-    /* ── PROJECT ROWS ── */
     .project-item {
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 63fr 37fr;
-      align-items: stretch;
-      cursor: none;
-    }
-
-    .project-item:last-of-type { border-bottom: 1px solid var(--border); }
-
-    /* Left: image column */
-    .proj-img-col {
-      min-width: 0;
-      padding: 28px 28px 28px 48px;
-      display: flex; align-items: center;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
     }
 
     .proj-img-col {
-      position: relative;
+      overflow: hidden;
     }
     .proj-img-col img {
-      width: 100%;
-      display: block;
-      border-radius: 2px;
+      width: 100%; display: block;
+      aspect-ratio: 16/9; object-fit: cover;
+      transition: transform 500ms cubic-bezier(0.4,0,0.2,1);
     }
-    /* Overlay approach: GPU-composited, no repaint */
-    .proj-img-col::after {
-      content: '';
-      position: absolute;
-      inset: 28px 28px 28px 48px;
-      border-radius: 2px;
-      background: var(--bg);
-      opacity: 0.07;
-      transition: opacity 300ms ease-out;
-      pointer-events: none;
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .project-item:hover .proj-img-col::after { opacity: 0; }
-    }
-
     .proj-img-placeholder {
-      width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
       display: flex; align-items: center; justify-content: center;
       font-size: 13px; color: var(--muted); letter-spacing: 0.08em;
-      border: 1px solid var(--border);
+      background: var(--bg-panel);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .project-item:hover .proj-img-col img { transform: scale(1.03); }
     }
 
-    /* Right: text column */
     .proj-text-col {
-      min-width: 0;
-      padding: 36px 48px 36px 36px;
-      border-left: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 14px;
-      justify-content: center;
+      padding: 24px 28px 28px;
+      display: flex; flex-direction: column; gap: 12px; flex: 1;
     }
 
     .proj-num {
-      font-size: 12px; color: var(--muted); letter-spacing: 0.12em;
-      font-family: var(--mono);
+      font-size: 11px; color: var(--muted); letter-spacing: 0.14em;
     }
 
     .proj-name {
-      font-size: clamp(24px, 2.6vw, 40px);
+      font-size: clamp(20px, 2vw, 29px);
       letter-spacing: -0.02em; line-height: 1;
       font-weight: normal; text-transform: uppercase; color: var(--text);
       transition: color 150ms ease-out;
-      overflow-wrap: anywhere;
     }
-
     @media (hover: hover) and (pointer: fine) {
       .project-item:hover .proj-name { color: var(--amber); }
     }
 
-    .proj-meta {
-      font-size: 12px; color: var(--muted); letter-spacing: 0.04em;
-      font-family: var(--font-body); line-height: 1.6;
-    }
-
     .proj-desc-preview {
       font-size: 13px; color: var(--muted); line-height: 1.75;
-      letter-spacing: 0.01em; font-family: var(--font-body);
-      display: -webkit-box;
-      -webkit-line-clamp: 6;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      font-family: var(--font-body); flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .proj-meta {
+      font-size: 11px; color: var(--muted); letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .proj-see-more {
       display: inline-flex; align-items: center; gap: 6px;
       font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none;
-      font-family: var(--mono); cursor: pointer; align-self: flex-start;
-      margin-top: 6px;
+      color: var(--muted); align-self: flex-start; margin-top: 4px;
       transition: color 150ms ease-out;
     }
-
     @media (hover: hover) and (pointer: fine) {
       .proj-see-more:hover { color: var(--amber); }
     }
-
-    .pem-key { font-size: 13px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
-    .pem-val { font-size: 15px; color: var(--text); letter-spacing: 0.04em; }
-    .pem-val.am { color: var(--amber); }
 
     .view-all {
       display: flex; justify-content: flex-end; padding-top: 22px;
@@ -773,28 +738,9 @@
 
       .work-header { flex-direction: column; gap: 8px; margin-bottom: 22px; }
 
-      /* Project list: remove negative margins, stack vertically */
-      .project-list { margin: 0 -22px; }
-
-      .project-item {
-        grid-template-columns: 1fr;
-      }
-
-      .proj-img-col {
-        padding: 22px 22px 0 22px;
-      }
-
-      .proj-text-col {
-        border-left: none;
-        border-top: none;
-        padding: 20px 22px 32px 22px;
-        gap: 12px;
-      }
-
-      .proj-name { font-size: clamp(26px, 8vw, 38px); }
-
-      .proj-desc-preview { -webkit-line-clamp: 4; }
-
+      /* Project grid mobile: single column */
+      .project-list { grid-template-columns: 1fr; margin: 0 -22px; }
+      .proj-name { font-size: clamp(20px, 6vw, 28px); }
       .view-all { margin: 0 -22px; padding-right: 22px; }
 
       .about-row { flex-direction: column; }
@@ -935,171 +881,6 @@
   <div class="project-list" id="project-list">
     <!-- rendered by JS from projects.js -->
   </div>
-  <div class="project-list" style="display:none">
-
-    <div class="project-item reveal" data-project="Fan Raise">
-      <div class="project-header" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
-        <span class="proj-num">01.</span>
-        <div class="proj-info"><span class="proj-name">Fan Raise</span><span class="proj-meta">FanRaise · Sports Tech · Fundraising · ~4 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
-          <img src="assets/covers/fanraise.png" alt="Fan Raise" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Product Design · Fundraising</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">FanRaise</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.type">Type</span><span class="pem-val">Web &amp; Mobile App</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="RockMap">
-      <div class="project-header" onclick="window.navigateTo('works/rockmap.html')" style="cursor:pointer">
-        <span class="proj-num">02.</span>
-        <div class="proj-info"><span class="proj-name">RockMap</span><span class="proj-meta">Concept · Mobile Product Design · Music Discovery · 2024</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/rockmap.html')" style="cursor:pointer">
-          <img src="https://framerusercontent.com/images/hFrX1T4nGkqzEovF9bhl1fjyqE8.png" alt="RockMap" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Mobile Design</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Concept Project</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.year">Year</span><span class="pem-val">2024</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Tickit Clubes">
-      <div class="project-header" onclick="window.navigateTo('works/tickit-clubes.html')" style="cursor:pointer">
-        <span class="proj-num">03.</span>
-        <div class="proj-info"><span class="proj-name">Tickit Clubes</span><span class="proj-meta">Tickit · Sports Tech · Digital Membership Platform · 2024–2025</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/tickit-clubes.html')" style="cursor:pointer">
-          <img src="https://framerusercontent.com/images/YjO3t9fDkTY1CzeU93Be7O5iqw.png" alt="Tickit Clubes" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Sports Tech · Ticketing</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Tickit</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Tickit">
-      <div class="project-header" onclick="window.navigateTo('works/tickit.html')" style="cursor:pointer">
-        <span class="proj-num">04.</span>
-        <div class="proj-info"><span class="proj-name">Tickit</span><span class="proj-meta">Tickit · Event Ticketing · Fan Engagement · 2024–2025</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/tickit.html')" style="cursor:pointer">
-          <img src="https://framerusercontent.com/images/FATuDnHFj0egSso4TOCh8lBTWo.png" alt="Tickit" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Event Tech · Ticketing</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Tickit</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Thinknube.AI">
-      <div class="project-header" onclick="window.navigateTo('works/thinknube-ai.html')" style="cursor:pointer">
-        <span class="proj-num">05.</span>
-        <div class="proj-info"><span class="proj-name">Thinknube.AI</span><span class="proj-meta">Nube Research · AI Product Design · SaaS · ~4 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/thinknube-ai.html')" style="cursor:pointer">
-          <img src="assets/works/thinknube/01.png" alt="Thinknube.AI" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">AI Product Design</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Nube Research</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Brikka">
-      <div class="project-header" onclick="window.navigateTo('works/brikka.html')" style="cursor:pointer">
-        <span class="proj-num">06.</span>
-        <div class="proj-info"><span class="proj-name">Brikka</span><span class="proj-meta">Real Estate Co. · Web3 · Tokenization · ~3 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/brikka.html')" style="cursor:pointer">
-          <img src="assets/covers/brikka.png" alt="Brikka" />
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Web3 Product Design</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Real Estate Dev. Co.</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Car.la">
-      <div class="project-header" onclick="window.navigateTo('works/carla.html')" style="cursor:pointer">
-        <span class="proj-num">07.</span>
-        <div class="proj-info"><span class="proj-name">Car.la</span><span class="proj-meta">Car.la · AI Automotive SaaS · Conversational UI · ~3 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/carla.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);letter-spacing:0.08em;">
-          [ PROJECT IMAGE — Coming Soon ]
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">AI Product Design</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Car.la</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Kordiis">
-      <div class="project-header" onclick="window.navigateTo('works/kordiis.html')" style="cursor:pointer">
-        <span class="proj-num">08.</span>
-        <div class="proj-info"><span class="proj-name">Kordiis</span><span class="proj-meta">Kordiis · Safety Tech · Mobile App · ~4 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/kordiis.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);letter-spacing:0.08em;">
-          [ PROJECT IMAGE — Coming Soon ]
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Safety Tech · Mobile</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Kordiis</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Off the Grid">
-      <div class="project-header" onclick="window.navigateTo('works/off-the-grid.html')" style="cursor:pointer">
-        <span class="proj-num">09.</span>
-        <div class="proj-info"><span class="proj-name">Off the Grid</span><span class="proj-meta">Off the Grid · Travel Tech · Social Network · ~3 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/off-the-grid.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);letter-spacing:0.08em;">
-          [ PROJECT IMAGE — Coming Soon ]
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Travel Tech · Social</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Off the Grid</span></div>
-          </div>
-      </div></div>
-    </div>
-
-    <div class="project-item reveal" data-project="Whasi">
-      <div class="project-header" onclick="window.navigateTo('works/whasi.html')" style="cursor:pointer">
-        <span class="proj-num">10.</span>
-        <div class="proj-info"><span class="proj-name">Whasi</span><span class="proj-meta">Whasi · AI SMB SaaS · Conversational UI · ~4 months</span></div>
-      </div>
-      <div class="project-expand"><div class="project-expand-inner">
-        <div class="proj-img-ph" onclick="window.navigateTo('works/whasi.html')" style="cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);letter-spacing:0.08em;">
-          [ PROJECT IMAGE — Coming Soon ]
-        </div>
-        <div class="proj-expand-meta">
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">AI Product Design</span></div>
-          <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.client">Client</span><span class="pem-val">Whasi</span></div>
-          </div>
-      </div></div>
-    </div>
-
-  </div><!-- end hidden static -->
   <a class="view-all" href="projects.html" id="view-all-link">All Projects →</a>
 </section>
 
@@ -1339,24 +1120,23 @@
     }
 
     list.innerHTML = PROJECTS.filter(p => !p.hidden).map(p => {
-      const desc     = (lang === 'es' && p.sections[0].textEs) ? p.sections[0].textEs : p.sections[0].text;
+      const subtitle = (lang === 'es' && p.subtitleEs) ? p.subtitleEs : p.subtitle;
       const cat      = (lang === 'es' && p.categoryEs) ? p.categoryEs : p.category;
-      const dur      = (lang === 'es' && p.durationEs) ? p.durationEs : p.duration;
       const thumbSrc = p.thumb || p.cover;
       const imgHtml  = thumbSrc
-        ? `<img src="${thumbSrc}" alt="${p.title}" />`
-        : `<div class="proj-img-placeholder">[ PROJECT IMAGE — Coming Soon ]</div>`;
-      const seeMore  = lang === 'es' ? 'VER MÁS' : 'SEE MORE';
+        ? `<img src="${thumbSrc}" alt="${p.title}" loading="lazy" />`
+        : `<div class="proj-img-placeholder">[ NO PREVIEW ]</div>`;
+      const viewProj = lang === 'es' ? 'Ver proyecto →' : 'View project →';
 
       return `
       <div class="project-item reveal" data-project="${p.title}" onclick="window.navigateTo('works/${p.id}.html')">
         <div class="proj-img-col">${imgHtml}</div>
         <div class="proj-text-col">
-          <span class="proj-num">${p.num}</span>
-          <span class="proj-name">${p.title.replace(/\./g, '<wbr>.')}</span>
-          <span class="proj-meta">${p.client} · ${cat} · ${dur}</span>
-          <p class="proj-desc-preview">${desc}</p>
-          <a class="proj-see-more" href="works/${p.id}.html" onclick="event.stopPropagation()">${seeMore} →</a>
+          <span class="proj-num">[ ${p.num} ]</span>
+          <span class="proj-name">${p.title}</span>
+          <p class="proj-desc-preview">${subtitle}</p>
+          <span class="proj-meta">${cat}</span>
+          <span class="proj-see-more">${viewProj}</span>
         </div>
       </div>`;
     }).join('');
