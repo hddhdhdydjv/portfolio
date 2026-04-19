@@ -274,13 +274,45 @@
     .proj-nav-meta { font-size: 15px; color: var(--muted); }
 
     /* ── FOOTER ── */
-    .page-footer {
+    .footer-logo-bar {
       border-top: 1px solid var(--border);
-      padding: 14px 48px;
-      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 48px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
 
-    .footer-copy { font-size: 15px; color: var(--muted); }
+    .footer-logotype {
+      font-size: clamp(33px, 7vw, 88px);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .footer-bar {
+      border-top: 1px solid var(--border);
+      padding: 14px 48px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 15px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
 
     .footer-back {
       font-size: 15px; color: var(--muted);
@@ -456,6 +488,17 @@
 </nav>
 
 <div id="page-content"></div>
+
+<!-- FOOTER -->
+<div class="footer-logo-bar">
+  <span class="footer-logotype">Alejandro Arab</span>
+</div>
+<div class="footer-bar">
+  <ul class="footer-links">
+    <li><a href="https://www.linkedin.com/in/arabalejandro/" target="_blank">LinkedIn</a></li>
+    <li><a href="https://www.instagram.com/arabalejandro/" target="_blank">Instagram</a></li>
+  </ul>
+</div>
 
 <script src="../projects.js"></script>
 <script src="../transition.js"></script>
@@ -637,10 +680,6 @@
         </a>
       </div>
 
-      <!-- FOOTER -->
-      <div class="page-footer">
-        <span class="footer-copy" data-i18n="footer.copy.short">© 2026 — Alejandro Arab</span>
-      </div>
     `;
   }
   }
