@@ -440,7 +440,7 @@
          </div>`;
 
     const card = document.createElement('a');
-    card.className = 'project-card';
+    card.className = 'project-card reveal';
     card.href = 'works/' + p.id + '.html';
 
     card.innerHTML = `
@@ -469,6 +469,7 @@
 
     grid.appendChild(card);
   });
+  if (window.setupReveal) window.setupReveal();
 </script>
 </body>
 </html>

@@ -435,10 +435,21 @@
       .sidebar-sub-link.active { color: var(--amber); }
     }
 
+    /* ── SCROLL REVEAL — global ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 650ms cubic-bezier(0.4,0,0.2,1),
+                  transform 650ms cubic-bezier(0.4,0,0.2,1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
     /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
       ::view-transition-new(root), ::view-transition-old(root) { animation: none !important; }
+      .reveal { opacity: 1; transform: none; }
     }
 
     /* light mode: hero highlight uses mid-tone bg-card so word stays readable */
@@ -683,11 +694,32 @@
     });
   }
 
+  // ── SCROLL REVEAL — global, callable after dynamic renders ──
+  function setupReveal() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+    if (window._revealObserver) window._revealObserver.disconnect();
+    window._revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
+  }
+  window.setupReveal = setupReveal;
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { setupHamburger(); setupNavControls(); });
+    document.addEventListener('DOMContentLoaded', () => { setupHamburger(); setupNavControls(); setupReveal(); });
   } else {
     setupHamburger();
     setupNavControls();
+    setupReveal();
   }
 
   // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──

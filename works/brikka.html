@@ -505,7 +505,7 @@
       if (group.type === 'intro') {
         const sec = group.section;
         editorialHTML += `
-          <div class="editorial-group">
+          <div class="editorial-group reveal">
             <div class="editorial-two-col">
               <div class="editorial-col editorial-col--empty"></div>
               <div class="editorial-col"><p class="editorial-text-intro">${_t(sec.text, sec.textEs)}</p></div>
@@ -517,7 +517,7 @@
       } else if (group.type === 'single') {
         const sec = group.section;
         editorialHTML += `
-          <div class="editorial-group">
+          <div class="editorial-group reveal">
             <div class="editorial-single">
               ${labelHTML(_t(sec.label, sec.labelEs))}
               <p class="editorial-text">${_t(sec.text, sec.textEs)}</p>
@@ -532,7 +532,7 @@
         const filledCol = `<div class="editorial-col">${labelHTML(_t(sec.label, sec.labelEs))}<p class="editorial-text">${_t(sec.text, sec.textEs)}</p></div>`;
         const emptyCol  = `<div class="editorial-col editorial-col--empty"></div>`;
         editorialHTML += `
-          <div class="editorial-group">
+          <div class="editorial-group reveal">
             <div class="editorial-two-col">${isLeft ? filledCol + emptyCol : emptyCol + filledCol}</div>
           </div>`;
         if (sec.imageAfter) {
@@ -561,22 +561,22 @@
 
           <!-- HERO -->
           <div class="project-hero">
-            <div class="project-eyebrow">[ ${project.num} / ${String(PROJECTS.length).padStart(2, '0')} ]</div>
-            <h1 class="project-title">${project.title}</h1>
+            <div class="project-eyebrow reveal">[ ${project.num} / ${String(PROJECTS.length).padStart(2, '0')} ]</div>
+            <h1 class="project-title reveal" style="--reveal-delay:60ms">${project.title}</h1>
             <div class="meta-row">
-              <div class="meta-cell">
+              <div class="meta-cell reveal" style="--reveal-delay:120ms">
                 <span class="meta-key" data-i18n="meta.client">Client</span>
                 <span class="meta-val">${project.client}</span>
               </div>
-              <div class="meta-cell">
+              <div class="meta-cell reveal" style="--reveal-delay:160ms">
                 <span class="meta-key" data-i18n="meta.category">Category</span>
                 <span class="meta-val">${_t(project.category, project.categoryEs)}</span>
               </div>
-              <div class="meta-cell">
+              <div class="meta-cell reveal" style="--reveal-delay:200ms">
                 <span class="meta-key" data-i18n="meta.duration">Duration</span>
                 <span class="meta-val">${_t(project.duration, project.durationEs)}</span>
               </div>
-              <div class="meta-cell">
+              <div class="meta-cell reveal" style="--reveal-delay:240ms">
                 <span class="meta-key" data-i18n="meta.role">Role</span>
                 <span class="meta-val">${_t(project.role, project.roleEs)}</span>
               </div>
@@ -597,12 +597,12 @@
 
       <!-- PREV / NEXT -->
       <div class="proj-nav">
-        <a class="proj-nav-item ${!prevP ? 'disabled' : ''}" href="${prevP ? prevP.id + '.html' : '#'}">
+        <a class="proj-nav-item reveal ${!prevP ? 'disabled' : ''}" href="${prevP ? prevP.id + '.html' : '#'}" style="--reveal-delay:0ms">
           <span class="proj-nav-label" data-i18n="nav.prev">← Previous</span>
           <span class="proj-nav-title">${prevP ? prevP.title : '—'}</span>
           <span class="proj-nav-meta">${prevP ? _t(prevP.category, prevP.categoryEs) : ''}</span>
         </a>
-        <a class="proj-nav-item ${!nextP ? 'disabled' : ''}" href="${nextP ? nextP.id + '.html' : '#'}" style="text-align:right">
+        <a class="proj-nav-item reveal ${!nextP ? 'disabled' : ''}" href="${nextP ? nextP.id + '.html' : '#'}" style="--reveal-delay:80ms;text-align:right">
           <span class="proj-nav-label" data-i18n="nav.next">Next →</span>
           <span class="proj-nav-title">${nextP ? nextP.title : '—'}</span>
           <span class="proj-nav-meta">${nextP ? _t(nextP.category, nextP.categoryEs) : ''}</span>
@@ -617,8 +617,12 @@
   }
   }
 
-  renderContent();
-  window.addEventListener('aa:langchange', renderContent);
+  function renderAndReveal() {
+    renderContent();
+    if (window.setupReveal) window.setupReveal();
+  }
+  renderAndReveal();
+  window.addEventListener('aa:langchange', renderAndReveal);
 </script>
 </body>
 </html>
