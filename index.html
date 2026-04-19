@@ -1437,6 +1437,29 @@
     }, { threshold: 0.3 }).observe(sec);
   });
 
+  // ── NOTEPAD EXIT ON SCROLL — activates after entry animation finishes ──
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const notepad = document.querySelector('.hero-notepad');
+    if (!notepad) return;
+
+    let rafId = null;
+
+    function onScroll() {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const p = Math.min(window.scrollY / 280, 1);
+        notepad.style.transform = `translate(${p * 56}px, ${p * 32}px)`;
+        notepad.style.opacity   = 1 - p;
+        rafId = null;
+      });
+    }
+
+    // Wait for entry animation to finish (150ms delay + 780ms = 930ms)
+    setTimeout(() => {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }, 950);
+  })();
 
 </script>
 <script src="transition.js"></script>
