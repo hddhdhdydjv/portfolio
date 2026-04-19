@@ -437,11 +437,11 @@
 
     /* ── NOTEBOOK ENTRANCE — works pages ── */
     @keyframes notebookIn {
-      from { opacity: 0; transform: translateX(56px); }
-      to   { opacity: 1; transform: translateX(0); }
+      from { opacity: 0; transform: translate(56px, 32px); }
+      to   { opacity: 1; transform: translate(0, 0); }
     }
     .notebook-paper {
-      animation: notebookIn 600ms cubic-bezier(0.4,0,0.2,1) 80ms both;
+      animation: notebookIn 780ms cubic-bezier(0.4,0,0.2,1) 80ms both;
     }
 
     /* ── SCROLL REVEAL — global ── */
