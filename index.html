@@ -1339,24 +1339,23 @@
     }
 
     list.innerHTML = PROJECTS.filter(p => !p.hidden).map(p => {
-      const desc     = (lang === 'es' && p.sections[0].textEs) ? p.sections[0].textEs : p.sections[0].text;
+      const subtitle = (lang === 'es' && p.subtitleEs) ? p.subtitleEs : p.subtitle;
       const cat      = (lang === 'es' && p.categoryEs) ? p.categoryEs : p.category;
-      const dur      = (lang === 'es' && p.durationEs) ? p.durationEs : p.duration;
       const thumbSrc = p.thumb || p.cover;
       const imgHtml  = thumbSrc
         ? `<img src="${thumbSrc}" alt="${p.title}" />`
         : `<div class="proj-img-placeholder">[ PROJECT IMAGE — Coming Soon ]</div>`;
-      const seeMore  = lang === 'es' ? 'VER MÁS' : 'SEE MORE';
+      const viewProj = lang === 'es' ? 'Ver proyecto →' : 'View project →';
 
       return `
       <div class="project-item reveal" data-project="${p.title}" onclick="window.navigateTo('works/${p.id}.html')">
         <div class="proj-img-col">${imgHtml}</div>
         <div class="proj-text-col">
-          <span class="proj-num">${p.num}</span>
+          <span class="proj-num">[ ${p.num} ]</span>
           <span class="proj-name">${p.title.replace(/\./g, '<wbr>.')}</span>
-          <span class="proj-meta">${p.client} · ${cat} · ${dur}</span>
-          <p class="proj-desc-preview">${desc}</p>
-          <a class="proj-see-more" href="works/${p.id}.html" onclick="event.stopPropagation()">${seeMore} →</a>
+          <span class="proj-meta">${cat}</span>
+          <p class="proj-desc-preview">${subtitle}</p>
+          <a class="proj-see-more" href="works/${p.id}.html" onclick="event.stopPropagation()">${viewProj}</a>
         </div>
       </div>`;
     }).join('');
