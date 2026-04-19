@@ -171,6 +171,11 @@
       const key = el.dataset.i18nHtml;
       if (t[key] !== undefined) el.innerHTML = t[key];
     });
+    // Swap language-aware images (data-src-en / data-src-es)
+    document.querySelectorAll('[data-src-en]').forEach(el => {
+      const src = lang === 'es' ? el.dataset.srcEs : el.dataset.srcEn;
+      if (src) el.src = src;
+    });
     // Update <html lang> attribute
     document.documentElement.lang = lang;
   }
