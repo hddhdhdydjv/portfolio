@@ -197,6 +197,7 @@
     }
 
     .hero-ctas { display: flex; gap: 20px; }
+    .hero-cta--cv { display: none; }
 
     .hero-cta {
       font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
@@ -266,11 +267,13 @@
         object-position: left top;
         transform-origin: bottom left;
       }
+      .hero-ctas { flex-direction: column; gap: 12px; }
+      .hero-cta--cv { display: flex; }
     }
 
     /* Mobile (≤768px) */
     @media (max-width: 768px) {
-      #hero { padding: 100px 22px 0; }
+      #hero { padding: 100px 22px 48px; }
       .hero-title-word { font-size: clamp(48px, 12vw, 72px); }
       .hero-title-line2 { font-size: clamp(48px, 12vw, 72px); }
       .hero-info {
@@ -761,12 +764,13 @@
 
     /* ── MOBILE (max 768px) ── */
     @media (max-width: 768px) {
-      #hero { padding: 88px 22px 0; }
+      #hero { padding: 88px 22px 64px; }
       .hero-bg-title { font-size: clamp(60px, 16vw, 120px); left: 22px; right: 22px; }
       .float-blueprint, .float-status, .float-note { display: none; }
       .hero-bottom { padding-top: 60px; flex-direction: column; gap: 22px; }
       .hero-bottom-right { display: none; }
       .hero-ctas { flex-direction: column; gap: 12px; }
+      .hero-cta--cv { display: flex; }
 
       .section { padding: 55px 22px; }
       #work { padding: 55px 22px; }
@@ -907,6 +911,7 @@
     <div class="hero-ctas">
       <a class="hero-cta" href="#work" data-i18n-html="hero.cta.work"><span class="arr">→</span> View Work</a>
       <a class="hero-cta" href="#contact" data-i18n-html="hero.cta.contact"><span class="arr">→</span> Get in Touch</a>
+      <a class="hero-cta hero-cta--cv" href="https://drive.google.com/drive/folders/1blY0rOa1xrZxx0CLlY5aw3JAx_gqAHE8?usp=sharing" target="_blank" rel="noopener" data-i18n-html="hero.cta.cv"><span class="arr">→</span> Download Resume</a>
     </div>
   </div>
 

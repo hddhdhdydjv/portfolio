@@ -13,6 +13,7 @@
       'hero.sub':         'Creative product designer (and occasional developer) collaborating with teams to build digital products that solve real problems.',
       'hero.cta.work':    '<span class="arr">→</span> View Work',
       'hero.cta.contact': '<span class="arr">→</span> Get in Touch',
+      'hero.cta.cv':      '<span class="arr">→</span> Download Resume',
 
       'work.eyebrow': 'Selected Works',
       'work.title':   'Projects',
@@ -91,6 +92,7 @@
       'hero.sub':         'Diseñador de productos creativo (y a veces desarrollador) que colabora con equipos para crear productos digitales que resuelven problemas reales.',
       'hero.cta.work':    '<span class="arr">→</span> Ver trabajo',
       'hero.cta.contact': '<span class="arr">→</span> Hablemos',
+      'hero.cta.cv':      '<span class="arr">→</span> Descargar CV',
 
       'work.eyebrow': 'Trabajos seleccionados',
       'work.title':   'Proyectos',
