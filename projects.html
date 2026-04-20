@@ -387,9 +387,9 @@
 
 <!-- PAGE HEADER -->
 <div class="page-header">
-  <div class="page-eyebrow">All Projects</div>
-  <h1 class="page-title">Work</h1>
-  <p class="page-subtitle">10 projects — product design, brand identity &amp; UX across web, mobile, and AI.</p>
+  <div class="page-eyebrow" data-i18n="projects.eyebrow">All Projects</div>
+  <h1 class="page-title" data-i18n="projects.title">Work</h1>
+  <p class="page-subtitle" id="projects-subtitle">3 projects — product design, brand identity &amp; UX across web, mobile, and AI.</p>
 </div>
 
 <!-- PROJECTS GRID -->
@@ -426,40 +426,54 @@
   // ── RENDER PROJECTS ──
   const grid = document.getElementById('projects-grid');
 
-  PROJECTS.filter(p => !p.hidden).forEach(p => {
-    const statusClass = p.status === 'In Progress' ? 'status-progress' : 'status-completed';
-    const coverSrc = p.thumb || p.cover;
+  function renderCards() {
+    const lang = localStorage.getItem('aa-lang') || 'en';
+    const visibleProjects = PROJECTS.filter(p => !p.hidden);
+    const projectCount = visibleProjects.length;
 
-    const coverHTML = coverSrc
-      ? `<div class="card-cover">
-           <img src="${coverSrc}" alt="${p.title}" loading="lazy" />
-         </div>`
-      : `<div class="card-cover-placeholder">
-           <span class="card-cover-placeholder-inner">No preview</span>
-         </div>`;
+    // Update subtitle
+    const subtitle = document.getElementById('projects-subtitle');
+    if (subtitle) {
+      subtitle.textContent = lang === 'es'
+        ? `${projectCount} proyectos — diseño de producto, identidad de marca y UX en web, mobile e IA.`
+        : `${projectCount} projects — product design, brand identity & UX across web, mobile, and AI.`;
+    }
 
-    const card = document.createElement('a');
-    card.className = 'project-card reveal';
-    card.href = 'works/' + p.id + '.html';
+    grid.innerHTML = '';
 
-    card.innerHTML = `
-      ${coverHTML}
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-num">[ ${p.num} ]</span>
+    visibleProjects.forEach(p => {
+      const coverSrc = p.thumb || p.cover;
+      const coverHTML = coverSrc
+        ? `<div class="card-cover"><img src="${coverSrc}" alt="${p.title}" loading="lazy" /></div>`
+        : `<div class="card-cover-placeholder"><span class="card-cover-placeholder-inner">No preview</span></div>`;
+
+      const card = document.createElement('a');
+      card.className = 'project-card reveal';
+      card.href = 'works/' + p.id + '.html';
+
+      card.innerHTML = `
+        ${coverHTML}
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-num">[ ${p.num} ]</span>
+          </div>
+          <div class="card-title">${p.title}</div>
+          <div class="card-subtitle">${lang === 'es' && p.subtitleEs ? p.subtitleEs : p.subtitle}</div>
+          <div class="card-meta-val">${lang === 'es' && p.categoryEs ? p.categoryEs : p.category}</div>
         </div>
-        <div class="card-title">${p.title}</div>
-        <div class="card-subtitle">${p.subtitle}</div>
-        <div class="card-meta-val">${p.category}</div>
-      </div>
-      <div class="card-footer">
-        <span class="card-arrow">View project →</span>
-      </div>
-    `;
+        <div class="card-footer">
+          <span class="card-arrow">${lang === 'es' ? 'Ver proyecto →' : 'View project →'}</span>
+        </div>
+      `;
 
-    grid.appendChild(card);
-  });
-  if (window.setupReveal) window.setupReveal();
+      grid.appendChild(card);
+    });
+
+    if (window.setupReveal) window.setupReveal();
+  }
+
+  renderCards();
+  window.addEventListener('aa:langchange', renderCards);
 </script>
 </body>
 </html>

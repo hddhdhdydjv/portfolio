@@ -17,6 +17,10 @@
 
       'work.eyebrow': 'Selected Works',
       'work.title':   'Projects',
+
+      'projects.eyebrow': 'All Projects',
+      'projects.title': 'Work',
+      'projects.subtitle': '10 projects — product design, brand identity &amp; UX across web, mobile, and AI.',
       'work.count':   '10 Projects',
       'work.all':     'All Projects (10) →',
 
@@ -96,6 +100,10 @@
 
       'work.eyebrow': 'Trabajos seleccionados',
       'work.title':   'Proyectos',
+
+      'projects.eyebrow': 'Todos los Proyectos',
+      'projects.title': 'Trabajos',
+      'projects.subtitle': '10 proyectos — diseño de producto, identidad de marca y UX en web, mobile e IA.',
       'work.count':   '10 Proyectos',
       'work.all':     'Todos los proyectos (10) →',
 
@@ -178,6 +186,12 @@
       const src = lang === 'es' ? el.dataset.srcEs : el.dataset.srcEn;
       if (src) el.src = src;
     });
+    // Swap contact sticky note (English/Spanish versions)
+    const stickyImg = document.getElementById('contactStickyImg');
+    if (stickyImg) {
+      const prefix = window.location.pathname.includes('/works/') ? '../' : '';
+      stickyImg.src = prefix + 'assets/sticky-assets/sticky-note-xl-' + lang + '.svg';
+    }
     // Update <html lang> attribute
     document.documentElement.lang = lang;
   }
@@ -663,8 +677,7 @@
     document.documentElement.setAttribute('data-theme', activeTheme);
 
     // Auto-detect language from browser locale on first visit
-    const browserLang = (navigator.language || navigator.languages?.[0] || 'en').toLowerCase();
-    const activeLang = localStorage.getItem('aa-lang') || (browserLang.startsWith('es') ? 'es' : 'en');
+    const activeLang = localStorage.getItem('aa-lang') || 'en';
 
     const ctrl = document.createElement('div');
     ctrl.className = 'nav-controls';
@@ -681,6 +694,21 @@
     // Apply detected/saved language on load
     applyLang(activeLang);
 
+    // Swap themed images to match current theme (/dark/ ↔ /light/)
+    window.applyThemeImages = function(theme) {
+      const t = theme || document.documentElement.getAttribute('data-theme') || 'dark';
+      const timestamp = Math.floor(Date.now() / 1000);
+      document.querySelectorAll('img').forEach(img => {
+        if (img.src.includes('/dark/') || img.src.includes('/light/')) {
+          // Remove old timestamp if present, then swap theme and add new timestamp
+          let newSrc = img.src.replace(/\/(dark|light)\//, `/${t}/`);
+          newSrc = newSrc.replace(/[?&]v=\d+/, ''); // remove old cache-bust param
+          newSrc = newSrc + (newSrc.includes('?') ? '&' : '?') + 'v=' + timestamp;
+          img.src = newSrc;
+        }
+      });
+    };
+
     // Theme toggle
     const btn = ctrl.querySelector('#sidebarThemeBtn');
     btn.addEventListener('click', () => {
@@ -689,6 +717,8 @@
       document.documentElement.setAttribute('data-theme', next);
       btn.innerHTML = next === 'dark' ? SVG_MOON : SVG_SUN;
       localStorage.setItem('aa-theme', next); // persist so auto-detect only runs once
+      window.applyThemeImages(next);
+      document.dispatchEvent(new CustomEvent('aa:themechange', { detail: { theme: next } }));
     });
 
     // Lang toggle
@@ -726,11 +756,17 @@
   window.setupReveal = setupReveal;
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { setupHamburger(); setupNavControls(); setupReveal(); });
+    document.addEventListener('DOMContentLoaded', () => {
+      setupHamburger();
+      setupNavControls();
+      setupReveal();
+      if (window.applyThemeImages) window.applyThemeImages();
+    });
   } else {
     setupHamburger();
     setupNavControls();
     setupReveal();
+    if (window.applyThemeImages) window.applyThemeImages();
   }
 
   // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──

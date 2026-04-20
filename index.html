@@ -1017,7 +1017,7 @@
       </div>
       <div class="project-expand"><div class="project-expand-inner">
         <div class="proj-img-ph" onclick="window.navigateTo('works/thinknube-ai.html')" style="cursor:pointer">
-          <img src="assets/works/thinknube/01.png" alt="Thinknube.AI" />
+          <img src="assets/works/thinknube/dark/01.png" alt="Thinknube.AI" />
         </div>
         <div class="proj-expand-meta">
           <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">AI Product Design</span></div>
@@ -1188,7 +1188,7 @@
       <h2 class="contact-headline" data-i18n-html="contact.headline">Let's<br>Build<br>Something<br><span class="am">Together.</span></h2>
     </div>
     <div class="contact-right reveal" style="--reveal-delay:160ms">
-      <img src="assets/sticky-assets/sticky-note-xl.svg" alt="Availability" class="contact-sticky-img" />
+      <img src="assets/sticky-assets/sticky-note-xl-en.svg" alt="Availability" class="contact-sticky-img" id="contactStickyImg" />
       <div class="contact-links">
         <a class="social-link" href="https://www.linkedin.com/in/arabalejandro/" target="_blank">LinkedIn <span class="social-ext">↗</span></a>
         <a class="social-link" href="https://www.instagram.com/arabalejandro/" target="_blank">Instagram <span class="social-ext">↗</span></a>
@@ -1329,7 +1329,7 @@
     // Update project count dynamically
     const count = PROJECTS.filter(p => !p.hidden).length;
     document.querySelectorAll('.work-count').forEach(el => {
-      el.textContent = lang === 'es' ? `${count} Proyectos` : `${count} Projects`;
+      el.textContent = `(${count})`;
     });
     const viewAll = document.getElementById('view-all-link');
     if (viewAll) {

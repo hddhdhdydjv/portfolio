@@ -609,7 +609,7 @@
 
           <!-- HERO -->
           <div class="project-hero">
-            <div class="project-eyebrow reveal">[ ${project.num} / ${String(PROJECTS.length).padStart(2, '0')} ]</div>
+            <div class="project-eyebrow reveal">[ ${project.num} / ${String(PROJECTS.filter(p => !p.hidden).length).padStart(2, '0')} ]</div>
             <h1 class="project-title reveal" style="--reveal-delay:60ms">${project.title}</h1>
             <div class="meta-row">
               <div class="meta-cell reveal" style="--reveal-delay:120ms">
