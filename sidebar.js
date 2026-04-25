@@ -671,9 +671,8 @@
     const existing = nav.querySelector('.nav-controls');
     if (existing) existing.remove();
 
-    // Auto-detect system theme on first visit, then respect localStorage
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const activeTheme = localStorage.getItem('aa-theme') || systemTheme;
+    // Default to light mode on first visit; respect localStorage afterwards.
+    const activeTheme = localStorage.getItem('aa-theme') || 'light';
     document.documentElement.setAttribute('data-theme', activeTheme);
 
     // Auto-detect language from browser locale on first visit

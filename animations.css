@@ -1,0 +1,138 @@
+/* ============================================================
+   AA ANIMATIONS — Loader / Arrow swap / Scramble on scroll
+   ============================================================
+   This file is self-contained. To REMOVE all three animations,
+   delete this file + animations.js and remove the two
+   <link>/<script> tags from every HTML page.
+
+   Classes used here are all prefixed .aa- to avoid collisions.
+   Colors/typography come from tokens.css — no hard-coded theme.
+   ============================================================ */
+
+/* ── 1. LOADER ─────────────────────────────────────────────── */
+/* A full-screen overlay that types "hddhdhdydjv" on every page
+   load, then dissolves into pixels on exit (see pixelDissolveExit
+   in animations.js — implemented via <canvas>, not CSS).
+   Uses tokens so it adapts to light/dark theme automatically. */
+
+.aa-loader,
+.aa-loader-canvas {
+  /* sidebar.js applies `margin-left: 180px` to all body > * not in its
+     exclusion list. Override here so the loader covers the sidebar too. */
+  margin: 0 !important;
+}
+
+.aa-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  /* 50% of the previous size — matches the smaller, navbar-like feel. */
+  font-size: clamp(14px, 3vw, 32px);
+  /* Mirrors .nav-logo: uppercase + wide tracking. */
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+
+  /* Hard-coded fallbacks: used for the very first paint, before
+     [data-theme] resolves. Matches the light-mode rule below since the HTML
+     ships with data-theme="light" by default. */
+  background: #10100B;
+  color: #c8c49a;
+}
+
+/* The loader echoes the hero's dynamic-word styling:
+     .hero-title-line1 → cream background (#c8c49a)
+     .hero-title-word  → dark text (#10100B)
+   In dark mode the loader uses that same pairing.
+   In light mode the pairing is inverted (dark bg, cream text) so the loader
+   still contrasts hard against the page. */
+
+/* Light mode → dark loader, cream text. */
+html[data-theme="light"] .aa-loader {
+  background: #10100B;   /* dark mode --bg */
+  color:      #c8c49a;   /* hero-line1 cream — appears as the font color */
+}
+
+/* Dark mode → cream loader (matches hero-title-line1 background). */
+html[data-theme="dark"] .aa-loader {
+  background: #c8c49a;   /* hero-title-line1 background */
+  color:      #10100B;   /* dark mode --bg */
+}
+
+/* Hide the text until the webfont + theme are fully applied (set by
+   animations.js). Prevents one-frame flash of fallback font. */
+.aa-loader-body {
+  visibility: hidden;
+}
+.aa-loader.aa-ready .aa-loader-body {
+  visibility: visible;
+}
+
+.aa-loader-text {
+  display: inline-flex;
+  align-items: baseline;
+  min-height: 1.15em;
+  white-space: nowrap;
+}
+
+body.aa-loading { overflow: hidden; }
+
+/* ── 2. ARROW SWAP ─────────────────────────────────────────── */
+/* Animated arrow inside any link/button: on hover, the current
+   arrow slides out and a clone slides in from the opposite side.
+   Markup produced by animations.js:
+
+     <span class="arr aa-arrow">
+       <span>→</span>
+       <span class="aa-arrow-ghost">→</span>
+     </span>
+
+   The parent gets .aa-arrow-trigger (hover target). */
+
+.aa-arrow {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: baseline;
+  line-height: 1;
+}
+
+.aa-arrow > span {
+  display: inline-block;
+  transition: transform 0.55s cubic-bezier(.19,1,.22,1);
+  will-change: transform;
+}
+
+.aa-arrow > span.aa-arrow-ghost {
+  position: absolute;
+  left: 0; top: 0;
+  transform: translateX(-110%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .aa-arrow-trigger:hover .aa-arrow > span:not(.aa-arrow-ghost) {
+    transform: translateX(110%);
+  }
+  .aa-arrow-trigger:hover .aa-arrow > span.aa-arrow-ghost {
+    transform: translateX(0);
+  }
+}
+
+/* ── 3. SCRAMBLE ON SCROLL ─────────────────────────────────── */
+/* The JS swaps textContent — no visual CSS needed, but we add
+   a monospace guard so the text width doesn't jump while random
+   characters are shown. Departure Mono is already monospace so
+   this is mostly a no-op, kept for safety. */
+
+.aa-scramble { font-variant-numeric: tabular-nums; }
+
+/* ── REDUCED MOTION ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .aa-loader { display: none !important; }
+  .aa-arrow > span { transition: none !important; }
+  /* scramble is skipped in JS when reduced-motion is on */
+}

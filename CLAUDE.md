@@ -41,11 +41,11 @@ assets/
 ```
 
 ## Design tokens (tokens.css)
-- `--bg` → fondo oscuro `#16160f`
+- `--bg` → fondo oscuro `#10100B`
 - `--text` → crema `#c8c49a`
 - `--muted` → `#8c8a6a`
 - `--amber` → `#d4900e`
-- `--border` → `#2d2d21`
+- `--border` → `#1f1f16`
 - `--font` → `'Departure Mono', monospace`
 
 ## Secciones de index.html

@@ -48,7 +48,7 @@ html[data-theme="light"] {
   --amber-dark:          #b67d00;
 
   /* Borders */
-  --border:              #d1cfc6;
+  --border:              #e6e5e0;
 
   /* Surfaces */
   --paper:               #ffffff;
@@ -61,12 +61,12 @@ html[data-theme="light"] {
 /* ── DARK MODE ────────────────────────────────────────────────── */
 html[data-theme="dark"] {
   /* Core */
-  --bg:                  #16160f;
+  --bg:                  #10100B;
   --bg-panel:            #1a1a14;
   --bg-card:             #3d3c2f;
   --bg-inv:              #fafafa;
   --text:                #c8c49a;
-  --text-inv:            #16160f;
+  --text-inv:            #10100B;
   --text-secondary:      #716f55;
   --muted:               #8c8a6a;
 
@@ -76,7 +76,7 @@ html[data-theme="dark"] {
   --amber-dark:          #b67d00;
 
   /* Borders */
-  --border:              #2d2d21;
+  --border:              #1f1f16;
 
   /* Surfaces */
   --paper:               #1a1a14;
@@ -85,3 +85,13 @@ html[data-theme="dark"] {
   --card-peach:          #ffe4d8;
   --bezel:               #eeeeee;
 }
+
+/* ── NOTEBOOK PAPER (per-project pages) ───────────────────────── */
+/* Restore the notebook's dividers to their pre-softening values.
+   Globally `--border` was reduced to lower contrast on the rest of
+   the site; the paper's borders, perforated columns and meta rows
+   benefit from the original stronger contrast. Scoping the variable
+   here automatically restores every `var(--border)` reference made
+   inside `.notebook-paper`. */
+html[data-theme="light"] .notebook-paper { --border: #d1cfc6; }
+html[data-theme="dark"]  .notebook-paper { --border: #2d2d21; }
