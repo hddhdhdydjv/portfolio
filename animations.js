@@ -415,7 +415,9 @@
 
   function initScramble() {
     if (reduceMotion) return;
-    const targets = document.querySelectorAll('.section-title');
+    // .section-title → eg. "Work History", "What I Do"
+    // .about-heading → "Who I Am", "Beyond the Professional"
+    const targets = document.querySelectorAll('.section-title, .about-heading');
     if (!targets.length) return;
 
     const io = new IntersectionObserver((entries) => {

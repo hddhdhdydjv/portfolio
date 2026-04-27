@@ -39,7 +39,7 @@
       'about.heading':  'Who I am',
       'about.p1': "I'm a Product Designer with 6 years of experience in healthcare, e-commerce, travel, AI, decentralized fintech, and Web3. I come from an unusual background—gastronomy—which gave me a unique foundation in discipline, process, and performing well under pressure.",
       'about.p2': 'I also have experience as a UX/UI design and prototyping instructor, which helped me develop teaching skills and teamwork abilities.',
-      'about.heading2':   'beyond the professional...',
+      'about.heading2':   'beyond the professional',
       'about.beyond.p1': "I'm a proud cat dad to Roma and Venus. I live with my girlfriend Pia, who is also a designer, and we love traveling while working.",
       'about.beyond.p2': 'Besides designing and cooking, I also play bass and synthesizer, love music and going to concerts, and enjoy playing video games.',
 
@@ -122,7 +122,7 @@
       'about.heading':  'Quién soy',
       'about.p1': 'Soy Diseñador de Producto con 6 años de experiencia en salud, e-commerce, viajes, IA, fintech descentralizado y Web3. Vengo de un entorno atípico — la gastronomía — que me dio una base única en disciplina, proceso y trabajo bajo presión.',
       'about.p2': 'También tengo experiencia como instructor de diseño UX/UI y prototipado, lo que me ayudó a desarrollar habilidades de enseñanza y trabajo en equipo.',
-      'about.heading2':   'más allá de lo profesional...',
+      'about.heading2':   'más allá de lo profesional',
       'about.beyond.p1': 'Soy papá de dos gatos, Roma y Venus. Vivo con mi novia Pia, que también es diseñadora, y nos encanta viajar mientras trabajamos.',
       'about.beyond.p2': 'Además de diseñar y cocinar, toco el bajo y el sintetizador, me encanta la música e ir a recitales, y disfruto jugar videojuegos.',
 
@@ -614,6 +614,70 @@
   }
 
 
+  // ── PIXEL REVEAL — sidebar logo (cats) ──
+  function pixelRevealLogo() {
+    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    const sel = theme === 'dark' ? '.sidebar-logo-dark' : '.sidebar-logo-light';
+    const img = document.querySelector(sel);
+    if (!img) return;
+    const container = img.parentElement;
+    if (!container) return;
+
+    if (!img.complete || !img.naturalWidth) {
+      img.addEventListener('load', pixelRevealLogo, { once: true });
+      return;
+    }
+
+    // Strip any in-progress reveal
+    const old = container.querySelector('.aa-logo-reveal');
+    if (old) old.remove();
+
+    const W = img.naturalWidth, H = img.naturalHeight;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'aa-logo-reveal';
+    canvas.width = W; canvas.height = H;
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;z-index:2;';
+
+    if (getComputedStyle(container).position === 'static') {
+      container.style.position = 'relative';
+    }
+    container.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    let currentPx = 24;
+    const targetPx = 1;
+    let raf = null;
+
+    function render() {
+      const ps = Math.max(1, currentPx);
+      const sw = Math.max(1, Math.ceil(W / ps));
+      const sh = Math.max(1, Math.ceil(H / ps));
+      const tmp = document.createElement('canvas');
+      tmp.width = sw; tmp.height = sh;
+      const tc = tmp.getContext('2d');
+      tc.imageSmoothingEnabled = false;
+      try { tc.drawImage(img, 0, 0, sw, sh); } catch (e) { canvas.remove(); return; }
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(tmp, 0, 0, W, H);
+    }
+
+    function step() {
+      const diff = targetPx - currentPx;
+      if (Math.abs(diff) < 0.4) {
+        canvas.remove();
+        return;
+      }
+      currentPx += diff * 0.14;
+      render();
+      raf = setTimeout(step, 28);
+    }
+
+    render();
+    setTimeout(step, 60);
+  }
+  window.pixelRevealLogo = pixelRevealLogo;
+
   // ── MOBILE HAMBURGER TOGGLE ──
   function setupHamburger() {
     const hamburger = document.getElementById('hamburger');
@@ -626,6 +690,8 @@
       document.body.classList.toggle('sidebar-push');
       hamburger.classList.toggle('open');
       document.body.style.overflow = isOpen ? '' : 'hidden';
+      // Re-run pixel reveal on the cats when opening the menu
+      if (!isOpen) setTimeout(pixelRevealLogo, 220);
     });
 
     sidebar.querySelectorAll('a').forEach(a => {
@@ -760,12 +826,14 @@
       setupNavControls();
       setupReveal();
       if (window.applyThemeImages) window.applyThemeImages();
+      setTimeout(pixelRevealLogo, 80);
     });
   } else {
     setupHamburger();
     setupNavControls();
     setupReveal();
     if (window.applyThemeImages) window.applyThemeImages();
+    setTimeout(pixelRevealLogo, 80);
   }
 
   // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──
