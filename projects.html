@@ -136,17 +136,14 @@
       overflow: hidden;
     }
 
-    .project-card:hover {
-      background: var(--bg-panel);
-    }
-
-    .project-card:hover .card-cover img {
-      filter: grayscale(0%);
-      transform: scale(1.02);
-    }
-
-    .project-card:hover .card-arrow {
-      color: var(--amber);
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover .card-cover img {
+        filter: grayscale(0%);
+        transform: scale(1.02);
+      }
+      .project-card:hover .card-arrow .link-arrow {
+        transform: translateX(3px);
+      }
     }
 
     /* Cover thumbnail */
@@ -217,7 +214,7 @@
     .card-num {
       font-family: var(--font);
       font-size: 13px;
-      color: var(--muted);
+      color: var(--amber);
       letter-spacing: 0.14em;
       flex-shrink: 0;
     }
@@ -247,7 +244,7 @@
       letter-spacing: 0.04em;
       padding: 6px 12px;
       background: #ECECEC;
-      border: 1px solid var(--border);
+      border: none;
       color: #1A1A14;
       border-radius: 3px;
       line-height: 1;
@@ -279,8 +276,14 @@
       font-size: 14px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text);
-      transition: color 0.15s;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-arrow .link-arrow {
+      color: var(--amber);
+      transition: transform 150ms ease-out;
     }
 
     /* ── PIXEL CAT — theme aware ── */
@@ -456,7 +459,7 @@
           <div class="card-subtitle">${subtitle}</div>
         </div>
         <div class="card-footer">
-          <span class="card-arrow">${lang === 'es' ? 'Ver proyecto →' : 'View project →'}</span>
+          <span class="card-arrow"><span class="link-text">${lang === 'es' ? 'Ver proyecto' : 'View project'}</span><span class="link-arrow">→</span></span>
         </div>
       `;
 
