@@ -28,6 +28,10 @@
   --space-16: 128px;
   --space-21: 168px;
   --space-24: 192px;
+
+  /* Hero — fixed across themes per Figma 598-54226 / 608-55091 */
+  --hero-highlight-bg:   #c8c49a;
+  --hero-highlight-text: #10100B;
 }
 
 /* ── LIGHT MODE ───────────────────────────────────────────────── */

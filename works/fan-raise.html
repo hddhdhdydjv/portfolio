@@ -481,8 +481,8 @@
   </style>
 </head>
 <body>
-<script src="../animations.js"></script>
-<script src="../sidebar.js"></script>
+<script src="../animations.js" defer></script>
+<script src="../sidebar.js" defer></script>
 
 <div class="cursor" id="cursor"></div>
 
@@ -508,7 +508,7 @@
 </div>
 
 <script src="../projects.js"></script>
-<script src="../transition.js"></script>
+<script src="../transition.js" defer></script>
 <script>
   // ── CURSOR ──
   const cursor = document.getElementById('cursor');
@@ -624,7 +624,7 @@
 
     // ── COVER IMAGE ──
     const coverHTML = project.cover
-      ? `<div class="cover-img"><img src="${project.cover}" alt="${project.title}" loading="lazy" /></div>`
+      ? `<div class="cover-img"><img src="${project.cover}" alt="${project.title}" fetchpriority="high" loading="eager" /></div>`
       : '';
 
     content.innerHTML = `

@@ -7,6 +7,8 @@
   <link rel="icon" type="image/png" href="assets/favicons/dark.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alejandro Arab — Product Designer</title>
+  <link rel="preload" as="image" href="assets/logos/Light.webp">
+  <link rel="preload" as="image" href="assets/logos/Dark.webp">
     <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="animations.css">
   <style>
@@ -98,55 +100,57 @@
       .hamburger { display: flex; }
     }
 
-    /* ── HERO ── */
+    /* ── HERO — exact match to Figma 598:53199 (1260px frame) ── */
     #hero {
-      min-height: 100vh;
       position: relative;
-      padding: 120px 48px 66px 48px;
+      padding: 120px 48px 189.53px 48px;
+      min-height: 1089px; /* cat top:318 + height:771 to fit absolute content */
       overflow: hidden;
       display: flex;
       flex-direction: column;
       gap: 0;
     }
 
-    /* ── HERO LOAD ANIMATION ── */
     @keyframes heroIn {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes heroNotepadIn {
-      from { opacity: 0; transform: translate(56px, 32px); }
+    @keyframes heroCatIn {
+      from { opacity: 0; transform: translate(40px, 24px); }
       to   { opacity: 1; transform: translate(0, 0); }
     }
-    .hero-title-line1 { animation: heroIn         750ms cubic-bezier(0.4,0,0.2,1) 0ms   both; }
-    .hero-title-line2 { animation: heroIn         750ms cubic-bezier(0.4,0,0.2,1) 100ms both; }
-    .hero-notepad     { animation: heroNotepadIn  780ms cubic-bezier(0.4,0,0.2,1) 150ms both; }
-    .hero-info        { animation: heroIn         700ms cubic-bezier(0.4,0,0.2,1) 280ms both; }
+    .hero-title-line1 { animation: heroIn    750ms cubic-bezier(0.4,0,0.2,1) 0ms   both; }
+    .hero-title-line2 { animation: heroIn    750ms cubic-bezier(0.4,0,0.2,1) 100ms both; }
+    .hero-cat         { animation: heroCatIn 900ms cubic-bezier(0.4,0,0.2,1) 150ms both; }
+    .hero-info        { animation: heroIn    700ms cubic-bezier(0.4,0,0.2,1) 280ms both; }
+    .hero-code        { opacity: 0; } /* typewriter JS controls reveal */
 
-    /* Title */
-    .hero-title { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 4px; }
+    /* Title — PRODUCT_ / DESIGNER  (151.2px @ 1260 = 12vw) */
+    .hero-title { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
 
     .hero-title-line1 {
-      display: inline-block;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
       align-self: flex-start;
-      background: var(--text);
-      line-height: 1;
+      background: #c8c49a;
+      padding: 9.5px 18px 10.02px 0;
+      line-height: 0.85;
     }
 
     .hero-title-word {
       display: inline-block;
-      font-size: clamp(72px, 10.5vw, 152px);
+      font-size: clamp(72px, 12vw, 151.2px);
       letter-spacing: -0.04em;
       line-height: 0.85;
       font-weight: normal;
       text-transform: uppercase;
-      color: var(--bg);
-      padding: 10px 18px 10px 0;
+      color: #1a1a14;
       white-space: nowrap;
     }
 
     .hero-title-line2 {
-      font-size: clamp(72px, 10.5vw, 152px);
+      font-size: clamp(72px, 12vw, 151.2px);
       letter-spacing: -0.04em;
       line-height: 0.85;
       font-weight: normal;
@@ -154,15 +158,13 @@
       color: var(--text);
     }
 
-    /* Typewriter cursor blink */
     .tw-cursor {
-      color: var(--bg);
+      color: #1a1a14;
       animation: blink 0.75s step-end infinite;
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── CUSTOM CURSORS ── */
-    .hero-notepad { cursor: none; }
+    /* Custom cursor (kept for hover on project items) */
     #custom-cursor {
       position: fixed;
       pointer-events: none;
@@ -179,143 +181,265 @@
       white-space: nowrap;
       transform: none;
     }
-    #custom-cursor .hc-blink {
-      animation: blink 0.75s step-end infinite;
-    }
+    #custom-cursor .hc-blink { animation: blink 0.75s step-end infinite; }
     .project-item { cursor: none; }
 
-    /* Info block */
+    /* Info block — absolute @ left:calc(12.5% + 38.5px) top:466px width:380px */
     .hero-info {
-      margin-top: 104px;
+      position: absolute;
+      left: calc(12.5% + 38.5px);
+      top: 466px;
+      width: 380px;
       max-width: 380px;
-      z-index: 4;
+      z-index: 2;
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      padding-left: 116px;
+      gap: 33px;
+      align-items: flex-start;
+    }
+
+    .hero-info::before {
+      content: '';
+      display: block;
+      width: 12px; height: 12px;
+      background: #bcb780;
     }
 
     .hero-sub {
-      font-size: 15px; color: var(--muted);
-      line-height: 1.58; letter-spacing: 0.026em;
+      font-family: var(--font-body); /* Courier Prime */
+      font-size: 17px;
+      color: #888;
+      line-height: 31.45px;
+      letter-spacing: 0.03em;
+      margin: 0;
     }
 
-    .hero-ctas { display: flex; gap: 20px; flex-wrap: wrap; }
-    .hero-cta--cv { display: none; }
-    @media (min-width: 1025px) { .hero-cta--cv { display: none !important; } }
+    .hero-ctas { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; width: 100%; }
+    .hero-cta--cv { display: flex; }
 
     .hero-cta {
-      font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text); display: flex; align-items: center; gap: 6px;
+      font-family: var(--font);
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1a1a14;
+      display: flex; align-items: center; gap: 6px;
+      line-height: 22.5px;
       white-space: nowrap;
     }
     @media (hover: hover) and (pointer: fine) {
       .hero-cta { transition: color 150ms ease, transform 200ms cubic-bezier(0.4,0,0.2,1); }
       .hero-cta:hover { color: var(--amber); transform: translateX(4px); }
     }
-    .arr { color: var(--amber); }
+    .arr { color: #d4900e; }
 
-    /* Notepad */
-    .hero-notepad {
+    /* In dark theme, CTA text + sub adapt to surface */
+    html[data-theme="dark"] .hero-cta { color: var(--text); }
+    html[data-theme="dark"] .hero-sub { color: var(--text-secondary); }
+
+    /* Cat — absolute @ left:50% top:318px; light mode 25% larger than Figma base */
+    .hero-cat {
       position: absolute;
-      left: 560px;
-      right: -48px;
-      top: 450px;
-      bottom: -66px;
-      z-index: 1;  /* detrás del título (.hero-title tiene z-index:2) */
+      left: 50%;
+      top: 318px;
+      width: 868px;   /* 694 × 1.25 */
+      height: 964px;  /* 771 × 1.25 */
+      pointer-events: none;
+      z-index: 3;
+      overflow: hidden;
+    }
+    .hero-cat img {
+      position: absolute;
+      left: 0;
+      top: -9.91%;       /* Figma offset to position cat correctly inside crop */
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .hero-cat .hero-cat-light,
+    .hero-cat .hero-cat-dark { display: none; }
+    html[data-theme="light"] .hero-cat .hero-cat-light { display: block; }
+    html[data-theme="dark"]  .hero-cat .hero-cat-dark  { display: block; }
+
+    /* Dark mode cat — flipped + repositioned per Figma 608:55309 */
+    html[data-theme="dark"] .hero-cat {
+      left: 83px;
+      top: 36.9px;
+      right: 0;
+      bottom: -444.62px;
+      width: auto;
+      height: auto;
+    }
+    html[data-theme="dark"] .hero-cat .hero-cat-dark {
+      transform: scaleX(-1);
+      top: 0;
     }
 
-    .hero-notepad img {
-      width: 100%;
-      display: block;
-      transform-origin: bottom center;
-      transition: transform 350ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+    /* Decorative code text — pinned to top, right position from Figma */
+    .hero-code {
+      position: absolute;
+      left: calc(75% + 11px);
+      top: 18px;
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: normal;
+      letter-spacing: 0.04em;
+      color: rgba(0, 0, 0, 0.1);
+      white-space: pre;
+      pointer-events: none;
+      z-index: 1;
+      margin: 0;
     }
-    @media (hover: hover) and (pointer: fine) {
-      .hero-notepad:hover img { transform: rotate(2deg); }
+    html[data-theme="dark"] .hero-code {
+      color: rgba(79, 77, 60, 0.35);
+      top: 14px;
+      /* fade out before overlapping the cat too aggressively */
+      -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+              mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
     }
 
     /* ── RESPONSIVE HERO ── */
 
-    /* Tablet (769–1024px) — no sidebar, hamburger, in-flow notepad */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      #hero { padding: 100px 48px 0; }
-      .hero-title-word { font-size: clamp(55px, 9vw, 100px); }
-      .hero-title-line2 { font-size: clamp(55px, 9vw, 100px); }
+    /* ── LAYER ORDER (all breakpoints)
+       background : .hero-code  z-index 1
+       content    : .hero-title / .hero-info  z-index 2
+       foreground : .hero-cat   z-index 3
+    ── */
 
-      .hero-info {
-        margin-top: 48px;
-        padding-left: 0;
-        max-width: 65%;
-        gap: 18px;
+    /* 1025–1259px — proportional fluid scaling */
+    @media (max-width: 1259px) and (min-width: 1025px) {
+      .hero-cat {
+        width: clamp(560px, 60vw, 868px);
+        height: auto; aspect-ratio: 868 / 964;
+        top: clamp(260px, 22vw, 318px);
       }
-
-      /* Notepad: in-flow, toca el divider, sangra por la derecha */
-      .hero-notepad {
-        position: relative;
-        left: auto; right: auto; top: auto; bottom: auto;
-        margin-top: 56px;
-        margin-left: 18%;
-        margin-right: -48px;
-        width: auto;
-        flex: 1;
-        min-height: 0;
-        max-width: none;
-        overflow: hidden;
-        display: flex;
-        z-index: 1;
+      html[data-theme="dark"] .hero-cat {
+        left: 83px; right: 0; bottom: -444.62px;
+        top: clamp(20px, 3vw, 36.9px);
+        width: auto; height: auto;
       }
-      .hero-notepad img {
-        flex: 1;
-        min-height: 0;
-        width: 100%;
-        object-fit: cover;
-        object-position: left top;
-        transform-origin: bottom left;
-      }
-      .hero-ctas { flex-direction: column; gap: 12px; }
-      .hero-cta--cv { display: flex; }
+      .hero-info { top: clamp(380px, 33vw, 466px); }
+      .hero-code { left: calc(75% + 11px); top: 18px; }
     }
 
-    /* Mobile (≤768px) */
-    @media (max-width: 768px) {
-      #hero { padding: 100px 22px 48px; }
-      .hero-title-word { font-size: clamp(48px, 12vw, 72px); }
-      .hero-title-line2 { font-size: clamp(48px, 12vw, 72px); }
-      .hero-info {
-        margin-top: 33px;
-        padding-left: 0;
-        max-width: 100%;
-        gap: 16px;
+    /* Tablet (768–1024px) — valores pixel-exact de Figma node 598:53494 (768×883) */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      #hero {
+        padding: 0;
+        min-height: 883px;
+        overflow: hidden;
       }
 
-      /* Notepad: in-flow after CTAs, 28px de gap, sangra por la derecha, toca el marquee */
-      .hero-notepad {
-        position: relative;
-        left: auto; right: auto; top: auto; bottom: auto;
-        margin-top: 56px;
-        margin-left: 12%;
-        margin-right: -22px;
-        width: auto;
-        flex: 1;
-        min-height: 0;
-        max-width: none;
-        overflow: hidden;
-        display: flex;
-        z-index: 1;
+      /* Title: top:88, left:22, font:72px */
+      .hero-title {
+        position: absolute;
+        left: 22px; right: 22px; top: 88px;
       }
-      .hero-notepad img {
-        flex: 1;
-        min-height: 0;
-        width: 100%;
-        object-fit: cover;
-        object-position: left top;
-        transform-origin: bottom left;
+      .hero-title-word  { font-size: 72px; }
+      .hero-title-line2 { font-size: 72px; }
+
+      /* Info: left:22, top:282, width:380 — en el frente del gato a la izquierda */
+      .hero-info {
+        position: absolute;
+        left: 22px; top: 282px;
+        width: 380px; max-width: 380px;
+        gap: 33px;
+      }
+
+      /* Cat: left:240, top:262, w:694, h:771 — arranca en el centro, clipa a la derecha */
+      .hero-cat {
+        position: absolute;
+        left: 240px; right: auto;
+        top: 262px;
+        width: 694px; height: 771px;
+        aspect-ratio: auto;
+      }
+      /* Dark mode: resetear inset, espejado */
+      html[data-theme="dark"] .hero-cat {
+        left: auto; right: -20px;
+        top: 156px; bottom: auto;
+        width: 910px; height: auto;
+        aspect-ratio: 868 / 964;
+      }
+      html[data-theme="dark"] .hero-cat .hero-cat-dark {
+        transform: scaleX(-1);
+        top: 0;
+      }
+
+      /* Code: left:512, top:-80px, font:13px — per Figma rgba(0,0,0,0.1) */
+      .hero-code {
+        left: 512px; right: auto;
+        top: -80px;
+        font-size: 13px;
+        line-height: normal;
+        color: rgba(0, 0, 0, 0.1);
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 88%);
+                mask-image: linear-gradient(to bottom, black 50%, transparent 88%);
+      }
+      html[data-theme="dark"] .hero-code {
+        top: -80px;
+        color: rgba(79, 77, 60, 0.35);
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 88%);
+                mask-image: linear-gradient(to bottom, black 50%, transparent 88%);
       }
     }
 
-    /* ── SECTION DIVIDER ── */
-    .hero-divider { border-top: 1px solid var(--border); }
+    /* Mobile (≤767px) — gato abajo a la derecha, info columna fina absoluta */
+    @media (max-width: 767px) {
+      #hero { padding: 88px 22px 0; min-height: 1054px; overflow: visible; }
+      .hero-title-word  { font-size: clamp(44px, 13vw, 72px); }
+      .hero-title-line2 { font-size: clamp(44px, 13vw, 72px); }
+      .hero-title-line1 { padding: 6px 12px 8px 0; }
+
+      /* info: columna absoluta a la izquierda */
+      .hero-info {
+        position: absolute;
+        left: 22px; top: 210px;
+        width: 320px; max-width: 320px;
+        gap: 20px;
+      }
+      .hero-sub { font-size: 14px; line-height: 1.55; }
+
+      /* cat: absoluto abajo, puede asomarse — per Figma 390w */
+      .hero-cat {
+        position: absolute;
+        left: auto; right: -290px;
+        top: auto; bottom: -55px;
+        width: 620px; height: auto; aspect-ratio: 868 / 964;
+      }
+      /* dark mode */
+      html[data-theme="dark"] .hero-cat {
+        left: auto; right: -80px;
+        top: auto; bottom: -26px;
+        width: 660px; height: auto;
+        -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 94%);
+                mask-image: linear-gradient(to bottom, black 75%, transparent 94%);
+      }
+      html[data-theme="dark"] .hero-cat .hero-cat-dark {
+        transform: scaleX(-1);
+        top: 0;
+      }
+
+      /* code: bottom-left, 717×420 — per Figma 390w */
+      .hero-code {
+        display: block;
+        left: -16px; right: auto;
+        top: auto; bottom: 126px;
+        width: 717px; height: 420px;
+        font-size: 12px;
+        line-height: 1.35;
+        z-index: 0;
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+                mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%);
+      }
+      html[data-theme="dark"] .hero-code {
+        color: rgba(120, 118, 90, 0.2);
+        top: auto; bottom: 126px;
+      }
+    }
 
     /* ── SECTIONS ── */
     .section { padding: 88px 48px; }
@@ -378,20 +502,6 @@
       width: 100%;
       display: block;
       border-radius: 2px;
-    }
-    /* Overlay approach: GPU-composited, no repaint */
-    .proj-img-col::after {
-      content: '';
-      position: absolute;
-      inset: 28px 28px 28px 48px;
-      border-radius: 2px;
-      background: var(--bg);
-      opacity: 0.07;
-      transition: opacity 300ms ease-out;
-      pointer-events: none;
-    }
-    @media (hover: hover) and (pointer: fine) {
-      .project-item:hover .proj-img-col::after { opacity: 0; }
     }
 
     .proj-img-placeholder {
@@ -509,7 +619,7 @@
     /* Row containers — manage text and visual together */
     .about-row-1-container,
     .about-row-2-container {
-      display: flex; gap: 40px; width: 100%;
+      display: flex; gap: 40px; width: 100%; overflow: visible;
     }
 
     .about-row-1-container {
@@ -538,9 +648,9 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      max-width: 600px;
-      margin: 0 auto;
+      align-items: stretch;
+      max-width: 100%;
+      margin: 0;
     }
 
     .about-col-text {
@@ -607,6 +717,42 @@
       height: 100%;
       object-fit: contain;
       display: block;
+    }
+
+    /* CV Sheet — absolute so it can bleed past column/screen right */
+    .about-col-visual-row1 {
+      position: relative;
+      overflow: visible;
+    }
+    .cv-sheet {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60vw;
+      cursor: pointer;
+    }
+    .cv-sheet img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .cv-sheet:hover img { transform: rotate(2deg); }
+    }
+    /* Tablet */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .cv-sheet { width: 70vw; }
+    }
+    /* Mobile: starts at left viewport edge, bleeds right.
+       Parent is 320px with justify-content:flex-start; margin-left shifts to viewport left. */
+    @media (max-width: 768px) {
+      .cv-sheet {
+        position: relative;
+        width: 115vw;
+        flex-shrink: 0;
+        margin-left: calc(176px - 50vw);
+      }
     }
 
     /* Row 2 visual: center vertically with text */
@@ -847,6 +993,17 @@
       .about-col-text {
         max-width: 100%;
         width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .about-row-2-container .about-col-text {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+        align-items: flex-start;
       }
 
       .about-heading { font-size: clamp(28px, 8vw, 40px); }
@@ -871,6 +1028,12 @@
         width: 100%;
         max-width: 320px;
         height: 380px;
+      }
+      /* Row 1 only: let cv-sheet dictate height + bleed right */
+      .about-col-visual-row1 {
+        height: auto;
+        overflow: visible;
+        justify-content: flex-start;
       }
       /* Stickies slightly smaller than desktop but readable — fit within 380px */
       .about-sticky-blue  { width: 50%; }
@@ -917,7 +1080,7 @@
   </style>
 </head>
 <body>
-<script src="animations.js"></script>
+<script src="animations.js" defer></script>
 <script src="projects.js"></script>
 <script src="sidebar.js"></script>
 
@@ -928,7 +1091,7 @@
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span>
   </button>
-  <div class="nav-logo" id="navLogo">Alejandro Arab</div>
+  <div class="nav-logo" id="navLogo">hddhdhdydjv</div>
 </div>
 
 <!-- Mobile menu removed — sidebar push is used instead -->
@@ -936,17 +1099,57 @@
 <!-- HERO -->
 <section id="hero" data-theme="dark">
 
-  <!-- Title: PRODUCT_ / DESIGNER -->
+  <!-- Decorative code text — real text, ready to animate -->
+  <pre class="hero-code" aria-hidden="true">&lt;div style="
+  display:inline-flex;
+  flex-direction:column;
+  gap:6px;
+  background:#10100B;
+  border:1px solid #2a2a1f;
+  padding:18px 22px 16px;
+  font-family:'Departure Mono','Courier New',monospace;
+  position:relative;
+  overflow:hidden;
+"&gt;
+  &lt;!-- scanlines --&gt;
+  &lt;div style="
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(
+      0deg,transparent,transparent 3px,
+      rgba(255,255,255,0.018) 3px,rgba(255,255,255,0.018) 4px
+    );
+    pointer-events:none;
+  "&gt;&lt;/div&gt;
+
+  &lt;span style="font-size:10px;letter-spacing:0.18em;color:#5c5a40;text-transform:uppercase;"&gt;
+    &#9632; HANDLE
+  &lt;/span&gt;
+
+  &lt;span style="
+    font-size:clamp(18px,3vw,28px);
+    letter-spacing:0.06em;
+    color:#c8c49a;
+    line-height:1;
+  "&gt;
+    hddhdhdydjv
+  &lt;/span&gt;
+
+  &lt;span style="font-size:10px;letter-spacing:0.14em;color:#3a3a2e;"&gt;
+    &#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;&#9632;
+  &lt;/span&gt;
+&lt;/div&gt;</pre>
+
+  <!-- Title: WORD_ / DESIGNER -->
   <div class="hero-title">
     <div class="hero-title-line1">
       <span class="hero-title-word"><span id="tw-word">PRODUCT</span><span class="tw-cursor">_</span></span>
     </div>
-    <div class="hero-title-line2">DESIGNER</div>
+    <div class="hero-title-line2" data-i18n="hero.title.role">DESIGNER</div>
   </div>
 
   <!-- Info: sub + CTAs -->
   <div class="hero-info">
-    <p class="hero-sub" data-i18n="hero.sub">Creative product designer (and occasional developer) collaborating with teams to build digital products that solve real problems.</p>
+    <p class="hero-sub" data-i18n-html="hero.sub">Creative product designer<br>collaborating with teams<br>to build digital products.</p>
     <div class="hero-ctas">
       <a class="hero-cta" href="#work" data-i18n-html="hero.cta.work"><span class="arr">→</span> View Work</a>
       <a class="hero-cta" href="#contact" data-i18n-html="hero.cta.contact"><span class="arr">→</span> Get in Touch</a>
@@ -954,17 +1157,13 @@
     </div>
   </div>
 
-  <!-- CV hero image -->
-  <div class="hero-notepad">
-    <img src="assets/hero-visuals/en/visual.png" alt="Portfolio visual"
-         data-src-en="assets/hero-visuals/en/visual.png"
-         data-src-es="assets/hero-visuals/es/visual.png" />
+  <!-- Hero cat — theme-aware (reuses sidebar logos) -->
+  <div class="hero-cat" aria-hidden="true">
+    <img class="hero-cat-light" src="assets/logos/Light.webp" alt="" fetchpriority="high" />
+    <img class="hero-cat-dark"  src="assets/logos/Dark.webp"  alt="" fetchpriority="high" />
   </div>
 
 </section>
-
-<!-- DIVIDER -->
-<div class="hero-divider"></div>
 
 <!-- WORK -->
 <section class="section" id="work" data-theme="dark">
@@ -988,7 +1187,7 @@
       </div>
       <div class="project-expand"><div class="project-expand-inner">
         <div class="proj-img-ph" onclick="window.navigateTo('works/fan-raise.html')" style="cursor:pointer">
-          <img src="assets/covers/fanraise.png" alt="Fan Raise" />
+          <img src="assets/covers/fanraise.webp" alt="Fan Raise" />
         </div>
         <div class="proj-expand-meta">
           <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Product Design · Fundraising</span></div>
@@ -1070,7 +1269,7 @@
       </div>
       <div class="project-expand"><div class="project-expand-inner">
         <div class="proj-img-ph" onclick="window.navigateTo('works/brikka.html')" style="cursor:pointer">
-          <img src="assets/covers/brikka.png" alt="Brikka" />
+          <img src="assets/covers/brikka.webp" alt="Brikka" />
         </div>
         <div class="proj-expand-meta">
           <div class="proj-expand-meta-item"><span class="pem-key" data-i18n="meta.category">Category</span><span class="pem-val">Web3 Product Design</span></div>
@@ -1163,11 +1362,20 @@
       </div>
     </div>
 
-    <!-- Visual: composited image with photo + stickies (en/es switchable) -->
+    <!-- Visual: CV sheet — click downloads resume -->
     <div class="about-col-visual about-col-visual-row1 reveal" style="--reveal-delay:120ms">
-      <img src="assets/about-visuals/en/visual.png" alt="About - Who I Am"
-           data-src-en="assets/about-visuals/en/visual.png"
-           data-src-es="assets/about-visuals/es/visual.png" />
+      <div class="cv-sheet">
+        <picture>
+          <source media="(max-width: 768px)"
+            srcset="assets/about-visuals/en/cv-mobile.png"
+            data-srcset-en="assets/about-visuals/en/cv-mobile.png"
+            data-srcset-es="assets/about-visuals/es/cv-mobile.png" />
+          <img src="assets/about-visuals/en/cv-desktop.png"
+            data-src-en="assets/about-visuals/en/cv-desktop.png"
+            data-src-es="assets/about-visuals/es/cv-desktop.png"
+            alt="CV — Alejandro Arab" />
+        </picture>
+      </div>
     </div>
   </div>
 
@@ -1176,9 +1384,10 @@
 
     <!-- Visual: composited 3 polaroids (en/es switchable) -->
     <div class="about-col-visual about-col-visual-row2 reveal" style="--reveal-delay:80ms">
-      <img src="assets/about-visuals/en/row2.png" alt="Beyond the Professional"
-           data-src-en="assets/about-visuals/en/row2.png"
-           data-src-es="assets/about-visuals/es/row2.png" />
+      <img src="assets/about-visuals/en/row2.webp" alt="Beyond the Professional"
+           data-src-en="assets/about-visuals/en/row2.webp"
+           data-src-es="assets/about-visuals/es/row2.webp"
+           loading="lazy" />
     </div>
 
     <!-- Text: beyond professional -->
@@ -1316,7 +1525,7 @@
     }
 
     // CV sheet: DOWNLOAD RESUME / DESCARGAR CURRICULUM
-    const cvSheet = document.querySelector('.hero-notepad');
+    const cvSheet = document.querySelector('.cv-sheet');
     if (cvSheet) {
       cvSheet.addEventListener('mouseenter', () => {
         const lang = localStorage.getItem('aa-lang') || 'en';
@@ -1435,9 +1644,151 @@
 
   // ── HAMBURGER + THEME — handled by sidebar.js ──
 
+  // ── HERO CAT — pixel dissolve (entry + exit) ──
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Generic: draw img into a canvas covering its container, animate px size.
+    // Detects CSS scaleX(-1) on the img and mirrors the canvas draw to match.
+    function buildRevealCanvas(img, container, startPx) {
+      if (!img || !img.complete || !img.naturalWidth) return null;
+      const W = container.offsetWidth, H = container.offsetHeight;
+      if (!W || !H) return null;
+      container.querySelectorAll('.px-hero-reveal').forEach(c => c.remove());
+      const canvas = document.createElement('canvas');
+      canvas.className = 'px-hero-reveal';
+      canvas.width = W; canvas.height = H;
+      canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;image-rendering:pixelated;image-rendering:crisp-edges;';
+      container.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      const ir = img.getBoundingClientRect(), cr = container.getBoundingClientRect();
+      const ix = ir.left - cr.left, iy = ir.top - cr.top, iw = ir.width, ih = ir.height;
+      // Detect CSS horizontal flip (scaleX(-1) = matrix(-1,0,0,1,0,0))
+      const xform = getComputedStyle(img).transform || '';
+      const flipX = xform.startsWith('matrix(-1,') || xform === 'matrix(-1, 0, 0, 1, 0, 0)';
+      function render(px) {
+        const ps = Math.max(1, px);
+        const sw = Math.max(1, Math.ceil(W / ps)), sh = Math.max(1, Math.ceil(H / ps));
+        const tmp = document.createElement('canvas'); tmp.width = sw; tmp.height = sh;
+        const tc = tmp.getContext('2d'); tc.imageSmoothingEnabled = false;
+        const sc = sw / W;
+        try {
+          if (flipX) {
+            // Mirror the draw so canvas matches the CSS-flipped appearance
+            tc.save();
+            tc.translate(sw, 0);
+            tc.scale(-1, 1);
+            tc.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, ix * sc, iy * sc, iw * sc, ih * sc);
+            tc.restore();
+          } else {
+            tc.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, ix * sc, iy * sc, iw * sc, ih * sc);
+          }
+        }
+        catch(e) { canvas.remove(); return false; }
+        ctx.clearRect(0, 0, W, H); ctx.drawImage(tmp, 0, 0, W, H);
+        return true;
+      }
+      return { canvas, render, currentPx: startPx };
+    }
+
+    // Entry: pixelated → sharp
+    function heroCatIn() {
+      const theme = document.documentElement.getAttribute('data-theme') || 'light';
+      const img = document.querySelector(theme === 'dark' ? '.hero-cat-dark' : '.hero-cat-light');
+      if (!img) return;
+      const container = img.closest('.hero-cat');
+      if (!container) return;
+      const state = buildRevealCanvas(img, container, 24);
+      if (!state) return;
+      function step() {
+        const diff = 1 - state.currentPx;
+        if (Math.abs(diff) < 0.35) { state.canvas.remove(); return; }
+        state.currentPx += diff * 0.14;
+        state.render(state.currentPx);
+        setTimeout(step, 28);
+      }
+      state.render(state.currentPx);
+      setTimeout(step, 60);
+    }
+
+    // Exit: sharp → pixelated (fires while old cat is still displayed)
+    function heroCatOut(theme) {
+      const img = document.querySelector(theme === 'dark' ? '.hero-cat-dark' : '.hero-cat-light');
+      if (!img) return;
+      const container = img.closest('.hero-cat');
+      if (!container) return;
+      const state = buildRevealCanvas(img, container, 1);
+      if (!state) return;
+      function step() {
+        const diff = 24 - state.currentPx;
+        if (Math.abs(diff) < 0.5) { state.canvas.remove(); return; }
+        state.currentPx += diff * 0.18;
+        state.render(state.currentPx);
+        setTimeout(step, 28);
+      }
+      state.render(state.currentPx);
+      setTimeout(step, 30);
+    }
+
+    // On page load — after hero cat entry animation (~1050ms)
+    window.addEventListener('DOMContentLoaded', () => setTimeout(heroCatIn, 1100));
+
+    // On theme change — exit old cat first, then entry new cat after data-theme switches
+    document.addEventListener('aa:beforethemechange', e => heroCatOut(e.detail.from));
+    document.addEventListener('aa:themechange',       () => setTimeout(heroCatIn, 60));
+
+    // Expose for sidebar to call on sidebar cat when scrolling back to hero
+    window._heroCatIn  = heroCatIn;
+    window._heroCatOut = heroCatOut;
+  })();
+
+  // ── CODE TEXT TYPEWRITER ──
+  (function() {
+    const pre = document.querySelector('.hero-code');
+    if (!pre) return;
+
+    // reduced-motion: show instantly
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      pre.style.opacity = '1';
+      return;
+    }
+
+    const fullText = pre.textContent;  // decoded entities → actual < > " etc.
+    pre.textContent = '';
+
+    // blinking cursor char
+    const cur = document.createElement('span');
+    cur.style.cssText = 'animation:blink 0.65s step-end infinite;';
+    cur.textContent = '▋';
+    pre.appendChild(cur);
+
+    let i = 0;
+    function typeNext() {
+      if (i >= fullText.length) {
+        // done — blink cursor 600ms then remove
+        setTimeout(() => cur.remove(), 600);
+        return;
+      }
+      // insert char before cursor
+      pre.insertBefore(document.createTextNode(fullText[i++]), cur);
+      const ch = fullText[i - 1];
+      // whitespace flies by, visible chars have natural typing rhythm
+      const isWS = /[\n\r\t ]/.test(ch);
+      const delay = isWS ? 7 : (24 + Math.random() * 20);
+      setTimeout(typeNext, delay);
+    }
+
+    // reveal element and start typing after hero title anims settle
+    setTimeout(() => {
+      pre.style.opacity = '1';
+      typeNext();
+    }, 650);
+  })();
+
   // ── SCRAMBLE TEXT ──
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#%&*';
-  const NAMES = ['Alejandro Arab', 'hddhdhdydjv'];
+  const NAMES = ['hddhdhdydjv', 'mddhdhdy15#', 'hx98wrx1via', 'mddhdhdyfcf', 'Alejandro Arab'];
   let nameIdx = 0;
 
   function scramble(el, target, onDone) {

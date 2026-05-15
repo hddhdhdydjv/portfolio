@@ -10,7 +10,8 @@
       'nav.contact': 'Contact',
       'nav.all':     'All Projects →',
 
-      'hero.sub':         'Creative product designer (and occasional developer) collaborating with teams to build digital products that solve real problems.',
+      'hero.sub':         'Creative product designer<br>collaborating with teams<br>to build digital products.',
+      'hero.title.role':  'DESIGNER',
       'hero.cta.work':    '<span class="arr">→</span> View Work',
       'hero.cta.contact': '<span class="arr">→</span> Get in Touch',
       'hero.cta.cv':      '<span class="arr">→</span> Download Resume',
@@ -93,7 +94,8 @@
       'nav.contact': 'Contacto',
       'nav.all':     'Ver todos →',
 
-      'hero.sub':         'Diseñador de productos creativo (y a veces desarrollador) que colabora con equipos para crear productos digitales que resuelven problemas reales.',
+      'hero.sub':         'Diseñador de productos<br>creativo que colabora<br>con equipos para crear productos digitales.',
+      'hero.title.role':  'DISEÑADOR',
       'hero.cta.work':    '<span class="arr">→</span> Ver trabajo',
       'hero.cta.contact': '<span class="arr">→</span> Hablemos',
       'hero.cta.cv':      '<span class="arr">→</span> Descargar CV',
@@ -186,6 +188,11 @@
       const src = lang === 'es' ? el.dataset.srcEs : el.dataset.srcEn;
       if (src) el.src = src;
     });
+    // Swap language-aware <source> srcset (data-srcset-en / data-srcset-es)
+    document.querySelectorAll('[data-srcset-en]').forEach(el => {
+      const src = lang === 'es' ? el.dataset.srcsetEs : el.dataset.srcsetEn;
+      if (src) el.srcset = src;
+    });
     // Swap contact sticky note (English/Spanish versions)
     const stickyImg = document.getElementById('contactStickyImg');
     if (stickyImg) {
@@ -207,8 +214,8 @@
   // ── Sub-links — filled after projects.js loads ──
   const subLinks = '';
 
-  const logoLight = `<img class="sidebar-logo sidebar-logo-light" src="${prefix}assets/logos/light.png" alt="Logo">`;
-  const logoDark = `<img class="sidebar-logo sidebar-logo-dark" src="${prefix}assets/logos/dark.png" alt="Logo">`;
+  const logoLight = `<img class="sidebar-logo sidebar-logo-light" src="${prefix}assets/logos/Light.webp" alt="Logo">`;
+  const logoDark = `<img class="sidebar-logo sidebar-logo-dark" src="${prefix}assets/logos/Dark.webp" alt="Logo">`;
 
   const workActive    = inWorks || isProjects;
 
@@ -288,6 +295,19 @@
 
     [data-theme="dark"] .sidebar-logo-light { display: none; }
     [data-theme="dark"] .sidebar-logo-dark { display: block; }
+
+    /* Desktop: hide sidebar cat while hero is visible; pixel reveal handles transitions */
+    @media (min-width: 1025px) {
+      body.has-hero .sidebar-logo-container {
+        opacity: 0;
+        pointer-events: none;
+        transition: none;  /* JS pixel-dissolve handles in/out — no CSS fade */
+      }
+      body.has-hero.hero-past .sidebar-logo-container {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
 
     .sidebar-nav {
       margin-top: 44px;
@@ -477,10 +497,7 @@
       .reveal { opacity: 1; transform: none; }
     }
 
-    /* light mode: hero highlight uses mid-tone bg-card so word stays readable */
-    html[data-theme="light"] .hero-title-line1 { background: var(--bg-card); }
-    html[data-theme="light"] .hero-title-word  { color: var(--text); }
-    html[data-theme="light"] .tw-cursor        { color: var(--text); }
+    /* hero highlight bg is fixed across themes (per Figma) — handled via tokens.css */
 
     /* ── VIEW TRANSITIONS ── */
     @view-transition { navigation: auto; }
@@ -610,6 +627,28 @@
         });
       }, { threshold: 0.3 });
       document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+
+      // Desktop sidebar cat: pixel reveal in/out as hero enters/leaves viewport
+      const hero = document.getElementById('hero');
+      if (hero) {
+        document.body.classList.add('has-hero');
+        const heroObs = new IntersectionObserver(entries => {
+          const heroVisible = entries[0].isIntersecting;
+          const wasPast = document.body.classList.contains('hero-past');
+
+          if (!heroVisible && !wasPast) {
+            // Hero just scrolled away — show cat with pixel reveal IN
+            document.body.classList.add('hero-past');
+            setTimeout(pixelRevealLogo, 50);
+          } else if (heroVisible && wasPast) {
+            // Hero came back — pixel reveal OUT, then hide cat
+            pixelRevealLogoOut(() => {
+              document.body.classList.remove('hero-past');
+            });
+          }
+        }, { threshold: 0 });
+        heroObs.observe(hero);
+      }
     });
   }
 
@@ -677,6 +716,54 @@
     setTimeout(step, 60);
   }
   window.pixelRevealLogo = pixelRevealLogo;
+
+  // ── SIDEBAR CAT — pixel dissolve OUT (sharp → pixelated) ──
+  function pixelRevealLogoOut(onDone) {
+    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    const sel = theme === 'dark' ? '.sidebar-logo-dark' : '.sidebar-logo-light';
+    const img = document.querySelector(sel);
+    if (!img || !img.complete || !img.naturalWidth) { if (onDone) onDone(); return; }
+    const container = img.parentElement;
+    if (!container) { if (onDone) onDone(); return; }
+
+    const old = container.querySelector('.aa-logo-reveal');
+    if (old) old.remove();
+
+    const W = img.naturalWidth, H = img.naturalHeight;
+    const canvas = document.createElement('canvas');
+    canvas.className = 'aa-logo-reveal';
+    canvas.width = W; canvas.height = H;
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;z-index:2;';
+
+    if (getComputedStyle(container).position === 'static') container.style.position = 'relative';
+    container.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    let currentPx = 1;
+    const targetPx = 24;
+
+    function render() {
+      const ps = Math.max(1, currentPx);
+      const sw = Math.max(1, Math.ceil(W / ps)), sh = Math.max(1, Math.ceil(H / ps));
+      const tmp = document.createElement('canvas'); tmp.width = sw; tmp.height = sh;
+      const tc = tmp.getContext('2d'); tc.imageSmoothingEnabled = false;
+      try { tc.drawImage(img, 0, 0, sw, sh); } catch(e) { canvas.remove(); if (onDone) onDone(); return; }
+      ctx.clearRect(0, 0, W, H); ctx.drawImage(tmp, 0, 0, W, H);
+    }
+
+    function step() {
+      const diff = targetPx - currentPx;
+      if (Math.abs(diff) < 0.5) { canvas.remove(); if (onDone) onDone(); return; }
+      currentPx += diff * 0.18;
+      render();
+      setTimeout(step, 28);
+    }
+
+    render();
+    setTimeout(step, 30);
+  }
+  window.pixelRevealLogoOut = pixelRevealLogoOut;
 
   // ── MOBILE HAMBURGER TOGGLE ──
   function setupHamburger() {
@@ -774,14 +861,18 @@
       });
     };
 
-    // Theme toggle
+    // Theme toggle — fires beforethemechange so exit animations can run first
     const btn = ctrl.querySelector('#sidebarThemeBtn');
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
+      // Notify: exit animations fire here while old theme is still active
+      document.dispatchEvent(new CustomEvent('aa:beforethemechange', { detail: { from: current, to: next } }));
+      // Brief pause so exit canvas gets placed before CSS switches display
+      await new Promise(r => setTimeout(r, 55));
       document.documentElement.setAttribute('data-theme', next);
       btn.innerHTML = next === 'dark' ? SVG_MOON : SVG_SUN;
-      localStorage.setItem('aa-theme', next); // persist so auto-detect only runs once
+      localStorage.setItem('aa-theme', next);
       window.applyThemeImages(next);
       document.dispatchEvent(new CustomEvent('aa:themechange', { detail: { theme: next } }));
     });
