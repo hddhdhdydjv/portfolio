@@ -90,6 +90,24 @@ html[data-theme="dark"] {
   --bezel:               #eeeeee;
 }
 
+/* ── PAGE TRANSITION OVERLAY ──────────────────────────────────── */
+/* The ::before on <html> is pure CSS — appears before any JS runs.
+   Activated by adding .aa-pt-enter to <html> in the inline head script. */
+html.aa-pt-enter::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+}
+html[data-theme="light"].aa-pt-enter::before { background: #fafafa; }
+html[data-theme="dark"].aa-pt-enter::before  { background: #10100B; }
+
+html.aa-pt-enter.aa-pt-ready::before {
+  transition: opacity 300ms ease;
+  opacity: 0;
+}
+
 /* ── NOTEBOOK PAPER (per-project pages) ───────────────────────── */
 /* Restore the notebook's dividers to their pre-softening values.
    Globally `--border` was reduced to lower contrast on the rest of

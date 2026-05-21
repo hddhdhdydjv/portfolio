@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+  <script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("aa-theme")||"light");if(sessionStorage.getItem("aa-pt")==="1"){sessionStorage.removeItem("aa-pt");document.documentElement.classList.add("aa-pt-enter")}}catch(e){}</script>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="../assets/favicons/light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="../assets/favicons/dark.png" media="(prefers-color-scheme: dark)">
@@ -420,6 +421,25 @@
       .editorial-col--empty { display: none; }
     }
 
+
+    /* ── DELIVERABLES NOTE ── */
+    .deliv-note {
+      position: absolute;
+      top: -22px;
+      right: 22px;
+      width: 280px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .deliv-note img {
+      width: 100%;
+      display: block;
+    }
+    .notebook-paper { overflow: visible; }
+    @media (max-width: 1024px) {
+      .deliv-note { display: none; }
+    }
+
     /* ── TABLET: hoja pegada al borde der, col izq visible, col der oculta ── */
     @media (min-width: 769px) and (max-width: 1024px) {
       .notebook-paper { margin: 88px 0 0 24px; }
@@ -614,6 +634,9 @@
 
           <!-- HERO -->
           <div class="project-hero">
+            <div class="deliv-note">
+              <img src="../assets/deliv-note-fanraise.png" alt="Deliverables" />
+            </div>
             <div class="project-eyebrow reveal">[ ${project.num} / ${String(PROJECTS.filter(p => !p.hidden).length).padStart(2, '0')} ]</div>
             <h1 class="project-title reveal" style="--reveal-delay:60ms">${project.title}</h1>
             <div class="meta-row">

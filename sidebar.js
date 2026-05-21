@@ -473,11 +473,11 @@
 
     /* ── NOTEBOOK ENTRANCE — works pages ── */
     @keyframes notebookIn {
-      from { opacity: 0; transform: translate(56px, 32px); }
-      to   { opacity: 1; transform: translate(0, 0); }
+      from { transform: translate(40px, 20px); }
+      to   { transform: translate(0, 0); }
     }
     .notebook-paper {
-      animation: notebookIn 780ms cubic-bezier(0.4,0,0.2,1) 80ms both;
+      animation: notebookIn 550ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
     }
 
     /* ── SCROLL REVEAL — global ── */
@@ -499,40 +499,7 @@
 
     /* hero highlight bg is fixed across themes (per Figma) — handled via tokens.css */
 
-    /* ── VIEW TRANSITIONS ── */
-    @view-transition { navigation: auto; }
-
-    @keyframes vt-enter {
-      from { transform: translate(88px, 28px); opacity: 0; }
-      to   { transform: translate(0, 0); opacity: 1; }
-    }
-    @keyframes vt-exit-project {
-      from { transform: translate(0, 0); opacity: 1; }
-      to   { transform: translate(88px, 28px); opacity: 0; }
-    }
-    @keyframes vt-reveal-back {
-      from { opacity: 0.85; }
-      to   { opacity: 1; }
-    }
-
-    /* Forward: entering a project page */
-    html:not([data-nav-dir="back"]) ::view-transition-new(root) {
-      animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both vt-enter;
-      z-index: 2;
-    }
-    html:not([data-nav-dir="back"]) ::view-transition-old(root) {
-      animation: none; z-index: 1;
-    }
-
-    /* Back: exiting a project page */
-    html[data-nav-dir="back"] ::view-transition-old(root) {
-      animation: 380ms cubic-bezier(0.4, 0, 1, 1) both vt-exit-project;
-      z-index: 2;
-    }
-    html[data-nav-dir="back"] ::view-transition-new(root) {
-      animation: 380ms cubic-bezier(0.22, 1, 0.36, 1) both vt-reveal-back;
-      z-index: 1;
-    }
+    /* view transitions removed — handled by transition.js */
 
     /* ── UNIVERSAL NAV — tablet & mobile ── */
     @media (max-width: 1024px) {
@@ -849,14 +816,10 @@
     // Swap themed images to match current theme (/dark/ ↔ /light/)
     window.applyThemeImages = function(theme) {
       const t = theme || document.documentElement.getAttribute('data-theme') || 'dark';
-      const timestamp = Math.floor(Date.now() / 1000);
       document.querySelectorAll('img').forEach(img => {
         if (img.src.includes('/dark/') || img.src.includes('/light/')) {
-          // Remove old timestamp if present, then swap theme and add new timestamp
-          let newSrc = img.src.replace(/\/(dark|light)\//, `/${t}/`);
-          newSrc = newSrc.replace(/[?&]v=\d+/, ''); // remove old cache-bust param
-          newSrc = newSrc + (newSrc.includes('?') ? '&' : '?') + 'v=' + timestamp;
-          img.src = newSrc;
+          const newSrc = img.src.replace(/\/(dark|light)\//, `/${t}/`);
+          if (newSrc !== img.src) img.src = newSrc;
         }
       });
     };
@@ -932,41 +895,5 @@
   // _prScript.src = prefix + 'pixel-reveal.js';
   // document.head.appendChild(_prScript);
 
-  // ── PAGE TRANSITIONS ──
-  // Set direction in sessionStorage before navigating
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('a[href]');
-    if (!link || link.target === '_blank') return;
-    const href = link.getAttribute('href') || '';
-    if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
-    const isOnProject = window.location.pathname.includes('/works/');
-    const goingToProject = href.includes('works/');
-    if (isOnProject && !goingToProject) {
-      sessionStorage.setItem('aa-nav-dir', 'back');
-    } else {
-      sessionStorage.setItem('aa-nav-dir', 'forward');
-    }
-  });
-
-  // Apply direction on new page load (before first paint)
-  window.addEventListener('pagereveal', function() {
-    const dir = sessionStorage.getItem('aa-nav-dir') || 'forward';
-    sessionStorage.removeItem('aa-nav-dir');
-    document.documentElement.setAttribute('data-nav-dir', dir);
-  });
-
-  // Intercept programmatic navigateTo (prev/next in project pages)
-  const _origNavigate = window.navigateTo;
-  window.navigateTo = function(url) {
-    const isOnProject = window.location.pathname.includes('/works/');
-    const goingToProject = (url || '').includes('works/');
-    if (isOnProject && !goingToProject) {
-      sessionStorage.setItem('aa-nav-dir', 'back');
-    } else {
-      sessionStorage.setItem('aa-nav-dir', 'forward');
-    }
-    if (_origNavigate) _origNavigate(url);
-    else window.location.href = url;
-  };
 
 })();

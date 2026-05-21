@@ -437,12 +437,31 @@
   // Loader runs immediately (script is loaded right after <body>).
   if (CONFIG.loader) initLoader();
 
+  // ==========================================================
+  // 4. IMAGE FADE-IN
+  // ==========================================================
+  function initImageFade() {
+    if (reduceMotion) return;
+    document.querySelectorAll('img').forEach(img => {
+      // Skip sidebar logos and already-loaded (cached) images
+      if (img.closest('.sidebar-logo-container')) return;
+      if (img.complete && img.naturalWidth > 0) return;
+      // Only apply fade to images actually still loading
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.4s ease';
+      const show = () => { img.style.opacity = '1'; };
+      img.addEventListener('load',  show, { once: true });
+      img.addEventListener('error', show, { once: true });
+    });
+  }
+
   function bootRest() {
     // Slight delay so other DOMContentLoaded handlers (e.g.
     // projects.html renderCards) finish first.
     setTimeout(() => {
       if (CONFIG.arrows)   initArrows();
       if (CONFIG.scramble) initScramble();
+      initImageFade();
     }, 0);
 
     if (CONFIG.arrows) {
@@ -467,6 +486,7 @@
   window.AAAnimations = {
     rescanArrows: scheduleArrowRescan,
     scramble: scrambleEl,
+    imageFade: initImageFade,
     config: CONFIG,
   };
 })();
