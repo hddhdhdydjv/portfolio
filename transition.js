@@ -20,7 +20,7 @@
         html.classList.add('aa-pt-ready');
         setTimeout(function () {
           html.classList.remove('aa-pt-enter', 'aa-pt-ready');
-        }, 320);
+        }, 520);
       });
     });
   }
@@ -32,7 +32,7 @@
     var overlay = document.createElement('div');
     overlay.style.cssText =
       'position:fixed;inset:0;z-index:99999;pointer-events:all;' +
-      'background:' + themeBg() + ';opacity:0;transition:opacity 160ms ease;';
+      'background:' + themeBg() + ';opacity:0;transition:opacity 220ms ease;';
     document.body.appendChild(overlay);
 
     // Double rAF so the transition from opacity:0 is visible
@@ -41,7 +41,7 @@
         overlay.style.opacity = '1';
         setTimeout(function () {
           window.location.href = href;
-        }, 160);
+        }, 220);
       });
     });
   }

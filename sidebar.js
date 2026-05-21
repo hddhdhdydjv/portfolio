@@ -473,19 +473,30 @@
 
     /* ── NOTEBOOK ENTRANCE — works pages ── */
     @keyframes notebookIn {
-      from { transform: translate(40px, 20px); }
-      to   { transform: translate(0, 0); }
+      from { opacity: 0; transform: translate(20px, 8px); }
+      to   { opacity: 1; transform: translate(0, 0); }
     }
     .notebook-paper {
-      animation: notebookIn 550ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both;
+      animation: notebookIn 700ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
     }
+
+    /* ── SIDEBAR NAV ENTRANCE — staggered per item ── */
+    @keyframes sidebarLinkIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .sidebar-nav > *:nth-child(1) { animation: sidebarLinkIn 500ms cubic-bezier(0.22,1,0.36,1)   0ms both; }
+    .sidebar-nav > *:nth-child(2) { animation: sidebarLinkIn 500ms cubic-bezier(0.22,1,0.36,1)  70ms both; }
+    .sidebar-nav > *:nth-child(3) { animation: sidebarLinkIn 500ms cubic-bezier(0.22,1,0.36,1) 140ms both; }
+    .sidebar-nav > *:nth-child(4) { animation: sidebarLinkIn 500ms cubic-bezier(0.22,1,0.36,1) 210ms both; }
+    .sidebar-nav > *:nth-child(5) { animation: sidebarLinkIn 500ms cubic-bezier(0.22,1,0.36,1) 280ms both; }
 
     /* ── SCROLL REVEAL — global ── */
     .reveal {
       opacity: 0;
-      transform: translateY(5px);
-      transition: opacity 650ms cubic-bezier(0.4,0,0.2,1),
-                  transform 650ms cubic-bezier(0.4,0,0.2,1);
+      transform: translateY(8px);
+      transition: opacity 800ms cubic-bezier(0.22,1,0.36,1),
+                  transform 800ms cubic-bezier(0.22,1,0.36,1);
       transition-delay: var(--reveal-delay, 0ms);
     }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -869,10 +880,27 @@
           entry.target.classList.remove('is-visible');
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -16px 0px' });
     document.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
   }
   window.setupReveal = setupReveal;
+
+  function initLogo() {
+    if (isIndex) {
+      // Index: logo reveal handled by hero scroll observer
+      setTimeout(pixelRevealLogo, 80);
+    } else {
+      // All other pages: gentle CSS fade — no abrupt pixel reveal
+      const container = document.querySelector('.sidebar-logo-container');
+      if (container) {
+        container.style.opacity = '0';
+        requestAnimationFrame(() => {
+          container.style.transition = 'opacity 700ms cubic-bezier(0.22,1,0.36,1)';
+          container.style.opacity = '1';
+        });
+      }
+    }
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
@@ -880,14 +908,14 @@
       setupNavControls();
       setupReveal();
       if (window.applyThemeImages) window.applyThemeImages();
-      setTimeout(pixelRevealLogo, 80);
+      initLogo();
     });
   } else {
     setupHamburger();
     setupNavControls();
     setupReveal();
     if (window.applyThemeImages) window.applyThemeImages();
-    setTimeout(pixelRevealLogo, 80);
+    initLogo();
   }
 
   // ── pixel-reveal.js — disabled for now, re-enable by uncommenting ──
