@@ -135,6 +135,11 @@ async function downloadSite() {
               const localPath = join(REPO_DIR, 'assets', 'fonts.gstatic.com', m[1]);
               if (!existsSync(localPath)) allRefs.add({ name: m[1], fontUrl: `https://fonts.gstatic.com/${m[1]}`, localPath });
             }
+            // Find missing images/videos/assets referenced in JS
+            for (const m of content.matchAll(/https:\/\/framerusercontent\.com\/((?:images|assets)\/[^"'`\s,?)]+)/g)) {
+              const localPath = join(REPO_DIR, 'assets', 'framerusercontent.com', m[1]);
+              if (!existsSync(localPath)) allRefs.add({ name: m[1], fontUrl: `https://framerusercontent.com/${m[1]}`, localPath });
+            }
           }
         }
       };
@@ -184,9 +189,13 @@ async function downloadSite() {
     for (const f of jsLocalFiles) {
       let content = await rf(f, 'utf8');
       const original = content;
+      // Rewrite images/assets/sites paths but NOT /modules/ (used in new URL() base args)
       content = content
-        .replace(/https:\/\/framerusercontent\.com\//g, '/assets/framerusercontent.com/')
+        .replace(/https:\/\/framerusercontent\.com\/(images|assets|sites)\//g, '/assets/framerusercontent.com/$1/')
         .replace(/https:\/\/fonts\.gstatic\.com\//g, '/assets/fonts.gstatic.com/');
+      // Strip query params from image/asset URLs (Framer CDN resizes server-side, we serve full images)
+      content = content
+        .replace(/(\/assets\/framerusercontent\.com\/(?:images|assets)\/[^?"'`\s,)]+)\?[^"'`\s,)]+/g, '$1');
       if (content !== original) await writeFile(f, content);
     }
   }
