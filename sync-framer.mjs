@@ -8,6 +8,7 @@ import { writeFile, mkdir, rm, readdir, stat } from 'fs/promises';
 import { dirname, join } from 'path';
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
+import { optimizeImages } from './optimize-assets.mjs';
 
 const downloaded = new Set();
 
@@ -54,6 +55,18 @@ function fixImageUrls(html) {
   return html.replace(/(\/assets\/framerusercontent\.com\/images\/[^"'\s?]+)\?[^"'\s]*/g, '$1');
 }
 
+// Agrega lazy-loading + decode async a las <img>, dejando la PRIMERA en carga
+// inmediata (es el hero / LCP y no debe demorarse). No pisa atributos existentes.
+function addLazyLoading(html) {
+  let first = true;
+  return html.replace(/<img\b[^>]*>/g, (tag) => {
+    const isFirst = first;
+    first = false;
+    if (isFirst || /\bloading\s*=/.test(tag)) return tag;
+    return tag.replace(/<img\b/, '<img loading="lazy" decoding="async"');
+  });
+}
+
 async function cleanOldAssets() {
   const assetsDir = join(REPO_DIR, 'assets');
   if (existsSync(assetsDir)) {
@@ -73,7 +86,7 @@ async function downloadSite() {
 
     for (const u of extractUrls(html)) allAssets.add(u);
 
-    html = fixImageUrls(rewriteHtml(html));
+    html = addLazyLoading(fixImageUrls(rewriteHtml(html)));
 
     const outPath = page === '/'
       ? join(REPO_DIR, 'index.html')
@@ -231,6 +244,9 @@ async function main() {
 
   await cleanOldAssets();
   await downloadSite();
+
+  console.log('\n🗜️  Optimizando imágenes...');
+  await optimizeImages();
 
   console.log('');
   const hasChanges = gitCommitAndPush();

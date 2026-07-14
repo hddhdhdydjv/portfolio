@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-sync",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "sync": "node sync-framer.mjs",
+    "optimize": "node optimize-assets.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.35.3"
+  }
+}
