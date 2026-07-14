@@ -93,6 +93,7 @@ async function downloadSite() {
   }
   console.log('');
 
+  // Scan downloaded JS for more asset URLs and download them
   const jsFiles = batches.filter(u => u.endsWith('.mjs') || u.endsWith('.js'));
   let extra = 0;
   for (const jsUrl of jsFiles) {
@@ -109,29 +110,85 @@ async function downloadSite() {
   }
   if (extra > 0) console.log(`   +${extra} assets from JS files`);
 
-  // Rewrite CDN URLs inside downloaded JS/MJS files to local paths
-  console.log('🔗 Rewriting URLs in JS files...');
+  // Resolve dynamically imported .mjs modules (Framer lazy-loads font/component modules)
+  console.log('🔍 Resolving dynamic JS imports...');
+  const { readFileSync, readdirSync } = await import('fs');
   const { readFile: rf } = await import('fs/promises');
-  const jsLocalFiles = [];
   const sitesDir = join(REPO_DIR, 'assets', 'framerusercontent.com', 'sites');
+
   if (existsSync(sitesDir)) {
-    const { readdirSync } = await import('fs');
-    const walk = (dir) => {
+    let resolved = 0;
+    for (let pass = 0; pass < 3; pass++) {
+      const allRefs = new Set();
+      const walk = (dir) => {
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+          const full = join(dir, entry.name);
+          if (entry.isDirectory()) walk(full);
+          else if (entry.name.endsWith('.mjs') || entry.name.endsWith('.js')) {
+            const content = readFileSync(full, 'utf8');
+            for (const m of content.matchAll(/["'`]\.\/([^"'`\s]+\.mjs)["'`]/g)) {
+              const refPath = join(dirname(full), m[1]);
+              if (!existsSync(refPath)) allRefs.add({ name: m[1], dir: dirname(full) });
+            }
+            // Also find font file references
+            for (const m of content.matchAll(/https:\/\/fonts\.gstatic\.com\/([^"'`\s]+\.woff2)/g)) {
+              const localPath = join(REPO_DIR, 'assets', 'fonts.gstatic.com', m[1]);
+              if (!existsSync(localPath)) allRefs.add({ name: m[1], fontUrl: `https://fonts.gstatic.com/${m[1]}`, localPath });
+            }
+          }
+        }
+      };
+      walk(sitesDir);
+
+      if (allRefs.size === 0) break;
+
+      for (const ref of allRefs) {
+        if (ref.fontUrl) {
+          try {
+            const res = await fetch(ref.fontUrl);
+            if (!res.ok) continue;
+            const buf = Buffer.from(await res.arrayBuffer());
+            await mkdir(dirname(ref.localPath), { recursive: true });
+            await writeFile(ref.localPath, buf);
+            resolved++;
+          } catch {}
+        } else {
+          const siteId = ref.dir.split('/sites/')[1]?.split('/')[0];
+          if (!siteId) continue;
+          const url = `https://framerusercontent.com/sites/${siteId}/${ref.name}`;
+          try {
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            const text = await res.text();
+            await writeFile(join(ref.dir, ref.name), text);
+            resolved++;
+          } catch {}
+        }
+      }
+    }
+    if (resolved > 0) console.log(`   +${resolved} dynamic modules/fonts resolved`);
+  }
+
+  // Rewrite CDN URLs inside all downloaded JS/MJS files to local paths
+  console.log('🔗 Rewriting URLs in JS files...');
+  if (existsSync(sitesDir)) {
+    const jsLocalFiles = [];
+    const walkJs = (dir) => {
       for (const entry of readdirSync(dir, { withFileTypes: true })) {
         const full = join(dir, entry.name);
-        if (entry.isDirectory()) walk(full);
+        if (entry.isDirectory()) walkJs(full);
         else if (entry.name.endsWith('.mjs') || entry.name.endsWith('.js')) jsLocalFiles.push(full);
       }
     };
-    walk(sitesDir);
-  }
-  for (const f of jsLocalFiles) {
-    let content = await rf(f, 'utf8');
-    const original = content;
-    content = content
-      .replace(/https:\/\/framerusercontent\.com\//g, '/assets/framerusercontent.com/')
-      .replace(/https:\/\/fonts\.gstatic\.com\//g, '/assets/fonts.gstatic.com/');
-    if (content !== original) await writeFile(f, content);
+    walkJs(sitesDir);
+    for (const f of jsLocalFiles) {
+      let content = await rf(f, 'utf8');
+      const original = content;
+      content = content
+        .replace(/https:\/\/framerusercontent\.com\//g, '/assets/framerusercontent.com/')
+        .replace(/https:\/\/fonts\.gstatic\.com\//g, '/assets/fonts.gstatic.com/');
+      if (content !== original) await writeFile(f, content);
+    }
   }
 
   console.log(`✅ Downloaded ${downloaded.size} total assets`);
