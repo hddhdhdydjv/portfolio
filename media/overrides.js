@@ -22,7 +22,26 @@
     });
   }
 
-  function apply() { swapFooterVideo(); }
+  // Footer monocromático: busca la tarjeta "Let's get in touch" y la pasa a
+  // escala de grises (atardecer + gato + textos), para que todo el footer
+  // comparta el mismo estilo.
+  function monochromeFooter() {
+    var nodes = document.querySelectorAll('div, section, footer');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (el.dataset && el.dataset.mono === '1') continue;
+      var txt = (el.textContent || '');
+      if (txt.indexOf("Let's get in touch") === -1 && txt.indexOf('Let’s get in touch') === -1) continue;
+      var r = el.getBoundingClientRect();
+      // La tarjeta del footer: contenedor acotado (no toda la página).
+      if (r.height > 120 && r.height < 700) {
+        el.style.filter = 'grayscale(1)';
+        el.dataset.mono = '1';
+      }
+    }
+  }
+
+  function apply() { swapFooterVideo(); monochromeFooter(); }
 
   if (document.readyState !== 'loading') apply();
   else document.addEventListener('DOMContentLoaded', apply);
