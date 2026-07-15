@@ -86,7 +86,20 @@
     }
   }
 
-  function apply() { swapFooterVideo(); monochromeFooter(); manualMarquee(); }
+  // Espaciado mobile del home: el contenedor principal tiene gap:48px entre
+  // secciones, lo que deja un vacío grande (~96px) antes de "Featured work".
+  // Lo reducimos a 24px en mobile (solo home). CSS !important, no depende de la hidratación.
+  function injectLayoutStyle() {
+    if (document.getElementById('ovr-layout')) return;
+    var s = document.createElement('style');
+    s.id = 'ovr-layout';
+    s.textContent = '@media (max-width: 809.98px){ .framer-fc550k{ gap: 24px !important; } }';
+    (document.head || document.documentElement).appendChild(s);
+  }
+
+  injectLayoutStyle(); // temprano, antes de la hidratación
+
+  function apply() { injectLayoutStyle(); swapFooterVideo(); monochromeFooter(); manualMarquee(); }
 
   if (document.readyState !== 'loading') apply();
   else document.addEventListener('DOMContentLoaded', apply);
