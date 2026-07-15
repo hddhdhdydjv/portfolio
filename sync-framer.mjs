@@ -55,6 +55,14 @@ function fixImageUrls(html) {
   return html.replace(/(\/assets\/framerusercontent\.com\/images\/[^"'\s?]+)\?[^"'\s]*/g, '$1');
 }
 
+// Inyecta el script de overrides post-hidratación (cambios de UI que Framer
+// pisaría al reconstruir el DOM). Vive en /media, que cleanOldAssets no borra.
+function injectOverrides(html) {
+  if (html.includes('/media/overrides.js')) return html;
+  const tag = '<script src="/media/overrides.js" defer></script>';
+  return html.includes('</body>') ? html.replace('</body>', tag + '</body>') : html + tag;
+}
+
 // Agrega lazy-loading + decode async a las <img>, dejando la PRIMERA en carga
 // inmediata (es el hero / LCP y no debe demorarse). No pisa atributos existentes.
 function addLazyLoading(html) {
@@ -86,7 +94,7 @@ async function downloadSite() {
 
     for (const u of extractUrls(html)) allAssets.add(u);
 
-    html = addLazyLoading(fixImageUrls(rewriteHtml(html)));
+    html = injectOverrides(addLazyLoading(fixImageUrls(rewriteHtml(html))));
 
     const outPath = page === '/'
       ? join(REPO_DIR, 'index.html')
