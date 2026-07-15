@@ -46,12 +46,49 @@ function urlToPath(url) {
 function rewriteHtml(html) {
   return html
     .replace(/https:\/\/framerusercontent\.com\//g, '/assets/framerusercontent.com/')
-    .replace(/https:\/\/fonts\.gstatic\.com\//g, '/assets/fonts.gstatic.com/')
-    .replace(/<script>try\{if\(localStorage\.get\("__framer_force_showing_editorbar_since"\).*?<\/script>/g, '');
+    .replace(/https:\/\/fonts\.gstatic\.com\//g, '/assets/fonts.gstatic.com/');
 }
 
 function fixImageUrls(html) {
   return html.replace(/(\/assets\/framerusercontent\.com\/images\/[^"'\s?]+)\?[^"'\s]*/g, '$1');
+}
+
+// Remove the "Made in Framer" badge, the "Edit Content" editorbar, and inject a
+// killer so neither ever renders (badge div + editorbar preload script + a
+// localStorage-key cleanup and CSS fallback in <head>).
+function removeFramerBadges(html) {
+  // 1. Remove the editorbar preload <script> (matches getItem/get variants)
+  html = html.replace(
+    /<script>try\{if\(localStorage\.(?:getItem|get)\("__framer_force_showing_editorbar_since"\)[\s\S]*?<\/script>/g,
+    ''
+  );
+
+  // 2. Remove the <div id="__framer-badge-container">…</div> by balancing <div> tags
+  const marker = '<div id="__framer-badge-container">';
+  const start = html.indexOf(marker);
+  if (start !== -1) {
+    const tagRe = /<\/?div\b[^>]*>/g;
+    tagRe.lastIndex = start;
+    let depth = 0, m, end = -1;
+    while ((m = tagRe.exec(html)) !== null) {
+      depth += m[0].startsWith('</') ? -1 : 1;
+      if (depth === 0) { end = m.index + m[0].length; break; }
+    }
+    if (end !== -1) html = html.slice(0, start) + html.slice(end);
+  }
+
+  // 3. Inject killer before </head> (clears the localStorage key before the
+  //    async runtime bundle runs, plus a CSS fallback that hides both elements)
+  const killMarker = '<!--nocodexport-clean-->';
+  if (!html.includes(killMarker)) {
+    const inject = killMarker +
+      '<script>try{localStorage.removeItem("__framer_force_showing_editorbar_since")}catch(e){}</script>' +
+      '<style>#__framer-editorbar-container,#__framer-badge-container{display:none!important}</style>';
+    const headIdx = html.indexOf('</head>');
+    if (headIdx !== -1) html = html.slice(0, headIdx) + inject + html.slice(headIdx);
+  }
+
+  return html;
 }
 
 async function cleanOldAssets() {
@@ -73,7 +110,7 @@ async function downloadSite() {
 
     for (const u of extractUrls(html)) allAssets.add(u);
 
-    html = fixImageUrls(rewriteHtml(html));
+    html = removeFramerBadges(fixImageUrls(rewriteHtml(html)));
 
     const outPath = page === '/'
       ? join(REPO_DIR, 'index.html')
@@ -205,19 +242,21 @@ async function downloadSite() {
 
 function gitCommitAndPush() {
   const run = (cmd) => execSync(cmd, { cwd: REPO_DIR, stdio: 'inherit' });
+  const capture = (cmd) => execSync(cmd, { cwd: REPO_DIR }).toString().trim();
 
   run('git add -A');
 
-  const status = execSync('git status --porcelain', { cwd: REPO_DIR }).toString().trim();
+  const status = capture('git status --porcelain');
   if (!status) {
     console.log('⚡ No changes detected, skipping deploy');
     return false;
   }
 
+  const branch = capture('git rev-parse --abbrev-ref HEAD');
   const timestamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
   run(`git commit -m "Sync from Framer — ${timestamp}"`);
-  run('git push origin main');
-  console.log('📤 Pushed to GitHub');
+  run(`git push origin ${branch}`);
+  console.log(`📤 Pushed to GitHub (${branch})`);
   return true;
 }
 
@@ -227,10 +266,17 @@ function deploy() {
 }
 
 async function main() {
-  console.log('🔄 Syncing Framer site → hddhdhdydjv.com\n');
+  const shouldDeploy = process.argv.includes('--deploy');
+  console.log(`🔄 Syncing Framer site${shouldDeploy ? ' → hddhdhdydjv.com' : ' (download only)'}\n`);
 
   await cleanOldAssets();
   await downloadSite();
+
+  if (!shouldDeploy) {
+    console.log('\n📝 Download complete. Review the changes, then run with --deploy to commit + deploy.');
+    console.log('   (or: git add -A && commit && merge to main && vercel deploy --prod)');
+    return;
+  }
 
   console.log('');
   const hasChanges = gitCommitAndPush();
