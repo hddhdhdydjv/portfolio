@@ -41,7 +41,52 @@
     }
   }
 
-  function apply() { swapFooterVideo(); monochromeFooter(); }
+  // Marquee de fotos del About: pasar de auto-scroll (Framer Motion) a manual.
+  // Congela la animación (transform:none via CSS !important gana a los estilos
+  // inline que setea Framer) y hace el contenedor arrastrable / scrolleable.
+  var mqStyleInjected = false;
+  function injectMqStyle() {
+    if (mqStyleInjected) return;
+    mqStyleInjected = true;
+    var s = document.createElement('style');
+    s.textContent =
+      '.mq-manual-track{transform:none !important;animation:none !important;}' +
+      '.mq-manual-wrap{overflow-x:auto !important;overflow-y:hidden;cursor:grab;' +
+      'scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;}' +
+      '.mq-manual-wrap::-webkit-scrollbar{display:none;}' +
+      '.mq-manual-wrap.mq-drag{cursor:grabbing;}';
+    document.head.appendChild(s);
+  }
+  function enableDrag(wrap) {
+    var down = false, startX = 0, startL = 0;
+    wrap.addEventListener('pointerdown', function (e) {
+      down = true; startX = e.pageX; startL = wrap.scrollLeft; wrap.classList.add('mq-drag');
+    });
+    window.addEventListener('pointerup', function () { down = false; wrap.classList.remove('mq-drag'); });
+    window.addEventListener('pointermove', function (e) {
+      if (!down) return; wrap.scrollLeft = startL - (e.pageX - startX);
+    });
+  }
+  function manualMarquee() {
+    if (!/\/about/.test(location.pathname)) return; // solo el About
+    var divs = document.querySelectorAll('div');
+    for (var i = 0; i < divs.length; i++) {
+      var el = divs[i];
+      if (el.dataset.manualMq) continue;
+      if (el.querySelectorAll('img').length < 4) continue; // marquee duplica fotos
+      var st = el.getAttribute('style') || '';
+      var cs = getComputedStyle(el);
+      var isTrack = /translateX|translate3d/.test(st) && /transform/.test(cs.willChange);
+      if (!isTrack) continue;
+      el.dataset.manualMq = '1';
+      el.classList.add('mq-manual-track');
+      injectMqStyle();
+      var wrap = el.parentElement;
+      if (wrap) { wrap.classList.add('mq-manual-wrap'); enableDrag(wrap); }
+    }
+  }
+
+  function apply() { swapFooterVideo(); monochromeFooter(); manualMarquee(); }
 
   if (document.readyState !== 'loading') apply();
   else document.addEventListener('DOMContentLoaded', apply);
