@@ -83,7 +83,8 @@ function removeFramerBadges(html) {
   if (!html.includes(killMarker)) {
     const inject = killMarker +
       '<script>try{localStorage.removeItem("__framer_force_showing_editorbar_since")}catch(e){}</script>' +
-      '<style>#__framer-editorbar-container,#__framer-badge-container{display:none!important}</style>';
+      '<style>#__framer-editorbar-container,#__framer-badge-container{display:none!important}' +
+      '@font-face{font-family:"Geist Pixel Variable";src:url("/assets/fonts.gstatic.com/s/geistpixel/v1/CSR74zxZluGGW3oyI0A_AMcvYtd2vfwk.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}</style>';
     const headIdx = html.indexOf('</head>');
     if (headIdx !== -1) html = html.slice(0, headIdx) + inject + html.slice(headIdx);
   }
