@@ -82,8 +82,22 @@
   .divider{height:1px; background:var(--line); margin:64px 0 0;}
   .closing{margin-top:48px; font-family:var(--display); font-size:clamp(22px,2.6vw,30px); line-height:1.2; color:var(--fg); max-width:24ch;}
 
-  footer{margin-top:72px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); display:flex; flex-wrap:wrap; gap:18px;}
-  footer a:hover{color:var(--fg);}
+  /* Footer card, same as the rest of the site */
+  .site-footer{margin-top:80px;}
+  .footer-card{position:relative; background:#f2f2f2; color:#1c1c1c; border-radius:20px; padding:40px; min-height:245px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; overflow:hidden;}
+  .footer-body{display:flex; flex-direction:column; align-self:flex-start;}
+  .footer-title{font-family:var(--display); font-weight:400; font-size:clamp(28px,3vw,40px); line-height:1; color:#1c1c1c; margin-bottom:22px;}
+  .footer-email{align-self:flex-start; background:#1c1c1c; color:#9e9eff; border-radius:55px; padding:10px 22px; font-size:14px; margin-bottom:22px;}
+  .footer-email:hover{opacity:.9;}
+  .footer-nav{display:flex; flex-direction:column; gap:7px;}
+  .footer-nav a{color:#1c1c1c; opacity:.72; font-size:15px;}
+  .footer-nav a:hover{opacity:1;}
+  .footer-cat{height:210px; width:auto; object-fit:contain; flex:0 0 auto;}
+  @media (max-width:600px){
+    .footer-card{padding:26px;}
+    .footer-title{margin-bottom:16px;}
+    .footer-cat{height:130px;}
+  }
 </style>
 </head>
 <body>
@@ -96,8 +110,8 @@
         <nav>
           <a href="/">Home</a>
           <a href="/projects">Projects</a>
-          <a href="/about">About</a>
           <a href="/process" class="active">Process</a>
+          <a href="/about">About</a>
         </nav>
         <h1>How I make these digital things</h1>
       </div>
@@ -235,11 +249,20 @@
         <div class="cap">IMAGE 7 &middot; optional, montage of Brikka, FanRaise, and Thinknube</div>
       </div>
 
-      <footer>
-        <a href="/">Home</a>
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="mailto:arab.alejandro.v@gmail.com">Email me</a>
+      <footer class="site-footer">
+        <div class="footer-card">
+          <div class="footer-body">
+            <div class="footer-title">Let&rsquo;s get in touch</div>
+            <a class="footer-email" href="mailto:arab.alejandro.v@gmail.com">Email me</a>
+            <nav class="footer-nav">
+              <a href="/">Home</a>
+              <a href="/projects">Projects</a>
+              <a href="/process">Process</a>
+              <a href="/about">About</a>
+            </nav>
+          </div>
+          <img class="footer-cat" src="/assets/framerusercontent.com/images/E3jDgCZL9RzopB9MaW656gLJtJc.webp" alt="Black cat" loading="lazy" decoding="async">
+        </div>
       </footer>
     </div>
 
