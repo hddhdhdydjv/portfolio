@@ -37,13 +37,12 @@
     padding:32px 24px 96px;
   }
   a{color:inherit; text-decoration:none;}
-
   .wrap{max-width:1280px; margin:0 auto;}
 
-  /* Two column layout */
-  .layout{display:grid; grid-template-columns:1fr; gap:56px;}
+  /* Two column layout, same structure as the rest of the site */
+  .layout{display:grid; grid-template-columns:1fr; gap:48px;}
   @media (min-width:1000px){
-    .layout{grid-template-columns:320px 1fr; gap:72px;}
+    .layout{grid-template-columns:minmax(380px, 42%) 1fr; gap:64px;}
     .col-left{position:sticky; top:32px; align-self:start; height:calc(100vh - 64px); display:flex; flex-direction:column; justify-content:space-between;}
   }
 
@@ -53,7 +52,9 @@
   nav a:hover{color:var(--fg);}
   nav a.active{color:var(--fg); background:rgba(255,255,255,0.08); padding:4px 12px; border-radius:999px;}
 
-  /* Identity block */
+  /* Left column: title (top group) + identity (bottom) */
+  .left-top h1{font-family:var(--display); font-weight:400; font-size:clamp(40px, 4.6vw, 62px); line-height:1.0; color:var(--fg); margin-top:44px; max-width:12ch;}
+
   .identity{margin-top:56px;}
   .social{display:flex; gap:14px; margin-bottom:20px;}
   .social a{display:inline-flex; width:34px; height:34px; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:8px; color:var(--muted); transition:color .15s ease, border-color .15s ease;}
@@ -61,15 +62,13 @@
   .identity .name{font-size:22px; color:var(--fg); line-height:1.2;}
   .identity .role,.identity .years{font-size:14px; color:var(--muted); line-height:1.5;}
 
-  /* Right column */
+  /* Right column: the content */
   .eyebrow{font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:18px;}
-  h1{font-family:var(--display); font-weight:400; font-size:clamp(40px, 6vw, 72px); line-height:1.02; color:var(--fg); margin-bottom:28px;}
-  .lead{font-size:17px; color:var(--fg); max-width:60ch;}
-  .lead .accent{color:var(--fg);}
+  .lead{font-size:17px; color:var(--fg); max-width:62ch;}
 
-  .phase{margin-top:64px;}
+  .phase{margin-top:60px;}
   .phase .step{font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;}
-  .phase h2{font-family:var(--display); font-weight:400; font-size:clamp(28px, 3.4vw, 40px); line-height:1.05; color:var(--fg); margin-bottom:16px;}
+  .phase h2{font-family:var(--display); font-weight:400; font-size:clamp(26px, 3.2vw, 38px); line-height:1.05; color:var(--fg); margin-bottom:16px;}
   .phase p{max-width:64ch; color:var(--fg);}
   .phase .example{color:var(--muted); font-style:italic; margin-top:12px; max-width:64ch;}
 
@@ -81,9 +80,9 @@
   .imgslot .cap{font-size:12px; letter-spacing:0.06em; max-width:80%;}
 
   .divider{height:1px; background:var(--line); margin:64px 0 0;}
-  .closing{margin-top:56px; font-family:var(--display); font-size:clamp(22px,2.6vw,30px); line-height:1.2; color:var(--fg); max-width:22ch;}
+  .closing{margin-top:48px; font-family:var(--display); font-size:clamp(22px,2.6vw,30px); line-height:1.2; color:var(--fg); max-width:24ch;}
 
-  footer{margin-top:80px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); display:flex; flex-wrap:wrap; gap:18px;}
+  footer{margin-top:72px; padding-top:24px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); display:flex; flex-wrap:wrap; gap:18px;}
   footer a:hover{color:var(--fg);}
 </style>
 </head>
@@ -91,14 +90,17 @@
 <div class="wrap">
   <div class="layout">
 
-    <!-- LEFT COLUMN -->
+    <!-- LEFT COLUMN: nav + title + identity (same structure as Home/Projects) -->
     <div class="col-left">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="/process" class="active">Process</a>
-      </nav>
+      <div class="left-top">
+        <nav>
+          <a href="/">Home</a>
+          <a href="/projects">Projects</a>
+          <a href="/about">About</a>
+          <a href="/process" class="active">Process</a>
+        </nav>
+        <h1>How I make these digital things</h1>
+      </div>
 
       <div class="identity">
         <div class="social">
@@ -115,10 +117,9 @@
       </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
+    <!-- RIGHT COLUMN: the process content -->
     <div class="col-right">
-      <div class="eyebrow">Process</div>
-      <h1>How I make these digital things</h1>
+      <div class="eyebrow">The process</div>
 
       <p class="lead">
         My process is grounded in the <strong>Double Diamond</strong> and run with an
