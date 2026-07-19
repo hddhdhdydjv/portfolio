@@ -56,6 +56,14 @@ function fixImageUrls(html) {
 // Remove the "Made in Framer" badge, the "Edit Content" editorbar, and inject a
 // killer so neither ever renders (badge div + editorbar preload script + a
 // localStorage-key cleanup and CSS fallback in <head>).
+// Inyecta el script que cambia "Email me" por "Process" en el nav (vive en /media,
+// que cleanOldAssets no borra). Post-hidratacion, no lo pisa Framer.
+function injectNavProcess(html) {
+  if (html.includes('/media/nav-process.js')) return html;
+  const tag = '<script src="/media/nav-process.js" defer></script>';
+  return html.includes('</body>') ? html.replace('</body>', tag + '</body>') : html + tag;
+}
+
 function removeFramerBadges(html) {
   // 1. Remove the editorbar preload <script> (matches getItem/get variants)
   html = html.replace(
@@ -111,7 +119,7 @@ async function downloadSite() {
 
     for (const u of extractUrls(html)) allAssets.add(u);
 
-    html = removeFramerBadges(fixImageUrls(rewriteHtml(html)));
+    html = injectNavProcess(removeFramerBadges(fixImageUrls(rewriteHtml(html))));
 
     const outPath = page === '/'
       ? join(REPO_DIR, 'index.html')
