@@ -1,0 +1,12 @@
+{
+  "name": "alejandro-arab-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node sync-framer.mjs",
+    "optimize-images": "node optimize-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

@@ -8,6 +8,7 @@ import { writeFile, mkdir, rm, readdir, stat } from 'fs/promises';
 import { dirname, join } from 'path';
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
+import { optimizeImages } from './optimize-images.mjs';
 
 const downloaded = new Set();
 
@@ -56,6 +57,9 @@ function fixImageUrls(html) {
 // Remove the "Made in Framer" badge, the "Edit Content" editorbar, and inject a
 // killer so neither ever renders (badge div + editorbar preload script + a
 // localStorage-key cleanup and CSS fallback in <head>).
+// The CSS also hides the leftover "Download Resume" overlay on /about: its
+// mobile breakpoint parks it at left:1252px, which widens the page to ~1560px
+// and makes phones zoom out until everything looks tiny.
 function removeFramerBadges(html) {
   // 1. Remove the editorbar preload <script> (matches getItem/get variants)
   html = html.replace(
@@ -84,6 +88,7 @@ function removeFramerBadges(html) {
     const inject = killMarker +
       '<script>try{localStorage.removeItem("__framer_force_showing_editorbar_since")}catch(e){}</script>' +
       '<style>#__framer-editorbar-container,#__framer-badge-container{display:none!important}' +
+      '.framer-biwWK .framer-11wdsqo,.framer-biwWK .framer-3sxtij{display:none!important}' +
       '@font-face{font-family:"Geist Pixel Variable";src:url("/assets/fonts.gstatic.com/s/geistpixel/v1/CSR74zxZluGGW3oyI0A_AMcvYtd2vfwk.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}</style>';
     const headIdx = html.indexOf('</head>');
     if (headIdx !== -1) html = html.slice(0, headIdx) + inject + html.slice(headIdx);
@@ -272,6 +277,7 @@ async function main() {
 
   await cleanOldAssets();
   await downloadSite();
+  await optimizeImages();
 
   if (!shouldDeploy) {
     console.log('\n📝 Download complete. Review the changes, then run with --deploy to commit + deploy.');
